@@ -52,17 +52,21 @@ export const useFormHandler = (...keys: KeysType[]) => {
     reset,
   } = useForm({ resolver: yupResolver(formSchema), mode: 'all' })
 
+  const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')
   const errorPassword = getErrorMessage(errors, 'password')
   const errorLoginPassword = getErrorMessage(errors, 'loginPassword')
+  const errorConfirmPassword = getErrorMessage(errors, 'confirmPassword')
 
   return {
     register,
     handleSubmit,
     reset,
     isValid,
+    errorName,
     errorEmail,
     errorPassword,
+    errorConfirmPassword,
     errorLoginPassword,
   }
 }
