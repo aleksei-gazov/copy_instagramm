@@ -1,13 +1,22 @@
-//.NavLink {
-//  font: var(--font-inter-regular-l);
-//
-//  transition: color .2s ease-in-out;
-//  color: var(--color-dark);
-//  cursor: pointer;
-//}
+.NavLink {
+  font: var(--font-medium-l);
 
-//.isActive {
-//  font: var(--font-inter-medium-l);
-//
-//  color: var(--color-blue400);
-//}
+  transition: color .2s ease-in-out;
+  cursor: pointer;
+}
+
+.isActive {
+  color: var(--primary-500);
+}
+
+.primary {
+  color: var(--light-100);
+}
+
+.secondary {
+  color: var(--primary-500);
+}
+
+.grey {
+  color: var(--light-900);
+}

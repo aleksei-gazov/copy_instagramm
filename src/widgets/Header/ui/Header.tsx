@@ -1,3 +1,17 @@
+import { useRouter } from 'next/router'
+
+import cls from './Header.module.scss'
+
+import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+
 export const Header = () => {
-  return <div>header</div>
+  const router = useRouter()
+
+  return (
+    <header className={cls.Header}>
+      <Text tag={'span'} color={TextColorTheme.LIGHT} font={TextFontTheme.INTER_SEMI_BOLD_XL}>
+        Inctagram
+      </Text>
+    </header>
+  )
 }

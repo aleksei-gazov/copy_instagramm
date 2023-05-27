@@ -1,0 +1,70 @@
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+  }
+
+  transition: all .2s ease-in-out;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+
+  border-radius: 2px;
+}
+
+.clear {
+  margin: 0;
+  padding: 0;
+
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+}
+
+.primary {
+  color: var(--light-100);
+  background-color: var(--primary-500);
+}
+
+.outline {
+  color: var(--primary-500);
+  border: 1px solid var(--primary-500);
+}
+
+.xxl {
+  width: 330px;
+  height: 36px;
+}
+
+.xl {
+  width: 294px;
+  height: 36px;
+}
+
+.l {
+  width: 229px;
+  height: 36px;
+}
+
+.m {
+  width: 182px;
+  height: 36px;
+}
+
+//.s {
+//  width: 96px;
+//  height: 36px;
+//}
+
+.xs {
+  width: 96px;
+  height: 36px;
+}
