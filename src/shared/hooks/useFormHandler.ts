@@ -54,6 +54,7 @@ export const useFormHandler = (...keys: KeysType[]) => {
 
   const errorEmail = getErrorMessage(errors, 'email')
   const errorPassword = getErrorMessage(errors, 'password')
+  const errorLoginPassword = getErrorMessage(errors, 'loginPassword')
 
   return {
     register,
@@ -62,5 +63,6 @@ export const useFormHandler = (...keys: KeysType[]) => {
     isValid,
     errorEmail,
     errorPassword,
+    errorLoginPassword,
   }
 }

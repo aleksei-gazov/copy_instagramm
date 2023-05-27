@@ -4,11 +4,11 @@
   align-items: center;
 
   &:hover {
-    opacity: 0.8;
+    background-color: var(--primary-100);
   }
 
   &:disabled {
-    opacity: 0.3;
+    background-color: var(--primary-900);
   }
 
   transition: all .2s ease-in-out;

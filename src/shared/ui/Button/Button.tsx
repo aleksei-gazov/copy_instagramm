@@ -25,11 +25,20 @@ interface ButtonProps
   size?: ButtonSize
 }
 export const Button: FC<ButtonProps> = memo(
-  ({ theme = 'medium', children, className = '', size = '', type = 'button', ...otherProps }) => {
+  ({
+    theme = 'medium',
+    children,
+    className = '',
+    size = '',
+    type = 'button',
+    disabled = false,
+    ...otherProps
+  }) => {
     return (
       <button
         {...otherProps}
         type={type}
+        disabled={disabled}
         className={classNames(cls.Button, {}, [className, cls[theme], cls[size]])}
       >
         {children}

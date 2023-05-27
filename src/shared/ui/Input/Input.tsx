@@ -16,8 +16,8 @@ type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onC
 
 interface InputType extends HTMLInputProps {
   error?: string
-  register?: UseFormRegister<FieldValues> | undefined
-  nameForValidate?: string | undefined
+  register?: UseFormRegister<FieldValues>
+  nameForValidate?: string
   onChange?: (value: string) => void
   className?: string
 }
@@ -67,7 +67,7 @@ export const Input: FC<InputType> = memo(
           <Text
             tag={'span'}
             color={TextColorTheme.ERROR}
-            font={TextFontTheme.INTER_MEDIUM_L}
+            font={TextFontTheme.INTER_REGULAR_L}
             className={cls.errorText}
           >
             {error}

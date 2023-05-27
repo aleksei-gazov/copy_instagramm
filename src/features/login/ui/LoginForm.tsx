@@ -1,18 +1,28 @@
 import Image from 'next/image'
+import { FieldValues } from 'react-hook-form'
 
 import github from '../../../../public/icon/github-svgrepo-com.svg'
 import google from '../../../../public/icon/google-svgrepo-com.svg'
 
 import cls from './LoginForm.module.scss'
 
+import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
+  const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
+    'email',
+    'loginPassword'
+  )
+  const onSubmit = (data: FieldValues) => {
+    console.log(data)
+  }
+
   return (
-    <form className={cls.LoginForm}>
+    <form className={cls.LoginForm} onSubmit={handleSubmit(onSubmit)}>
       <Text
         className={cls.alignSelfCenter}
         tag={'h2'}
@@ -31,9 +41,18 @@ export const LoginForm = () => {
         </Button>
       </div>
 
-      <Input error={'error'} placeholder={'Epam@epam.com'} title={'Email'} className={cls.mb24} />
       <Input
-        error={'error'}
+        register={register}
+        nameForValidate={'email'}
+        error={errorEmail}
+        placeholder={'Epam@epam.com'}
+        title={'Email'}
+        className={cls.mb24}
+      />
+      <Input
+        nameForValidate={'loginPassword'}
+        register={register}
+        error={errorLoginPassword}
         type={'password'}
         placeholder={'Epam@epam.com'}
         title={'Password'}
@@ -47,6 +66,7 @@ export const LoginForm = () => {
       </NavLink>
 
       <Button
+        disabled={!isValid}
         type={'submit'}
         className={cls.mb18}
         theme={ButtonTheme.PRIMARY}
