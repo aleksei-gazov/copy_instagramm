@@ -14,4 +14,7 @@ export const store = configureStore({
   middleware: gDM => gDM().concat(baseAPI.middleware),
 })
 
+export type RootStateType = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 setupListeners(store.dispatch)
