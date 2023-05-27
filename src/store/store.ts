@@ -3,11 +3,15 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { StateSchema } from './stateSchema'
 
-const rootStore: ReducersMapObject<StateSchema> = {}
+import { baseAPI } from 'shared/api/baseAPI'
+
+const rootStore: ReducersMapObject<StateSchema> = {
+  [baseAPI.reducerPath]: baseAPI.reducer,
+}
 
 export const store = configureStore({
   reducer: rootStore,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
+  middleware: gDM => gDM().concat(baseAPI.middleware),
 })
 
 setupListeners(store.dispatch)
