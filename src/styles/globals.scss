@@ -171,3 +171,12 @@ label {
 legend {
   display: block;
 }
+
+
+body {
+  font: var(--font-regular-l);
+  width: 100vw;
+  min-height: 100vh;
+
+  background-color: var(--dark-900);
+}
