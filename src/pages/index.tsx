@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <div>
-      <div></div>
+      <div>Start new proj</div>
     </div>
   )
 }
