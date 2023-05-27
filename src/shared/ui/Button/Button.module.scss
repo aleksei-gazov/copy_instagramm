@@ -5,10 +5,15 @@
 
   &:hover {
     background-color: var(--primary-100);
+    transform: translateY(-1px);
   }
 
   &:disabled {
     background-color: var(--primary-900);
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 
   transition: all .2s ease-in-out;
@@ -27,6 +32,17 @@
   border: none;
   outline: none;
   color: inherit;
+
+  &:hover {
+    background: none;
+    transform: none;
+  }
+
+  &:disabled {
+    background: none;
+    transform: none;
+  }
+
 }
 
 .primary {

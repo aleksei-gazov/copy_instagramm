@@ -33,10 +33,10 @@ export const LoginForm = () => {
       </Text>
 
       <div className={cls.iconContainer}>
-        <Button theme={ButtonTheme.Clear}>
+        <Button className={cls.transform} theme={ButtonTheme.Clear}>
           <Image src={google} alt={'icon google'} width={36} height={36} />
         </Button>
-        <Button theme={ButtonTheme.Clear}>
+        <Button className={cls.transform} theme={ButtonTheme.Clear}>
           <Image src={github} alt={'icon github'} width={36} height={36} />
         </Button>
       </div>

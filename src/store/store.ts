@@ -10,4 +10,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
 })
 
+export type RootStateType = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 setupListeners(store.dispatch)
