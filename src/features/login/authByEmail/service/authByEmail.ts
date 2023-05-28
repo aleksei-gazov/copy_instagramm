@@ -3,7 +3,7 @@ import { baseAPI } from 'shared/api/baseAPI'
 
 export const authByEmail = baseAPI.injectEndpoints({
   endpoints: build => ({
-    login: build.query<LoginParamsType, void>({
+    login: build.mutation<void, LoginParamsType>({
       query: arg => ({
         url: `/api/auth/login`,
         method: 'Post',
@@ -12,3 +12,5 @@ export const authByEmail = baseAPI.injectEndpoints({
     }),
   }),
 })
+
+export const { useLoginMutation } = authByEmail
