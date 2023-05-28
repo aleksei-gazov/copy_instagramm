@@ -32,7 +32,7 @@ const schemaParam = {
  @throws {Error} Throws an error if an invalid key is detected in the keys array.
  */
 
-export const useFormHandler = (...keys: KeysType[]) => {
+export const useFormHandler = (...keys: string[]) => {
   const param: Record<string, Yup.StringSchema> = {}
 
   if (keys.some(key => !validKeys.includes(key))) {
@@ -40,17 +40,18 @@ export const useFormHandler = (...keys: KeysType[]) => {
   }
 
   Object.entries(schemaParam).forEach(([key, schema]) => {
-    param[key] = schema
+    if (keys.includes(key)) {
+      param[key] = schema
+    }
   })
 
   const formSchema = Yup.object().shape(param)
-
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
-  } = useForm({ resolver: yupResolver(formSchema), mode: 'all' })
+  } = useForm({ resolver: yupResolver(formSchema), mode: 'onTouched' })
 
   const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')
