@@ -8,8 +8,9 @@ import cls from 'widgets/Header/ui/Header.module.scss'
 
 export const LogOutComponent = () => {
   const [logOut] = useLogOutMutation()
-  const logOutHandler = () => {
-    logOut('')
+  const logOutHandler = async () => {
+    console.log('logOut')
+    await logOut('')
   }
 
   return (

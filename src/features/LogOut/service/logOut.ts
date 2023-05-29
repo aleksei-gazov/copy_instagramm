@@ -3,10 +3,9 @@ import { baseAPI } from 'shared/api/baseAPI'
 export const logOut = baseAPI.injectEndpoints({
   endpoints: build => ({
     logOut: build.mutation<void, any>({
-      query: arg => ({
+      query: () => ({
         url: `/api/auth/logout`,
-        method: 'Post',
-        body: arg,
+        method: 'POST',
       }),
     }),
   }),
