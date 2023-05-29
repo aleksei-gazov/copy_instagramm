@@ -10,15 +10,13 @@ import { clearToken, setToken } from 'features/login'
 import login from 'pages/login'
 import { BASE_URL } from 'shared/const/const'
 import { StateSchema } from 'store/stateSchema'
-import { store } from 'store/store'
+import { RootStateType, store } from 'store/store'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const {
-      login: { accessToken },
-    } = getState() as StateSchema
+    const accessToken = (getState() as RootStateType).login.accessToken
 
     if (accessToken) {
       headers.set('authorization', `Bearer ${accessToken}`)
@@ -41,8 +39,6 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       api,
       extraOptions
     )
-
-    console.log(refreshResult)
 
     if (refreshResult.data) {
       api.dispatch(setToken(refreshResult.data as { accessToken: string }))
