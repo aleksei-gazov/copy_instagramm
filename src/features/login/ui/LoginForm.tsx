@@ -1,3 +1,4 @@
+import { log } from 'next/dist/server/typescript/utils'
 import Image from 'next/image'
 import { FieldValues } from 'react-hook-form'
 
@@ -7,6 +8,8 @@ import google from '../../../../public/icon/google-svgrepo-com.svg'
 import cls from './LoginForm.module.scss'
 
 import { useLoginMutation } from 'features/login/authByEmail/service/authByEmail'
+import { setToken } from 'features/login/model/slice/loginSlice'
+import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
@@ -14,7 +17,8 @@ import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
-  const [login] = useLoginMutation()
+  const dispatch = useAppDispatch()
+  const [login, { data: loginData }] = useLoginMutation()
   const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
     'email',
     'loginPassword'

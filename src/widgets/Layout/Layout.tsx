@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactElement } from 'react'
 
 import { NextPage } from 'next'
 
-import { Header } from '../Header/ui/Header'
+import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
