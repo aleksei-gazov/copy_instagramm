@@ -1,3 +1,3 @@
 export interface LoginSchema {
-  accessToken: string
+  accessToken: string | null
 }
