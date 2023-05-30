@@ -1,6 +1,6 @@
 import { baseAPI } from 'shared/api/baseAPI'
 
-export const logOut = baseAPI.injectEndpoints({
+export const Logout = baseAPI.injectEndpoints({
   endpoints: build => ({
     logOut: build.mutation<void, void>({
       query: () => ({
@@ -10,4 +10,4 @@ export const logOut = baseAPI.injectEndpoints({
     }),
   }),
 })
-export const { useLogOutMutation } = logOut
+export const { useLogOutMutation } = Logout
