@@ -1,11 +1,7 @@
 import { getLayout } from 'widgets/Layout/Layout'
 
 function Home() {
-  return (
-    <div>
-      <div>Start new proj</div>
-    </div>
-  )
+  return <div>Home</div>
 }
 
 Home.getLayout = getLayout
