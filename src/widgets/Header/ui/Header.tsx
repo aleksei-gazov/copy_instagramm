@@ -5,7 +5,10 @@ import cls from './Header.module.scss'
 import { LogOutComponent } from 'features/LogOut/ui/LogOutComponent'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
-export const Header = () => {
+type PropsType = {
+  setShowModal: (set: boolean) => void
+}
+export const Header = ({ setShowModal }: PropsType) => {
   const router = useRouter()
 
   return (
@@ -13,7 +16,7 @@ export const Header = () => {
       <Text tag={'span'} color={TextColorTheme.LIGHT} font={TextFontTheme.INTER_SEMI_BOLD_XL}>
         Inctagram
       </Text>
-      <LogOutComponent />
+      <LogOutComponent setShowModal={setShowModal} />
     </header>
   )
 }

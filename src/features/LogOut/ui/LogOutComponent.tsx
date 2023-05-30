@@ -2,15 +2,16 @@ import Image from 'next/image'
 
 import logOutImg from '../../../../public/icon/logOut.svg'
 
-import { useLogOutMutation } from 'features/LogOut/service/logOut'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import cls from 'widgets/Header/ui/Header.module.scss'
 
-export const LogOutComponent = () => {
-  const [logOut] = useLogOutMutation()
-  const logOutHandler = async () => {
-    console.log('logOut')
-    await logOut('')
+type PropsType = {
+  setShowModal: (set: boolean) => void
+}
+
+export const LogOutComponent = ({ setShowModal }: PropsType) => {
+  const logOutHandler = () => {
+    setShowModal(true)
   }
 
   return (
