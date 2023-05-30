@@ -22,11 +22,11 @@ export const Modal = ({
   title,
   children,
 }: PropsWithChildren<ModalType>) => {
+  const portalElement = document.getElementById('__next')
+
   if (!active) {
     return null
   }
-  const portalElement = document.getElementById('__next')
-
   if (portalElement) {
     return createPortal(
       <div className={cls.modal} onClick={onClose}>
@@ -51,4 +51,6 @@ export const Modal = ({
       portalElement
     )
   }
+
+  return null
 }
