@@ -5,40 +5,47 @@ import github from '../../../../public/icon/github-svgrepo-com.svg'
 import google from '../../../../public/icon/google-svgrepo-com.svg'
 import formCls from '../../../styles/AuthFormsStyles.module.scss'
 
-import cls from './LoginForm.module.scss'
+import cls from './RegistrationForm.module.scss'
 
-import { useLoginMutation } from 'features/login/authByEmail/service/authByEmail'
+import { useRegisterMutation } from 'features/registration/service/registration'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
-export const LoginForm = () => {
-  const [login] = useLoginMutation()
-  const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
-    'email',
-    'loginPassword'
-  )
+export const RegistrationForm = () => {
+  const [registration, { data: registerData }] = useRegisterMutation()
+
+  const {
+    errorName,
+    errorEmail,
+    errorPassword,
+    errorConfirmPassword,
+    isValid,
+    register,
+    handleSubmit,
+  } = useFormHandler('name', 'email', 'password', 'confirmPassword')
 
   const onSubmit = (data: FieldValues) => {
     const payload = {
+      userName: data.name,
       email: data.email,
-      password: data.loginPassword,
+      password: data.password,
     }
 
-    login(payload)
+    registration(payload)
   }
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Text
-        className={formCls.alignSelfCenter}
         tag={'h2'}
+        className={formCls.alignSelfCenter}
         font={TextFontTheme.INTER_BOLD_XL}
         color={TextColorTheme.LIGHT}
       >
-        Sign In
+        Sign Up
       </Text>
 
       <div className={formCls.iconContainer}>
@@ -52,27 +59,41 @@ export const LoginForm = () => {
 
       <Input
         register={register}
+        nameForValidate={'name'}
+        error={errorName}
+        placeholder={'Epam'}
+        title={'Username'}
+        className={cls.mb36}
+      />
+
+      <Input
+        register={register}
         nameForValidate={'email'}
         error={errorEmail}
         placeholder={'Epam@epam.com'}
         title={'Email'}
-        className={cls.mb24}
-      />
-      <Input
-        nameForValidate={'loginPassword'}
-        register={register}
-        error={errorLoginPassword}
-        type={'password'}
-        placeholder={'Epam@epam.com'}
-        title={'Password'}
-        className={cls.mb60}
+        className={cls.mb36}
       />
 
-      <NavLink className={cls.alignSelfEnd} href={'#'} color={NavLinkColor.GREY}>
-        <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
-          Forgot Password
-        </Text>
-      </NavLink>
+      <Input
+        register={register}
+        nameForValidate={'password'}
+        error={errorPassword}
+        type={'password'}
+        placeholder={'Password'}
+        title={'Password'}
+        className={cls.mb36}
+      />
+
+      <Input
+        register={register}
+        nameForValidate={'confirmPassword'}
+        error={errorConfirmPassword}
+        type={'password'}
+        placeholder={'Password confirmation'}
+        title={'Password confirmation'}
+        className={cls.mb36}
+      />
 
       <Button
         disabled={!isValid}
@@ -82,19 +103,21 @@ export const LoginForm = () => {
         size={ButtonSize.XXl}
       >
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          Sign In
+          Sign Up
         </Text>
       </Button>
+
       <Text
         className={`${cls.mb12} ${formCls.alignSelfCenter}`}
         tag={'p'}
         color={TextColorTheme.LIGHT}
         font={TextFontTheme.INTER_REGULAR_XL}
       >
-        Don’t have an account?
+        Do you have an account?
       </Text>
-      <NavLink className={formCls.alignSelfCenter} href={'#'} color={NavLinkColor.SECONDARY}>
-        Sign Up
+
+      <NavLink className={cls.alignSelfCenterPure} href={'#'} color={NavLinkColor.SECONDARY}>
+        Sign In
       </NavLink>
     </form>
   )
