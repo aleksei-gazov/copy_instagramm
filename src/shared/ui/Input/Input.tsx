@@ -51,6 +51,7 @@ export const Input: FC<InputType> = memo(
       <label className={cls.label}>
         {title}
         <input
+          autoComplete={'off'}
           {...arg}
           {...registerParam}
           className={classNames(cls.Input, {}, [className])}

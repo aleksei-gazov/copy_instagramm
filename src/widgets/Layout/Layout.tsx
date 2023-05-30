@@ -7,6 +7,7 @@ import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
+import { AuthProvider } from 'shared/hoc'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {
@@ -14,10 +15,12 @@ export const Layout: NextPage<PropsWithChildren> = props => {
 
   return (
     <Provider store={store}>
-      <div className={cls.Layout}>
-        <Header />
-        {children}
-      </div>
+      <AuthProvider>
+        <div className={cls.Layout}>
+          <Header />
+          {children}
+        </div>
+      </AuthProvider>
     </Provider>
   )
 }

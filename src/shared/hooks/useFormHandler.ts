@@ -51,7 +51,8 @@ export const useFormHandler = (...keys: string[]) => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
-  } = useForm({ resolver: yupResolver(formSchema), mode: 'onTouched' })
+    setFocus,
+  } = useForm({ resolver: yupResolver(formSchema), mode: 'onSubmit' })
 
   const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')
@@ -69,5 +70,6 @@ export const useFormHandler = (...keys: string[]) => {
     errorPassword,
     errorConfirmPassword,
     errorLoginPassword,
+    setFocus,
   }
 }

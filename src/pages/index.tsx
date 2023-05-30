@@ -1,11 +1,13 @@
-import { Inter } from 'next/font/google'
+import { getLayout } from 'widgets/Layout/Layout'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+function Home() {
   return (
     <div>
       <div>Start new proj</div>
     </div>
   )
 }
+
+Home.getLayout = getLayout
+
+export default Home

@@ -10,6 +10,8 @@
 
   &:disabled {
     background-color: var(--primary-900);
+
+    transform: none;
   }
 
   &:active {
