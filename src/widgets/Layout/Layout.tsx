@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement } from 'react'
 
 import { NextPage } from 'next'
 import { Provider } from 'react-redux'
@@ -13,12 +13,12 @@ export const Layout: NextPage<PropsWithChildren> = props => {
   const { children } = props
 
   return (
-    <div className={cls.Layout}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <div className={cls.Layout}>
         <Header />
         {children}
-      </Provider>
-    </div>
+      </div>
+    </Provider>
   )
 }
 
