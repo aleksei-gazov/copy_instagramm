@@ -31,14 +31,14 @@ export const RegistrationForm = () => {
     const payload = {
       userName: data.name,
       email: data.email,
-      password: data.loginPassword,
+      password: data.password,
     }
 
     registration(payload)
   }
 
   return (
-    <form className={cls.form}>
+    <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Text
         tag={'h2'}
         className={formCls.alignSelfCenter}
