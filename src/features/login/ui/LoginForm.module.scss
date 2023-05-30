@@ -1,32 +1,14 @@
-.LoginForm {
+@import "../../../styles/AuthFormsStyles.module";
+
+.form {
+  @extend .parentForm;
   padding: 23px 24px 30px 24px;
-  width: 378px;
-  display: flex;
-  flex-direction: column;
-
-  background-color: var(--dark-500);
-  border: 1px solid var(--dark-300);
-  border-radius: 2px;
-}
-
-.alignSelfCenter {
-  align-self: center;
-
-  margin-bottom: 14px;
 }
 
 .alignSelfEnd {
   align-self: end;
 
   margin-bottom: 24px;
-}
-
-.iconContainer {
-  padding: 0 100px;
-  display: flex;
-  justify-content: space-between;
-
-  margin-bottom: 22px;
 }
 
 .mb24 {
@@ -45,12 +27,3 @@
   margin-bottom: 12px;
 }
 
-.transform {
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-}
