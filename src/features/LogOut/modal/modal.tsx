@@ -1,10 +1,9 @@
 import { PropsWithChildren } from 'react'
 
-import { createPortal } from 'react-dom'
-
 import cls from './modal.module.scss'
 
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { Portal } from 'shared/ui/Portal/Portal'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 type ModalType = {
@@ -21,13 +20,14 @@ export const Modal = ({
   title,
   children,
 }: PropsWithChildren<ModalType>) => {
-  const portalElement = document.getElementById('__next')
+  // const portalElement = document.getElementById('__next')
 
   if (!active) {
     return null
   }
-  if (portalElement) {
-    return createPortal(
+
+  return (
+    <Portal>
       <div className={cls.modal} onClick={onClose}>
         <div className={cls.modalContent} onClick={e => e.stopPropagation()}>
           <div className={cls.modalHeader}>
@@ -46,10 +46,7 @@ export const Modal = ({
             </Button>
           </div>
         </div>
-      </div>,
-      portalElement
-    )
-  }
-
-  return null
+      </div>
+    </Portal>
+  )
 }
