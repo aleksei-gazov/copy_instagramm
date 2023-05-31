@@ -11,12 +11,14 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
-  const router = useRouter()
+  const { push, asPath } = useRouter()
   const { isLoading, error } = useAuthQuery()
 
+  const isAuthPage = asPath === PATH.LOGIN || asPath === PATH.REGISTRATION
+
   if (isLoading) return <Loader />
-  if (error && router.asPath !== PATH.LOGIN) {
-    router.push(PATH.LOGIN)
+  if (error && !isAuthPage) {
+    push(PATH.LOGIN)
   }
 
   return <>{children}</>

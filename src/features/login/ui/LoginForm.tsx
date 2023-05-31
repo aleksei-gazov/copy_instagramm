@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
 import github from '../../../../public/icon/github-svgrepo-com.svg'
@@ -8,14 +9,17 @@ import formCls from '../../../styles/AuthFormsStyles.module.scss'
 import cls from './LoginForm.module.scss'
 
 import { useLoginMutation } from 'features/login/authByEmail/service/authByEmail'
+import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
+import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
-  const [login] = useLoginMutation()
+  const router = useRouter()
+  const [login, { isLoading }] = useLoginMutation()
   const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
     'email',
     'loginPassword'
@@ -28,7 +32,11 @@ export const LoginForm = () => {
     }
 
     login(payload)
+      .unwrap()
+      .then(() => router.push(PATH.HOME))
   }
+
+  if (isLoading) return <Loader />
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>

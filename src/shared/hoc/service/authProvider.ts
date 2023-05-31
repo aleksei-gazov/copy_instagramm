@@ -8,6 +8,7 @@ const authMeApi = baseAPI.injectEndpoints({
       query: () => ({
         url: 'api/auth/me',
       }),
+      providesTags: ['AuthMe'],
     }),
   }),
 })

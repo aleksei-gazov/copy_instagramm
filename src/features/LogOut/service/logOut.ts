@@ -7,6 +7,7 @@ export const Logout = baseAPI.injectEndpoints({
         url: `/api/auth/logout`,
         method: 'POST',
       }),
+      invalidatesTags: ['AuthMe'],
     }),
   }),
 })

@@ -7,10 +7,8 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { clearToken, setToken } from 'features/login'
-import login from 'pages/login'
 import { BASE_URL } from 'shared/const/const'
-import { StateSchema } from 'store/stateSchema'
-import { RootStateType, store } from 'store/store'
+import { RootStateType } from 'store/store'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
@@ -55,5 +53,5 @@ export const baseAPI = createApi({
   reducerPath: 'baseAPI',
   baseQuery: baseQueryWithReAuth,
   endpoints: () => ({}),
-  tagTypes: [],
+  tagTypes: ['AuthMe'],
 })
