@@ -25,6 +25,8 @@ export const LoginForm = () => {
     'loginPassword'
   )
 
+  if (isLoading) return <Loader />
+
   const onSubmit = (data: FieldValues) => {
     const payload = {
       email: data.email,
@@ -35,8 +37,6 @@ export const LoginForm = () => {
       .unwrap()
       .then(() => router.push(PATH.HOME))
   }
-
-  if (isLoading) return <Loader />
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>

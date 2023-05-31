@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { clearToken, setToken } from 'features/login'
+import login from 'pages/login'
 import { BASE_URL } from 'shared/const/const'
 import { RootStateType } from 'store/store'
 

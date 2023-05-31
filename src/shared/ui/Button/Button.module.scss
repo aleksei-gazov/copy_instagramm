@@ -3,21 +3,6 @@
   justify-content: center;
   align-items: center;
 
-  &:hover {
-    background-color: var(--primary-100);
-    transform: translateY(-1px);
-  }
-
-  &:disabled {
-    background-color: var(--primary-900);
-
-    transform: none;
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-
   transition: all .2s ease-in-out;
   border: none;
   color: inherit;
@@ -35,14 +20,25 @@
   outline: none;
   color: inherit;
 
+  &:active {
+    color: var(--primary-700);
+  }
+
   &:hover {
     background: none;
     transform: none;
+    color: var(--primary-100);
+  }
+
+  &:focus {
+    color: var(--primary-500);
+    border: 1px solid var(--primary-700);
   }
 
   &:disabled {
     background: none;
     transform: none;
+    color: var(--primary-900);
   }
 
 }
@@ -55,6 +51,11 @@
 .outline {
   color: var(--primary-500);
   border: 1px solid var(--primary-500);
+}
+
+.light {
+  color: var(--dark-900);
+  background-color: var(--light-100);
 }
 
 .xxl {
