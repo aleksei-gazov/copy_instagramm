@@ -4,6 +4,7 @@ import { NextPage } from 'next'
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
+import 'react-toastify/dist/ReactToastify.css'
 import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
