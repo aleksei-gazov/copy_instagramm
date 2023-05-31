@@ -15,12 +15,10 @@ export const Layout: NextPage<PropsWithChildren> = props => {
   const { children } = props
 
   return (
-    <AuthProvider>
-      <div className={cls.Layout}>
-        <Header />
-        {children}
-      </div>
-    </AuthProvider>
+    <div className={cls.Layout}>
+      <Header />
+      {children}
+    </div>
   )
 }
 
