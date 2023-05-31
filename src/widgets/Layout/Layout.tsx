@@ -2,6 +2,7 @@ import { PropsWithChildren, ReactElement, useState } from 'react'
 
 import { NextPage } from 'next'
 import { Provider } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 import { Header } from '../Header'
 
@@ -34,6 +35,7 @@ export const Layout: NextPage<PropsWithChildren> = props => {
       {/*<Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>*/}
       {/*  <div>{`Are you really want to log out of your account ${email} ?`}</div>*/}
       {/*</Modal>*/}
+      <ToastContainer />
     </div>
   )
 }

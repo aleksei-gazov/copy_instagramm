@@ -8,6 +8,7 @@ import {
   ReducersMapObject,
 } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { toast } from 'react-toastify'
 
 import { StateSchema } from './stateSchema'
 
@@ -23,6 +24,9 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
       console.log('some error')
     }
     // toast.warn({ title: 'Async error!', message: action.error.data.message })
+    toast.error('🦄 Wow so easy!', {
+      position: toast.POSITION.TOP_LEFT,
+    })
   }
 
   return next(action)
