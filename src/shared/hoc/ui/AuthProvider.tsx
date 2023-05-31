@@ -14,10 +14,10 @@ export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
   const { push, asPath } = useRouter()
   const { isLoading, error } = useAuthQuery()
 
-  const isAuthPage = asPath === PATH.LOGIN || asPath === PATH.REGISTRATION
+  // const isAuthPage = asPath === PATH.LOGIN || asPath === PATH.REGISTRATION
 
   if (isLoading) return <Loader />
-  if (error && !isAuthPage) {
+  if (error && asPath === PATH.HOME) {
     push(PATH.LOGIN)
   }
 

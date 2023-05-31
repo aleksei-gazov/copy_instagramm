@@ -101,7 +101,11 @@ export const LoginForm = () => {
       >
         Don’t have an account?
       </Text>
-      <NavLink className={formCls.alignSelfCenter} href={'#'} color={NavLinkColor.SECONDARY}>
+      <NavLink
+        className={formCls.alignSelfCenter}
+        href={PATH.REGISTRATION}
+        color={NavLinkColor.SECONDARY}
+      >
         Sign Up
       </NavLink>
     </form>

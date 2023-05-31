@@ -1,7 +1,26 @@
+import React from 'react'
+
+import { useRouter } from 'next/router'
+
+import { PATH } from 'shared/const/path'
+import { useAuthQuery } from 'shared/hoc/service/authProvider'
+import { Loader } from 'shared/ui/Loader/Loader'
 import { getLayout } from 'widgets/Layout/Layout'
 
 function Home() {
-  return <div>Home</div>
+  const { push } = useRouter()
+  const { isLoading, error } = useAuthQuery()
+
+  if (isLoading) return <Loader />
+  if (error) {
+    push(PATH.LOGIN)
+  }
+
+  return (
+    <div>
+      <Loader />
+    </div>
+  )
 }
 
 Home.getLayout = getLayout

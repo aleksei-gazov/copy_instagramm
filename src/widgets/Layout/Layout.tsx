@@ -7,9 +7,6 @@ import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
-// import { Modal } from 'features/logout/modal/modal'
-// import { useLogOutMutation } from 'features/logout/service/logout'
-import { AuthProvider } from 'shared/hoc'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {
@@ -31,15 +28,13 @@ export const Layout: NextPage<PropsWithChildren> = props => {
   }
 
   return (
-    <AuthProvider>
-      <div className={cls.Layout}>
-        <Header setShowModal={setShowModal} />
-        {children}
-        {/*<Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>*/}
-        {/*  <div>{`Are you really want to log out of your account ${email} ?`}</div>*/}
-        {/*</Modal>*/}
-      </div>
-    </AuthProvider>
+    <div className={cls.Layout}>
+      <Header setShowModal={setShowModal} />
+      {children}
+      {/*<Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>*/}
+      {/*  <div>{`Are you really want to log out of your account ${email} ?`}</div>*/}
+      {/*</Modal>*/}
+    </div>
   )
 }
 
