@@ -51,5 +51,5 @@ export const Modal = ({
     )
   }
 
-  // return null
+  return null
 }
