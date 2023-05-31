@@ -35,7 +35,7 @@ export const PasswordRecovery = () => {
         className={s.mb24}
       />
 
-      <NavLink className={s.alignSelfEnd} href={PATH.LOGIN} color={NavLinkColor.GREY}>
+      <NavLink className={s.alignSelfEnd} href={'#'} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
           Enter your email address and we will send you further instructions
         </Text>
@@ -53,7 +53,7 @@ export const PasswordRecovery = () => {
         </Text>
       </Button>
 
-      <NavLink className={s.alignSelfCenter} href={'#'} color={NavLinkColor.SECONDARY}>
+      <NavLink className={s.alignSelfCenter} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Back to Sign In
       </NavLink>
       <div>
