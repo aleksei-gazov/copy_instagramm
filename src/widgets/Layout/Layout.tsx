@@ -9,7 +9,6 @@ import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
-import { AuthProvider } from 'shared/hoc'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {

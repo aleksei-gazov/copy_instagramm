@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import confirmPageImage from '../../../../public/icon/bro.svg'
+import confirmPageImage from '../../../../../public/icon/bro.svg'
 
 import cls from './Confirmation.module.scss'
 

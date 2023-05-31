@@ -1,6 +1,6 @@
 import { LoginParamsType, LoginResponseType } from './types'
 
-import { setToken } from 'features/login/model/slice/loginSlice'
+import { setToken } from 'features/auth/login/model/slice/loginSlice'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const authByEmail = baseAPI.injectEndpoints({

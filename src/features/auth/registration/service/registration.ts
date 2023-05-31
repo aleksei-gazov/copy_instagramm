@@ -1,4 +1,4 @@
-import { RegisterParamsType } from 'features/registration/service/types'
+import { RegisterParamsType } from 'features/auth/registration/service/types'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const registration = baseAPI.injectEndpoints({

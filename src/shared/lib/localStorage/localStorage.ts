@@ -1,5 +1,4 @@
 import { StateSchema } from 'store/stateSchema'
-import { RootStateType } from 'store/store'
 
 const KEY = 'accessToken'
 

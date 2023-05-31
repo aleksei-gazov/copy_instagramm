@@ -1,4 +1,4 @@
-import { RegisterConfirmationParamsType } from 'features/registration-confirmation/service/types'
+import { RegisterConfirmationParamsType } from 'features/auth/registration-confirmation/service/types'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const registrationConfirmation = baseAPI.injectEndpoints({

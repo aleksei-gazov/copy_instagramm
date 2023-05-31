@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 
 import cls from './Header.module.scss'
 
-import { LogOutComponent } from 'features/logout/ui/LogOutComponent'
+import { LogOutComponent } from 'features/auth/logOut/ui/LogOutComponent'
 import { PATH } from 'shared/const/path'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 

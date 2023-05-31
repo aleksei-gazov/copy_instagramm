@@ -2,13 +2,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../styles/AuthFormsStyles.module.scss'
+import github from '../../../../../public/icon/github-svgrepo-com.svg'
+import google from '../../../../../public/icon/google-svgrepo-com.svg'
+import formCls from '../../../../styles/AuthFormsStyles.module.scss'
 
 import cls from './LoginForm.module.scss'
 
-import { useLoginMutation } from 'features/login/authByEmail/service/authByEmail'
+import { useLoginMutation } from 'features/auth/login/authByEmail/service/authByEmail'
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'

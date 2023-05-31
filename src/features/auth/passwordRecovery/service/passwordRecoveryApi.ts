@@ -1,4 +1,4 @@
-import { PasswordRecoveryParamsType } from 'features/passwordRecovery/service/types'
+import { PasswordRecoveryParamsType } from 'features/auth/passwordRecovery/service/types'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const passwordRecoveryAPI = baseAPI.injectEndpoints({

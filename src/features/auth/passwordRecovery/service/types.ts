@@ -1,4 +1,4 @@
 export type PasswordRecoveryParamsType = {
-    email: string,
-    recaptcha: string
+  email: string
+  recaptcha: string
 }

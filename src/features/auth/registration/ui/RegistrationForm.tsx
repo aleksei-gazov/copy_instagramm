@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../styles/AuthFormsStyles.module.scss'
+import github from '../../../../../public/icon/github-svgrepo-com.svg'
+import google from '../../../../../public/icon/google-svgrepo-com.svg'
+import formCls from '../../../../styles/AuthFormsStyles.module.scss'
 
 import cls from './RegistrationForm.module.scss'
 
-import { useRegisterMutation } from 'features/registration/service/registration'
+import { useRegisterMutation } from 'features/auth/registration/service/registration'
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'

@@ -8,6 +8,7 @@ import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+
 export const PasswordRecovery = () => {
   const { errorEmail, isValid, register, handleSubmit } = useFormHandler('email')
   const onSubmit = (data: FieldValues) => {

@@ -1,5 +1,3 @@
-import { ReducerAction } from 'react'
-
 import {
   configureStore,
   isRejectedWithValue,
@@ -12,7 +10,7 @@ import { toast } from 'react-toastify'
 
 import { StateSchema } from './stateSchema'
 
-import { loginReducer } from 'features/login'
+import { loginReducer } from 'features/auth/login'
 import { baseAPI } from 'shared/api/baseAPI'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 

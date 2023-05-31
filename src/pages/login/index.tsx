@@ -1,6 +1,6 @@
 import cls from './LoginPage.module.scss'
 
-import { LoginForm } from 'features/login/ui/LoginForm'
+import { LoginForm } from 'features/auth/login/ui/LoginForm'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const LoginPage = () => {

@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { useRegistrationConfirmationMutation } from 'features/registration-confirmation/service/registrationConfirmation'
-import Confirmation from 'features/registration-confirmation/ui/Confirmation'
+import { useRegistrationConfirmationMutation } from 'features/auth/registration-confirmation/service/registrationConfirmation'
+import Confirmation from 'features/auth/registration-confirmation/ui/Confirmation'
 import cls from 'pages/auth/registration-confirmation/RegistrationConfirmation.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
