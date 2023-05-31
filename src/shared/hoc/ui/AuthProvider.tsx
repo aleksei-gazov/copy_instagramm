@@ -15,7 +15,7 @@ export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
   const { isLoading, error } = useAuthQuery()
 
   if (isLoading) return <Loader />
-  if (error) {
+  if (error && router.asPath !== PATH.LOGIN) {
     router.push(PATH.LOGIN)
   }
 

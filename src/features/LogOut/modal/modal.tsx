@@ -2,10 +2,9 @@ import { PropsWithChildren } from 'react'
 
 import { createPortal } from 'react-dom'
 
-import { Button, ButtonSize, ButtonTheme } from '../../../shared/ui/Button/Button'
-
 import cls from './modal.module.scss'
 
+import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 type ModalType = {
@@ -52,5 +51,5 @@ export const Modal = ({
     )
   }
 
-  return null
+  // return null
 }
