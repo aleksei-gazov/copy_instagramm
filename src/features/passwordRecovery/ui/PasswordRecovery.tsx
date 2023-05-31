@@ -1,4 +1,3 @@
-import reCAPTCHA from 'react-google-recaptcha'
 import { FieldValues } from 'react-hook-form'
 
 import s from './PasswordRecovery.module.scss'
@@ -56,9 +55,7 @@ export const PasswordRecovery = () => {
       <NavLink className={s.alignSelfCenter} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Back to Sign In
       </NavLink>
-      <div>
-        <reCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />
-      </div>
+      <div>{/*<reCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />*/}</div>
     </form>
   )
 }
