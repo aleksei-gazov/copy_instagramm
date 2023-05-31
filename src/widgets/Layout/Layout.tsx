@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactElement, useState } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { NextPage } from 'next'
 import { Provider } from 'react-redux'
@@ -8,6 +9,7 @@ import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
+import { Portal } from 'shared/ui/Portal/Portal'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {
@@ -35,15 +37,17 @@ export const Layout: NextPage<PropsWithChildren> = props => {
       {/*<Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>*/}
       {/*  <div>{`Are you really want to log out of your account ${email} ?`}</div>*/}
       {/*</Modal>*/}
-      <ToastContainer />
     </div>
   )
 }
 
 export const getLayout = (page: ReactElement) => {
   return (
-    <Provider store={store}>
-      <Layout>{page}</Layout>{' '}
-    </Provider>
+    <>
+      <Provider store={store}>
+        <Layout>{page}</Layout>
+        <ToastContainer />
+      </Provider>
+    </>
   )
 }

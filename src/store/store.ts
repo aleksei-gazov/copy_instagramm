@@ -17,15 +17,24 @@ import { baseAPI } from 'shared/api/baseAPI'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
+  let currentError: string
+
   if (isRejectedWithValue(action)) {
     if (action.payload.data && action.payload.data.messages[0]) {
-      console.log(action.payload.data.messages[0].message)
+      currentError = action.payload.data.messages[0].message
     } else {
-      console.log('some error')
+      currentError = 'some error'
     }
-    // toast.warn({ title: 'Async error!', message: action.error.data.message })
-    toast.error('🦄 Wow so easy!', {
-      position: toast.POSITION.TOP_LEFT,
+
+    toast.error(currentError, {
+      position: 'top-left',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
     })
   }
 
