@@ -16,9 +16,8 @@ import { baseAPI } from 'shared/api/baseAPI'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
-  // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
   if (isRejectedWithValue(action)) {
-    if (action.payload.data.messages[0]) {
+    if (action.payload.data && action.payload.data.messages[0]) {
       console.log(action.payload.data.messages[0].message)
     } else {
       console.log('some error')
