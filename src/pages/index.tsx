@@ -16,11 +16,7 @@ function Home() {
     push(PATH.LOGIN)
   }
 
-  return (
-    <div>
-      <Loader />
-    </div>
-  )
+  return <div>home</div>
 }
 
 Home.getLayout = getLayout
