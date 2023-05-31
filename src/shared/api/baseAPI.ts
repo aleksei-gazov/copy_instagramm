@@ -31,7 +31,10 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 ) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result.error && result.error.status === 401) {
+  const error401 = result.error?.status === 401
+  const isLoginEndpoint = result.meta?.request.url.endsWith('/api/auth/login')
+
+  if (error401 && !isLoginEndpoint) {
     const refreshResult = await baseQuery(
       { url: '/api/auth/update-tokens', method: 'POST' },
       api,
