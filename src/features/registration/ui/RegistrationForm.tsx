@@ -8,6 +8,7 @@ import formCls from '../../../styles/AuthFormsStyles.module.scss'
 import cls from './RegistrationForm.module.scss'
 
 import { useRegisterMutation } from 'features/registration/service/registration'
+import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
@@ -15,7 +16,7 @@ import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const RegistrationForm = () => {
-  const [registration, { data: registerData }] = useRegisterMutation()
+  const [registration, { data }] = useRegisterMutation()
 
   const {
     errorName,
@@ -116,7 +117,7 @@ export const RegistrationForm = () => {
         Do you have an account?
       </Text>
 
-      <NavLink className={cls.alignSelfCenterPure} href={'#'} color={NavLinkColor.SECONDARY}>
+      <NavLink className={cls.alignSelfCenterPure} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Sign In
       </NavLink>
     </form>

@@ -52,7 +52,7 @@ export const useFormHandler = (...keys: string[]) => {
     handleSubmit,
     reset,
     setFocus,
-  } = useForm({ resolver: yupResolver(formSchema), mode: 'onSubmit' })
+  } = useForm({ resolver: yupResolver(formSchema), mode: 'onBlur' })
 
   const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')
