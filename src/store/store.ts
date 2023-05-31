@@ -1,6 +1,12 @@
 import { ReducerAction } from 'react'
 
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit'
+import {
+  configureStore,
+  isRejectedWithValue,
+  Middleware,
+  MiddlewareAPI,
+  ReducersMapObject,
+} from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { StateSchema } from './stateSchema'
@@ -9,6 +15,20 @@ import { loginReducer } from 'features/login'
 import { baseAPI } from 'shared/api/baseAPI'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 
+export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
+  // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
+  if (isRejectedWithValue(action)) {
+    if (action.payload.data.messages[0]) {
+      console.log(action.payload.data.messages[0].message)
+    } else {
+      console.log('some error')
+    }
+    // toast.warn({ title: 'Async error!', message: action.error.data.message })
+  }
+
+  return next(action)
+}
+
 const rootStore: ReducersMapObject<StateSchema> = {
   [baseAPI.reducerPath]: baseAPI.reducer,
   login: loginReducer,
@@ -16,7 +36,7 @@ const rootStore: ReducersMapObject<StateSchema> = {
 
 export const store = configureStore({
   reducer: rootStore,
-  middleware: gDM => gDM().concat(baseAPI.middleware),
+  middleware: gDM => gDM().concat([baseAPI.middleware, rtkQueryErrorLogger]),
   preloadedState: loadState(),
 })
 
