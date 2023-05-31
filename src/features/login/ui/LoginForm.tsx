@@ -76,7 +76,7 @@ export const LoginForm = () => {
         className={cls.mb60}
       />
 
-      <NavLink className={cls.alignSelfEnd} href={'#'} color={NavLinkColor.GREY}>
+      <NavLink className={cls.alignSelfEnd} href={PATH.PASSWORD_RECOVERY} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
           Forgot Password
         </Text>

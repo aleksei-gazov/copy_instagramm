@@ -3,4 +3,5 @@ export enum PATH {
   LOGIN = '/login',
   LOGOUT = '/LOGOUT',
   REGISTRATION = 'registration',
+  PASSWORD_RECOVERY = 'passwordRecovery',
 }
