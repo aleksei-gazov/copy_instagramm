@@ -4,7 +4,8 @@ import confirmPageImage from '../../../../../public/icon/bro.svg'
 
 import cls from './Confirmation.module.scss'
 
-import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { PATH } from 'shared/const/path'
+import { NavLink } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 const Confirmation = () => {
@@ -26,11 +27,11 @@ const Confirmation = () => {
       >
         Your email has been confirmed
       </Text>
-      <Button type={'submit'} className={cls.mb72} theme={ButtonTheme.PRIMARY} size={ButtonSize.M}>
+      <NavLink className={cls.signInLink} href={PATH.LOGIN}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.LIGHT}>
           Sign In
         </Text>
-      </Button>
+      </NavLink>
       <Image src={confirmPageImage} alt="bro" />
     </div>
   )
