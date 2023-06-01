@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { StateSchema } from './stateSchema'
 
 import { loginReducer } from 'features/auth/login'
+import { registrationReducer } from 'features/auth/registration/model/slice/registrationSlice'
 import { baseAPI } from 'shared/api/baseAPI'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 
@@ -42,6 +43,7 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
 const rootStore: ReducersMapObject<StateSchema> = {
   [baseAPI.reducerPath]: baseAPI.reducer,
   login: loginReducer,
+  registration: registrationReducer,
 }
 
 export const store = configureStore({

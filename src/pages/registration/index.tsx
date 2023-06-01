@@ -12,12 +12,7 @@ const RegistrationPage = () => {
   return (
     <div className={cls.registration_container}>
       {!isModalOpen && <RegistrationForm setIsModalOpen={setIsModalOpen} />}
-      <EmailSentModal
-        isOpen={isModalOpen}
-        setOn={setIsModalOpen}
-        title={'Email sent'}
-        email={'email'}
-      />
+      <EmailSentModal isOpen={isModalOpen} setOn={setIsModalOpen} title={'Email sent'} />
     </div>
   )
 }
