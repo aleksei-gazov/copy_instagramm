@@ -16,6 +16,12 @@ export const Portal = (props: OverlayProps) => {
   useEffect(() => {
     ref.current = document.querySelector<HTMLElement>('#portal')
     setMounted(true)
+
+    return () => {
+      if (ref.current) {
+        ref.current.innerHTML = ''
+      }
+    }
   }, [])
 
   return mounted && ref.current

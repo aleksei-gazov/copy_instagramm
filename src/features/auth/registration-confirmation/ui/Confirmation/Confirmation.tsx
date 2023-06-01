@@ -1,14 +1,15 @@
+import React from 'react'
+
 import Image from 'next/image'
 
-import confirmPageImage from '../../../../../public/icon/bro.svg'
+import confirmPageImage from '../../../../../../public/icon/bro.svg'
 
-import cls from './Confirmation.module.scss'
-
+import cls from 'features/auth/registration-confirmation/ui/Confirmation/Confirmation.module.scss'
 import { PATH } from 'shared/const/path'
 import { NavLink } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
-const Confirmation = () => {
+export const Confirmation = () => {
   return (
     <div className={cls.container}>
       <Text
@@ -36,5 +37,3 @@ const Confirmation = () => {
     </div>
   )
 }
-
-export default Confirmation

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { useRegistrationConfirmationMutation } from 'features/auth/registration-confirmation/service/registrationConfirmation'
-import Confirmation from 'features/auth/registration-confirmation/ui/Confirmation'
+import { Confirmation } from 'features/auth/registration-confirmation/ui/Confirmation/Confirmation'
 import cls from 'pages/auth/registration-confirmation/RegistrationConfirmation.module.scss'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { getLayout } from 'widgets/Layout/Layout'

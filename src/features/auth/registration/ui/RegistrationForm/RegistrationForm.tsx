@@ -1,21 +1,24 @@
 import Image from 'next/image'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../../styles/AuthFormsStyles.module.scss'
-
-import cls from './RegistrationForm.module.scss'
+import github from '../../../../../../public/icon/github-svgrepo-com.svg'
+import google from '../../../../../../public/icon/google-svgrepo-com.svg'
 
 import { useRegisterMutation } from 'features/auth/registration/service/registration'
+import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+import formCls from 'styles/AuthFormsStyles.module.scss'
 
-export const RegistrationForm = () => {
+type RegistrationFormType = {
+  setIsModalOpen: (value: boolean) => void
+}
+
+export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
   const [registration, { data }] = useRegisterMutation()
 
   const {
@@ -36,6 +39,10 @@ export const RegistrationForm = () => {
     }
 
     registration(payload)
+      .unwrap()
+      .then(() => {
+        setIsModalOpen(true)
+      })
   }
 
   return (
