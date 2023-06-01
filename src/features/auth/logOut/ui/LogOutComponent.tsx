@@ -22,8 +22,8 @@ export const LogOutComponent = () => {
     setShowModal(true)
   }
   const [logOut, { isLoading }] = useLogOutMutation()
-  const { data } = useAuthQuery()
-  const mail = data?.email
+  const { data: user } = useAuthQuery()
+  const email = user?.email
   const [showModal, setShowModal] = useState<boolean>(false) //modal
   const closeModal = () => {
     setShowModal(false)
@@ -46,7 +46,7 @@ export const LogOutComponent = () => {
         <Image src={logOutImg} alt={'icon github'} width={90} height={150} />
       </Button>
       <Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
-        <div>{`Are you really want to log out of your account ${mail} ?`}</div>
+        <div>{`Are you really want to log out of your account ${email} ?`}</div>
       </Modal>
     </>
   )

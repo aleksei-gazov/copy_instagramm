@@ -1,4 +1,5 @@
-import { LoginSchema } from 'features/login'
+import { LoginSchema } from '../features/auth/login'
+
 import { baseAPI } from 'shared/api/baseAPI'
 
 export interface StateSchema {
