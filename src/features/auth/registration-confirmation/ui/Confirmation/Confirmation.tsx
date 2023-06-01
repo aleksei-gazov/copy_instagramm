@@ -1,13 +1,15 @@
+import React from 'react'
+
 import Image from 'next/image'
 
-import confirmPageImage from '../../../../../public/icon/bro.svg'
+import confirmPageImage from '../../../../../../public/icon/bro.svg'
 
-import cls from './Confirmation.module.scss'
-
-import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import cls from 'features/auth/registration-confirmation/ui/Confirmation/Confirmation.module.scss'
+import { PATH } from 'shared/const/path'
+import { NavLink } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
-const Confirmation = () => {
+export const Confirmation = () => {
   return (
     <div className={cls.container}>
       <Text
@@ -26,14 +28,12 @@ const Confirmation = () => {
       >
         Your email has been confirmed
       </Text>
-      <Button type={'submit'} className={cls.mb72} theme={ButtonTheme.PRIMARY} size={ButtonSize.M}>
+      <NavLink className={cls.signInLink} href={PATH.LOGIN}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.LIGHT}>
           Sign In
         </Text>
-      </Button>
+      </NavLink>
       <Image src={confirmPageImage} alt="bro" />
     </div>
   )
 }
-
-export default Confirmation

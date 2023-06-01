@@ -1,21 +1,26 @@
 import Image from 'next/image'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../../styles/AuthFormsStyles.module.scss'
+import github from '../../../../../../public/icon/github-svgrepo-com.svg'
+import google from '../../../../../../public/icon/google-svgrepo-com.svg'
 
-import cls from './RegistrationForm.module.scss'
-
+import { setEmail } from 'features/auth/registration/model/slice/registrationSlice'
 import { useRegisterMutation } from 'features/auth/registration/service/registration'
+import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
 import { PATH } from 'shared/const/path'
+import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+import formCls from 'styles/AuthFormsStyles.module.scss'
 
-export const RegistrationForm = () => {
+type RegistrationFormType = {
+  setIsModalOpen: (value: boolean) => void
+}
+
+export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
   const [registration, { data }] = useRegisterMutation()
 
   const {
@@ -28,6 +33,7 @@ export const RegistrationForm = () => {
     handleSubmit,
   } = useFormHandler('name', 'email', 'password', 'confirmPassword')
 
+  const dispatch = useAppDispatch()
   const onSubmit = (data: FieldValues) => {
     const payload = {
       userName: data.name,
@@ -35,7 +41,13 @@ export const RegistrationForm = () => {
       password: data.password,
     }
 
+    dispatch(setEmail({ email: data.email }))
+
     registration(payload)
+      .unwrap()
+      .then(() => {
+        setIsModalOpen(true)
+      })
   }
 
   return (
