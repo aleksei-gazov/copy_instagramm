@@ -9,8 +9,9 @@ import { clearToken } from 'features/auth/login'
 import { Modal } from 'features/auth/logOut/modal/modal'
 import { useLogOutMutation } from 'features/auth/logOut/service/logOut'
 import { PATH } from 'shared/const/path'
-import { useAuthQuery } from 'shared/hoc/service/authProvider'
+import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
+import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
@@ -23,8 +24,8 @@ export const LogOutComponent = () => {
     setShowModal(true)
   }
   const [logOut, { isLoading }] = useLogOutMutation()
-  const { data: user } = useAuthQuery()
-  const email = user?.email
+  const authMeData = useAppSelector(getAuthMeData)
+  const email = authMeData?.email
   const [showModal, setShowModal] = useState<boolean>(false) //modal
   const closeModal = () => {
     setShowModal(false)
