@@ -27,7 +27,6 @@ export const LogOutComponent = () => {
   const email = user?.email
   const [showModal, setShowModal] = useState<boolean>(false) //modal
   const closeModal = () => {
-    console.log(1)
     setShowModal(false)
   }
   const onSubmit = () => {
@@ -45,7 +44,7 @@ export const LogOutComponent = () => {
   return (
     <>
       <Button className={cls.mb18} theme={ButtonTheme.Clear} onClick={logOutHandler}>
-        <Image src={logOutImg} alt={'icon github'} width={90} height={150} />
+        <Image src={logOutImg} alt={'icon github'} />
       </Button>
       <Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
         <Text
