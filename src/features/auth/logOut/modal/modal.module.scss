@@ -11,32 +11,36 @@
 }
 
 .modalContent {
-  border-radius: 10px;
+  position: relative;
+  padding: 12px 24px 36px 24px;
   width: 400px;
-  background-color: #4c4c4c;
+  border-radius: 2px;
+  background-color: var(--dark-300);
   color: white;
+
+  .strip {
+    width: 100%;
+    position: absolute;
+    top: 59px;
+    left: 0;
+    border-bottom: 1px solid var(--dark-100);
+  }
 }
 
 .modalHeader {
-  padding: 12px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  font-size: large;
-  font-weight: bolder;
-}
-
-
-.modalFooter {
-  padding: 12px;
+  margin-bottom: 42px;
 }
 
 .modalBody {
-  padding: 20px;
-  border-top: 1px solid #eee;
-  //border-bottom: 1px solid #eee;
+  word-break: break-word;
+  margin-bottom: 30px;
 }
 
 .modalFooter {
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
+  gap: 24px;
 }

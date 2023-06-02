@@ -13,6 +13,7 @@ import { useAuthQuery } from 'shared/hoc/service/authProvider'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Loader } from 'shared/ui/Loader/Loader'
+import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'widgets/Header/ui/Header.module.scss'
 
 export const LogOutComponent = () => {
@@ -46,7 +47,11 @@ export const LogOutComponent = () => {
         <Image src={logOutImg} alt={'icon github'} width={90} height={150} />
       </Button>
       <Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
-        <div>{`Are you really want to log out of your account ${email} ?`}</div>
+        <Text
+          tag={'p'}
+          font={TextFontTheme.INTER_REGULAR_XL}
+        >{`Are you really want to log out of your account`}</Text>
+        <Text tag={'span'} font={TextFontTheme.INTER_BOLD_M}>{`"${email}" ?`}</Text>
       </Modal>
     </>
   )
