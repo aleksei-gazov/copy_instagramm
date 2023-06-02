@@ -12,6 +12,7 @@ import { useLoginMutation } from 'features/auth/login/authByEmail/service/authBy
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { Checkbox } from 'shared/ui/Checkbox/Checkbox'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
@@ -75,6 +76,8 @@ export const LoginForm = () => {
         title={'Password'}
         className={cls.mb60}
       />
+
+      <Checkbox checked={true} label={'check'} nameForValidate={'check'} />
 
       <NavLink className={cls.alignSelfEnd} href={PATH.PASSWORD_RECOVERY} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
