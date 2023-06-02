@@ -12,6 +12,7 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
+import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 import formCls from 'styles/AuthFormsStyles.module.scss'
@@ -21,7 +22,7 @@ type RegistrationFormType = {
 }
 
 export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
-  const [registration, { data }] = useRegisterMutation()
+  const [registration, { isLoading }] = useRegisterMutation()
 
   const {
     errorName,
@@ -49,6 +50,8 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         setIsModalOpen(true)
       })
   }
+
+  if (isLoading) return <Loader />
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>

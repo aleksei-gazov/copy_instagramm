@@ -6,7 +6,7 @@ export const registrationConfirmation = baseAPI.injectEndpoints({
     registrationConfirmation: build.mutation<void, RegisterConfirmationParamsType>({
       query: arg => ({
         url: `/api/auth/registration-confirmation`,
-        method: 'Post',
+        method: 'POST',
         body: arg,
       }),
     }),
