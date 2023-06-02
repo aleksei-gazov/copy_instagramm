@@ -9,6 +9,7 @@ import { Header } from '../Header'
 
 import cls from './Layout.module.scss'
 
+import { AuthProvider } from 'shared/hoc'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {
@@ -26,7 +27,9 @@ export const getLayout = (page: ReactElement) => {
   return (
     <>
       <Provider store={store}>
-        <Layout>{page}</Layout>
+        <AuthProvider>
+          <Layout>{page}</Layout>
+        </AuthProvider>
         <ToastContainer />
       </Provider>
     </>

@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
-import cls from './RegistrationPage.module.scss'
-
 import { EmailSentModal } from 'features/auth/registration/ui/EmailSentModal/EmailSentModal'
 import { RegistrationForm } from 'features/auth/registration/ui/RegistrationForm/RegistrationForm'
+import cls from 'pages/auth/registration/RegistrationPage.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const RegistrationPage = () => {

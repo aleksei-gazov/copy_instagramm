@@ -13,6 +13,7 @@ import { StateSchema } from './stateSchema'
 import { loginReducer } from 'features/auth/login'
 import { registrationReducer } from 'features/auth/registration/model/slice/registrationSlice'
 import { baseAPI } from 'shared/api/baseAPI'
+import { authMeReducer } from 'shared/hoc'
 import { loadState, saveState } from 'shared/lib/localStorage/localStorage'
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => action => {
@@ -44,6 +45,7 @@ const rootStore: ReducersMapObject<StateSchema> = {
   [baseAPI.reducerPath]: baseAPI.reducer,
   login: loginReducer,
   registration: registrationReducer,
+  authMe: authMeReducer,
 }
 
 export const store = configureStore({

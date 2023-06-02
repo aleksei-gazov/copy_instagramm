@@ -1,10 +1,10 @@
 import 'styles/globals.scss'
 import { ReactElement, ReactNode } from 'react'
 
-import { NextPage } from 'next'
-import type { AppProps } from 'next/app'
-
 import 'styles/nprogress.scss'
+import { NextPage } from 'next'
+import { AppProps } from 'next/app'
+
 import { useLoader } from 'shared/hooks/useLoader'
 
 export type NextPageWithLayout<P = {}> = NextPage<P> & {

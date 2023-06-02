@@ -1,6 +1,5 @@
-import s from './PasswordRecovery.module.scss'
-
 import { PasswordRecovery } from 'features/auth/passwordRecovery/ui/PasswordRecovery'
+import s from 'pages/auth/passwordRecovery/PasswordRecovery.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const PassWordRecoveryPage = () => {
