@@ -1,5 +1,9 @@
 .Select {
   width: 210px;
+
+  &:focus {
+    border: none;
+  }
 }
 
 .listBoxButton {
@@ -14,9 +18,9 @@
   border: 1px solid var(--dark-100);
   border-radius: 2px;
 
-  //&:focus {
-  //  border: 2px solid var(--primary-500);
-  //}
+  &:focus {
+   border: 2px solid var(--primary-500);
+  }
 }
 
 .arrowIcon {

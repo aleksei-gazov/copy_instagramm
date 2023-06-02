@@ -16,13 +16,13 @@ const people = [
   { id: 5, name: 'Katelyn Rohan', unavailable: false },
 ]
 
-interface SelectProps {
-  options: string[]
-  value: string
-  onChange: (value: string) => void
-}
+// interface SelectProps {
+//   options: string[]
+//   value: string
+//   onChange: (value: string) => void
+// }
 
-export const Select: FC<SelectProps> = ({ onChange, value, options }) => {
+export const Select = () => {
   const [selectedPerson, setSelectedPerson] = useState(people[0])
   const [isActive, setIsActive] = useState(false)
 
