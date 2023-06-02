@@ -13,17 +13,17 @@ const RegistrationConfirmation = () => {
 
   const router = useRouter()
 
-  const token = router.query.code as string
+  const code = router.query.code as string
 
   useEffect(() => {
-    if (token) {
-      confirm({ confirmationCode: token })
+    if (code) {
+      confirm({ confirmationCode: code })
         .unwrap()
         .catch(() => {
           // alternative scenarios
         })
     }
-  }, [token])
+  }, [code])
 
   if (isLoading) return <Loader />
 
