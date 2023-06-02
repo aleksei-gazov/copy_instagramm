@@ -13,19 +13,19 @@ const RegistrationConfirmation = () => {
 
   const router = useRouter()
 
-  const token = router.query.code
-
-  if (isLoading) return <Loader />
+  const code = router.query.code as string
 
   useEffect(() => {
-    if (typeof token === 'string') {
-      confirm({ confirmationCode: token })
+    if (code) {
+      confirm({ confirmationCode: code })
         .unwrap()
         .catch(() => {
           // alternative scenarios
         })
     }
-  }, [])
+  }, [code])
+
+  if (isLoading) return <Loader />
 
   return (
     <div className={cls.registration_container}>
