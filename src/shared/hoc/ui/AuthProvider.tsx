@@ -15,7 +15,9 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
   const { push, asPath } = useRouter()
   const authMeData = useAppSelector(getAuthMeData)?.email
-  const { isLoading, error } = useAuthQuery(undefined, { skip: Boolean(authMeData) })
+  const { isLoading, error } = useAuthQuery(undefined, {
+    skip: Boolean(authMeData) || asPath.startsWith(PATH.AUTH),
+  })
 
   const isAuthPage = authMeData || asPath.startsWith(PATH.AUTH)
 
