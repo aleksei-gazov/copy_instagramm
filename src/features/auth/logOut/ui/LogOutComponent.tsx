@@ -27,6 +27,7 @@ export const LogOutComponent = () => {
   const email = user?.email
   const [showModal, setShowModal] = useState<boolean>(false) //modal
   const closeModal = () => {
+    console.log(1)
     setShowModal(false)
   }
   const onSubmit = () => {

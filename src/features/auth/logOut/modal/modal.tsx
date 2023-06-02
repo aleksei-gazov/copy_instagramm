@@ -38,7 +38,7 @@ export const Modal = ({
             <Text tag={'span'} font={TextFontTheme.INTER_BOLD_XL} color={TextColorTheme.LIGHT}>
               {title}
             </Text>
-            <Button theme={ButtonTheme.Clear}>
+            <Button onClick={onClose} theme={ButtonTheme.Clear}>
               <Image src={close} alt={'close icon'} width={14} height={14} />
             </Button>
           </div>
