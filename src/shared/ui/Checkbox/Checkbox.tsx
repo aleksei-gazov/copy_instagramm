@@ -1,30 +1,29 @@
-import { DetailedHTMLProps, FC, InputHTMLAttributes, memo } from 'react'
-
-import { FieldValues, UseFormRegister } from 'react-hook-form'
+import { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, memo } from 'react'
 
 import cls from './Checkbox.module.scss'
 
 type HTMLInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 interface CheckboxType extends HTMLInputProps {
-  checked: boolean
   label?: string
-  register?: UseFormRegister<FieldValues>
-  nameForValidate?: string
+  checked: boolean
+  onChangeChecked: (value: boolean) => void
 }
 
 export const Checkbox: FC<CheckboxType> = memo(props => {
-  const { label, checked, className = '', register, nameForValidate, ...arg } = props
+  const { label, checked, className = '', onChangeChecked, ...arg } = props
 
-  const registerParam = nameForValidate && register && register(nameForValidate)
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChangeChecked(e.currentTarget.checked)
+  }
 
   return (
     <label className={cls.label}>
       <input
         type={'checkbox'}
         checked={checked}
+        onChange={onChange}
         className={cls.realCheckbox}
-        {...registerParam}
         {...arg}
       />
       <span className={cls.customCheckbox} />
