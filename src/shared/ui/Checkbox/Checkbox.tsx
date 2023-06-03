@@ -12,15 +12,23 @@ import { classNames } from 'shared/lib/classNames/classNames'
 interface CheckBoxProps {
   className?: string
   label?: string
-  width: string
-  height: string
+  width?: string
+  height?: string
   isChecked: boolean
   onChangeChecked: (value: boolean) => void
   disabled?: boolean
 }
 
 export const CheckBox: FC<CheckBoxProps> = memo(
-  ({ className = '', label, width, height, isChecked, onChangeChecked, disabled = false }) => {
+  ({
+    className = '',
+    label,
+    width = '18px',
+    height = '18px',
+    isChecked,
+    onChangeChecked,
+    disabled = false,
+  }) => {
     const onClickHandler = () => {
       if (!disabled) {
         onChangeChecked(!isChecked)
