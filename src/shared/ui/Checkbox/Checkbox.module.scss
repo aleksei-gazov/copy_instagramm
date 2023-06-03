@@ -1,23 +1,10 @@
-.decoration {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: none;
-  
-  z-index: -10;
-}
-
 .CheckBox {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: none;
+  background: none;
 
   border: 2px solid var(--light-500);
 
@@ -35,22 +22,40 @@
         background-color: var(--dark-100);
       }
     }
-
-    &:focus {
-      .decoration {
-        background-color: var(--dark-500);
-      }
-    }
   }
 
-  transition: all .3s ease-in-out;
+  transition: all .4s ease-in-out;
   
+}
+
+.decoration {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: none;
+
+  transition: all .3s ease-in-out;
+
+  z-index: -10;
 }
 
 .container {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 11px;
+
+  &:focus {
+    border: none;
+    outline: none;
+    .decoration {
+      background-color: var(--dark-500);
+      z-index: -10;
+    }
+  }
 }
 
 
@@ -61,20 +66,21 @@
 
 .isDisabled {
   border: 2px solid var(--light-900);
-
-  .isChecked {
-    background-color: var(--dark-100);
-    border: none;
-  }
-
+  cursor: inherit;
   .decoration {
     display: none;
   }
 }
 
+.disableChecked {
+  background-color: var(--dark-100);
+  border: none;
+}
+
 .input {
   display: none;
 }
+
 
 .label {
   color: var(--light-100);
