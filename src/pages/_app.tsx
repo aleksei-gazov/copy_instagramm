@@ -2,6 +2,7 @@ import 'styles/globals.scss'
 import { ReactElement, ReactNode } from 'react'
 
 import 'styles/nprogress.scss'
+import 'styles/dataPickerGlobal.scss'
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 
