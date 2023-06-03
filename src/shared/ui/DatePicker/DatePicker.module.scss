@@ -1,0 +1,52 @@
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--light-100);
+  border-radius: 50%;
+  margin: 0;
+  font: var(--font-regular-xl);
+  &:hover {
+    background-color: var(--primary-500);
+    border-radius: 50%;
+  }
+
+  &:active {
+    background-color: var(--primary-900);
+    color: var(--dark-100);
+  }
+
+  transition: all .2s ease-in-out;
+}
+
+.calendar {
+ display: none;
+}
+
+.calendar:nth-child(2) {
+  display: none;
+}
+
+.weekDay {
+  color: var(--dark-100);
+}
+
+
+.popper {
+  padding: 0 !important;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 300px
+}
+
+.single {
+  width: 158px !important;
+}
