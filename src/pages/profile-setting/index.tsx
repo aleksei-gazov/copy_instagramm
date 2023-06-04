@@ -9,7 +9,7 @@ const UserProfileSetting = () => {
   return (
     <div className={cls.ProfileSetting}>
       <Text tag={'span'} font={TextFontTheme.INTER_BOLD_S} color={TextColorTheme.LIGHT}>
-        Setting User Profileytryrfyryry
+        Setting User Profile
       </Text>
     </div>
   )

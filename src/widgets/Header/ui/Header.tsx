@@ -8,14 +8,14 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const Header = () => {
   const { asPath } = useRouter()
-  const hide = asPath.startsWith(PATH.AUTH)
+  const hide = asPath === PATH.PROFILE_SETTING
 
   return (
     <header className={cls.Header}>
       <Text tag={'span'} color={TextColorTheme.LIGHT} font={TextFontTheme.INTER_SEMI_BOLD_XL}>
         Inctagram
       </Text>
-      {!hide && <LogOutComponent />}
+      {hide && <LogOutComponent />}
     </header>
   )
 }

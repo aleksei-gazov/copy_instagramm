@@ -1,5 +1,3 @@
-import * as path from 'path'
-
 import React, { FC, memo, ReactNode } from 'react'
 
 import Link, { LinkProps } from 'next/link'
@@ -10,7 +8,7 @@ import cls from './NavLink.module.scss'
 import { classNames } from 'shared/lib/classNames/classNames'
 
 export enum NavLinkColor {
-  PRIMARY = 'light',
+  PRIMARY = 'primary',
   SECONDARY = 'secondary',
   GREY = 'grey',
 }

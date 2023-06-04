@@ -10,13 +10,15 @@ function Home() {
   const { push } = useRouter()
 
   return (
-    <Button
-      onClick={() => push(PATH.PROFILE_SETTING)}
-      theme={ButtonTheme.LIGHT}
-      size={ButtonSize.L}
-    >
-      Profile Settings
-    </Button>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <Button
+        onClick={() => push(PATH.PROFILE_SETTING)}
+        theme={ButtonTheme.LIGHT}
+        size={ButtonSize.L}
+      >
+        Profile Settings
+      </Button>
+    </div>
   )
 }
 

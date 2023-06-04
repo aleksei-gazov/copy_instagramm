@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -11,12 +11,17 @@ import { PATH } from 'shared/const/path'
 import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
+import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'widgets/Header/ui/Header.module.scss'
 
-export const LogOutComponent = () => {
+interface LogOutComponentProps {
+  className?: string
+}
+
+export const LogOutComponent: FC<LogOutComponentProps> = memo(({ className = '' }) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const logOutHandler = () => {
@@ -42,7 +47,7 @@ export const LogOutComponent = () => {
   if (isLoading) return <Loader />
 
   return (
-    <>
+    <div className={classNames('', {}, [className])}>
       <Button className={cls.mb18} theme={ButtonTheme.Clear} onClick={logOutHandler}>
         <Logout />
       </Button>
@@ -53,6 +58,6 @@ export const LogOutComponent = () => {
         >{`Are you really want to log out of your account`}</Text>
         <Text tag={'span'} font={TextFontTheme.INTER_BOLD_M}>{`"${email}" ?`}</Text>
       </Modal>
-    </>
+    </div>
   )
-}
+})
