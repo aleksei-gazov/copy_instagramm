@@ -1,4 +1,5 @@
 .Select {
+  position: relative;
   width: 210px;
 
   &:focus {
@@ -36,6 +37,8 @@
 
 
 .listBoxOptions {
+  position: absolute;
+  width: 100%;
   border: 1px solid var(--dark-100);
 }
 

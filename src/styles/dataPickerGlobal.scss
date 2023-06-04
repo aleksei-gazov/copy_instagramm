@@ -1,5 +1,5 @@
 .react-datepicker-wrapper {
-  width: 300px !important;
+  width: 262px !important;
   height: 36px;
   color: var(--light-100) !important;
   background-color: var(--dark-500);
@@ -10,15 +10,20 @@
 .react-datepicker {
   width: 300px;
   height: 348px;
-  padding: 22px 32px;
+  padding: 22px 16px;
   background-color: var(--dark-500) !important;
   border: 1px solid var(--dark-300) !important;
   border-radius: 2px;
 }
 
-.react-datepicker:nth-child(2) {
-  display: none !important;
+.react-datepicker__input-container input {
+  cursor: pointer !important;
 }
+
+.react-datepicker-ignore-onclickoutside {
+  cursor: pointer !important;
+}
+
 
 .react-datepicker__input-container {
   width: 100%;
@@ -33,7 +38,7 @@
   width: 18px !important;
   height: 20px !important;
   padding: 0 !important;
-  right: 8px;
+  right: 12px;
 
   fill: var(--light-100);
 }
@@ -46,7 +51,7 @@
   width: 100%;
   background-color: var(--dark-500) !important;
   border: none !important;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .react-datepicker__current-month {
@@ -64,7 +69,6 @@
 
 .react-datepicker__month {
   width: 100%;
-  flex-grow: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,6 +80,7 @@
   display: flex;
   justify-content: space-between;
   font: var(--font-regular-xl) !important;
+  margin-top: 26px;
 }
 
 .react-datepicker__day-name {
@@ -99,3 +104,33 @@
 .react-datepicker__triangle {
   display: none;
 }
+
+.react-datepicker__day--in-range {
+  flex-grow: 2;
+  background-color: var(--primary-900) !important;
+  border-radius: 0 !important;
+  color: var(--light-100) !important;
+}
+
+.react-datepicker__day--selected {
+  //background-color: #1976d2 !important;
+  color: var(--light-100) !important;
+  //border-radius: 50% !important;
+}
+
+.react-datepicker__day--range-start {
+  font: var(--font-semiBold-l) !important;
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.react-datepicker__day--range-end {
+  font: var(--font-semiBold-l) !important;
+  color: var(--light-100) !important;
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
+
+
+
+
