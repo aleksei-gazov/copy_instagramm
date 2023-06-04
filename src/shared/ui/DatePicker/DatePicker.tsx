@@ -1,11 +1,14 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 
-import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
+import DatePicker from 'react-datepicker'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import cls from './DatePicker.module.scss'
 
 import { classNames } from 'shared/lib/classNames/classNames'
+
+// eslint-disable-next-line import/order
+import { format, formatISO } from 'date-fns'
 
 export enum CustomDatePickerThemes {
   SINGLE_DATE = 'single',
@@ -13,10 +16,10 @@ export enum CustomDatePickerThemes {
 }
 
 interface CustomDatePickerProps {
-  start?: Date | null
-  end?: Date | null
-  onChangeDates?: (dates: [Date | null, Date | null]) => void
-  onChangeDate?: (data: Date | null) => void
+  start?: string | null
+  end?: string | null
+  onChangeDates?: (dates: (string | null)[]) => void
+  onChangeDate?: (data: string | null) => void
   theme?: CustomDatePickerThemes
   className?: string
 }
@@ -31,6 +34,9 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
+
+  const startDate = start ? new Date(start) : null
+  const endDate = end ? new Date(end) : null
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -47,11 +53,13 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   })
 
   const onChange = (dates: Date | [Date | null, Date | null] | null) => {
-    console.log(dates)
+    if (!dates) return
     if (Array.isArray(dates)) {
-      onChangeDates?.(dates)
+      onChangeDates?.(
+        dates.map(date => (date ? formatISO(date, { representation: 'complete' }) : null))
+      )
     } else {
-      onChangeDate?.(dates)
+      onChangeDate?.(formatISO(dates, { representation: 'complete' }))
     }
   }
 
@@ -61,14 +69,17 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
         <DatePicker
           wrapperClassName={classNames(
             cls.wrapper,
-            { [cls.single]: theme === CustomDatePickerThemes.SINGLE_DATE },
+            {
+              [cls.single]: theme === CustomDatePickerThemes.SINGLE_DATE,
+              [cls.singleOpen]: theme === CustomDatePickerThemes.SINGLE_DATE && isOpen,
+            },
             []
           )}
           showIcon
           selectsRange={theme === CustomDatePickerThemes.RANGE}
-          selected={start}
-          startDate={start}
-          endDate={end}
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
           onChange={() => {}}
           calendarClassName={cls.calendar}
         />
@@ -80,10 +91,10 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
           popperClassName={cls.popper}
           weekDayClassName={() => cls.weekDay}
           monthClassName={() => cls.month}
-          selected={start}
+          selected={startDate}
           selectsRange={theme === CustomDatePickerThemes.RANGE}
-          startDate={start}
-          endDate={end}
+          startDate={startDate}
+          endDate={endDate}
           onChange={onChange}
           inline
         />

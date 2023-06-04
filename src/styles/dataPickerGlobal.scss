@@ -124,6 +124,16 @@
   border-bottom-left-radius: 50% !important;
 }
 
+//.react-datepicker__day--in-range:first-child {
+//  border-top-left-radius: 50% !important;
+//  border-bottom-left-radius: 50% !important;
+//}
+
+//.react-datepicker__day--in-range:last-child {
+//  border-top-right-radius: 50% !important;
+//  border-bottom-right-radius: 50% !important;
+//}
+
 .react-datepicker__day--range-end {
   font: var(--font-semiBold-l) !important;
   color: var(--light-100) !important;
