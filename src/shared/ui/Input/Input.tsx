@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FC, InputHTMLAttributes, memo, useState } from 'react'
 
-import Image from 'next/image'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
-import eyeOff from '../../../../public/icon/eye-off-outline.svg'
-import eyeOn from '../../../../public/icon/eye-outline.svg'
+import EyeOff from '../../../../public/icon/eye-off-outline.svg'
+import EyeOn from '../../../../public/icon/eye-outline.svg'
 
 import cls from './Input.module.scss'
 
@@ -45,7 +44,7 @@ export const Input: FC<InputType> = memo(
 
     const registerParam = nameForValidate && register && register(nameForValidate)
 
-    const iconPas = typeInput === 'password' ? eyeOn : eyeOff
+    const iconPas = typeInput === 'password' ? <EyeOn /> : <EyeOff />
 
     return (
       <label className={cls.label}>
@@ -61,7 +60,7 @@ export const Input: FC<InputType> = memo(
         />
         {type === 'password' && (
           <Button className={cls.btn} theme={ButtonTheme.Clear} onClick={showPasswordHandler}>
-            <Image src={iconPas} alt={'icon eye'} width={24} height={24} />
+            {iconPas}
           </Button>
         )}
         {error && (

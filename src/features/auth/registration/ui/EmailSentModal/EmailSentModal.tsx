@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import CloseIcon from '../../../../../../public/icon/close.svg'
 
 import cls from './EmailSentModal.module.scss'
@@ -32,7 +30,7 @@ export const EmailSentModal = ({ isOpen, title, setOn }: EmailSentModalType) => 
             {title}
           </Text>
           <Button theme={ButtonTheme.Clear} onClick={handleButtonClick}>
-            <Image src={CloseIcon} alt={'close'} />
+            <CloseIcon />
           </Button>
         </div>
         <div className={cls.main}>

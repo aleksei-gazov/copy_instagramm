@@ -1,5 +1,6 @@
 .Button {
   display: flex;
+  height: 36px;
   justify-content: center;
   align-items: center;
 
@@ -9,6 +10,7 @@
   cursor: pointer;
 
   border-radius: 2px;
+  outline: none;
 }
 
 .clear {
@@ -30,9 +32,9 @@
     color: var(--primary-100);
   }
 
-  &:focus {
+  &:focus-visible {
     color: var(--primary-500);
-    border: 1px solid var(--primary-700);
+    outline: 1px solid var(--primary-700);
   }
 
   &:disabled {
@@ -50,14 +52,16 @@
   &:active {
     background-color: var(--primary-700);
     color: var(--light-500);
+    transform: translateY(1px);
   }
 
   &:hover {
     background: var(--primary-100);
     color: var(--light-100);
+    transform: translateY(-1px);
   }
 
-  &:focus {
+  &:focus-visible {
     background-color: var(--primary-700);
     color: var(--light-100);
   }
@@ -76,15 +80,17 @@
   &:active {
     border: 1px solid var(--primary-700);
     color: var(--primary-700);
+    transform: translateY(1px);
   }
 
   &:hover {
     border: 1px solid var(--primary-100);
     color: var(--primary-100);
+    transform: translateY(-1px);
   }
 
-  &:focus {
-    border: 2px solid var(--primary-700);
+  &:focus-visible {
+    outline: 2px solid var(--primary-700);
     color: var(--primary-700);
   }
 
@@ -102,17 +108,20 @@
   &:active {
     background-color: var(--light-700);
     color: var(--dark-900);
+    transform: translateY(1px);
   }
 
   &:hover {
     background: var(--light-100);
     color: var(--dark-300);
+    transform: translateY(-1px);
+
   }
 
-  &:focus {
+  &:focus-visible {
     background-color: var(--light-100);
     color: var(--dark-900);
-    border: 2px solid var(--primary-700);
+    outline: 2px solid var(--primary-700);
   }
 
   &:disabled {
@@ -124,22 +133,19 @@
 
 .xxl {
   width: 330px;
-  height: 36px;
+
 }
 
 .xl {
   width: 294px;
-  height: 36px;
 }
 
 .l {
   width: 229px;
-  height: 36px;
 }
 
 .m {
   width: 182px;
-  height: 36px;
 }
 
 //.s {
@@ -149,5 +155,4 @@
 
 .xs {
   width: 96px;
-  height: 36px;
 }

@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../../../public/icon/google-svgrepo-com.svg'
+import Github from '../../../../../../public/icon/github-svgrepo-com.svg'
+import Google from '../../../../../../public/icon/google-svgrepo-com.svg'
 
 import { setEmail } from 'features/auth/registration/model/slice/registrationSlice'
 import { useRegisterMutation } from 'features/auth/registration/service/registration'
@@ -66,10 +65,10 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
 
       <div className={formCls.iconContainer}>
         <Button className={formCls.transform} theme={ButtonTheme.Clear}>
-          <Image src={google} alt={'icon google'} width={36} height={36} />
+          <Google width={36} height={36} />
         </Button>
         <Button className={formCls.transform} theme={ButtonTheme.Clear}>
-          <Image src={github} alt={'icon github'} width={36} height={36} />
+          <Github width={36} height={36} />
         </Button>
       </div>
 

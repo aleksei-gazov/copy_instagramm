@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import logOutImg from '../../../../../public/icon/logOut.svg'
+import Logout from '../../../../../public/icon/logOut.svg'
 
 import { clearToken } from 'features/auth/login'
 import { Modal } from 'features/auth/logOut/modal/modal'
@@ -45,7 +44,7 @@ export const LogOutComponent = () => {
   return (
     <>
       <Button className={cls.mb18} theme={ButtonTheme.Clear} onClick={logOutHandler}>
-        <Image src={logOutImg} alt={'icon github'} />
+        <Logout />
       </Button>
       <Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
         <Text

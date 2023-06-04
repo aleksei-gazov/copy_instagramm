@@ -4,5 +4,5 @@ export enum PATH {
   LOGIN = '/auth/login',
   REGISTRATION = '/auth/registration',
   PASSWORD_RECOVERY = '/auth/passwordRecovery',
-  USER_PROFILE = '/auth/user-profile',
+  PROFILE_SETTING = '/profile-setting',
 }
