@@ -1,9 +1,8 @@
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
-import github from '../../../../../public/icon/github-svgrepo-com.svg'
-import google from '../../../../../public/icon/google-svgrepo-com.svg'
+import Github from '../../../../../public/icon/github-svgrepo-com.svg'
+import Google from '../../../../../public/icon/google-svgrepo-com.svg'
 import formCls from '../../../../styles/AuthFormsStyles.module.scss'
 
 import cls from './LoginForm.module.scss'
@@ -19,13 +18,11 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
   const router = useRouter()
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading, isSuccess }] = useLoginMutation()
   const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
     'email',
     'loginPassword'
   )
-
-  if (isLoading) return <Loader />
 
   const onSubmit = (data: FieldValues) => {
     const payload = {
@@ -34,8 +31,14 @@ export const LoginForm = () => {
     }
 
     login(payload)
-      .unwrap()
-      .then(() => router.push(PATH.HOME))
+  }
+
+  if (isLoading) return <Loader />
+
+  if (isSuccess) {
+    router.push(PATH.HOME)
+
+    return <></>
   }
 
   return (
@@ -51,10 +54,10 @@ export const LoginForm = () => {
 
       <div className={formCls.iconContainer}>
         <Button className={formCls.transform} theme={ButtonTheme.Clear}>
-          <Image src={google} alt={'icon google'} width={36} height={36} />
+          <Google width={36} height={36} />
         </Button>
         <Button className={formCls.transform} theme={ButtonTheme.Clear}>
-          <Image src={github} alt={'icon github'} width={36} height={36} />
+          <Github width={36} height={36} />
         </Button>
       </div>
 

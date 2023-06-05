@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Image from 'next/image'
-
-import confirmPageImage from '../../../../../../public/icon/bro.svg'
+import ConfirmPageImage from '../../../../../../public/icon/bro.svg'
 
 import cls from 'features/auth/registration-confirmation/ui/Confirmation/Confirmation.module.scss'
 import { PATH } from 'shared/const/path'
@@ -33,7 +31,7 @@ export const Confirmation = () => {
           Sign In
         </Text>
       </NavLink>
-      <Image src={confirmPageImage} alt="bro" />
+      <ConfirmPageImage />
     </div>
   )
 }

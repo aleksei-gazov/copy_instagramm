@@ -1,8 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-import Image from 'next/image'
-
-import close from '../../../../../public/icon/close.svg'
+import Close from '../../../../../public/icon/close.svg'
 
 import cls from './modal.module.scss'
 
@@ -39,7 +37,7 @@ export const Modal = ({
               {title}
             </Text>
             <Button onClick={onClose} theme={ButtonTheme.Clear}>
-              <Image src={close} alt={'close icon'} width={14} height={14} />
+              <Close />
             </Button>
           </div>
           <div className={cls.strip}></div>

@@ -23,6 +23,8 @@ export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
 
   if (error && !isAuthPage) {
     push(PATH.LOGIN)
+
+    return <></>
   }
 
   if (isLoading) return <Loader />
