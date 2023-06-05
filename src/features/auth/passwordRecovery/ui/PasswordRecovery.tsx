@@ -1,19 +1,51 @@
+import { useState } from 'react'
+
+import ReCAPTCHA from 'react-google-recaptcha'
 import { FieldValues } from 'react-hook-form'
 
-import s from './PasswordRecovery.module.scss'
-
+import { usePasswordRecoveryMutation } from 'features/auth/passwordRecovery/service/passwordRecoveryApi'
+import s from 'features/auth/passwordRecovery/ui/PasswordRecovery.module.scss'
+import { setEmail } from 'features/auth/registration/model/slice/registrationSlice'
 import { PATH } from 'shared/const/path'
+import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
+import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
-export const PasswordRecovery = () => {
+type RegistrationFormType = {
+  setIsModalOpen: (value: boolean) => void
+}
+
+export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
+  const [passwordRecovery, { isLoading }] = usePasswordRecoveryMutation()
   const { errorEmail, isValid, register, handleSubmit } = useFormHandler('email')
+  const [token, setToken] = useState<string | null>(null)
+
+  const dispatch = useAppDispatch()
+
   const onSubmit = (data: FieldValues) => {
-    console.log(data)
+    if (!token) {
+      return
+    }
+    dispatch(setEmail({ email: data.email }))
+    passwordRecovery({
+      email: data.email,
+      recaptcha: token,
+    })
+      .unwrap()
+      .then(() => {
+        setIsModalOpen(true)
+      })
   }
+
+  const onChange = value => {
+    setToken(value)
+  }
+
+  if (isLoading) return <Loader />
 
   return (
     <form className={s.PasswordRecoveryForm} onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +88,9 @@ export const PasswordRecovery = () => {
       <NavLink className={s.alignSelfCenter} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Back to Sign In
       </NavLink>
-      <div>{/*<reCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />*/}</div>
+      <div>
+        <ReCAPTCHA sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ" onChange={onChange} />
+      </div>
     </form>
   )
 }
