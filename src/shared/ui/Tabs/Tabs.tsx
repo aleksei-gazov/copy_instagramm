@@ -1,63 +1,54 @@
-import { useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import cls from './Tabs.module.scss'
 
-import { classNames } from 'shared/lib/classNames/classNames'
+import { Tab } from 'shared/ui/Tabs/Tab'
+import { TabPanel } from 'shared/ui/Tabs/TabPanel'
 
-type TabsType = 'tab-1' | 'tab-2' | 'tab-3' | 'tab-4'
+export type TabsType = 'tab-1' | 'tab-2' | 'tab-3' | 'tab-4'
 
-export const Tabs = () => {
+export const Tabs = memo(() => {
   const [currentTab, setCurrentTab] = useState<TabsType>('tab-1')
 
-  const handlerClickTab = (tab: TabsType) => setCurrentTab(tab)
+  const changeTabHandler = useCallback((value: TabsType) => {
+    setCurrentTab(value)
+  }, [])
 
   return (
     <div className={cls.tabs}>
       <div className={cls.buttonGroup}>
-        <button
-          className={classNames(cls.button, { [cls.buttonActive]: currentTab === 'tab-1' }, [])}
-          onClick={() => handlerClickTab('tab-1')}
-        >
+        <Tab value={'tab-1'} currentValue={currentTab} onClick={changeTabHandler}>
           General information
-        </button>
-        <button
-          className={classNames(cls.button, { [cls.buttonActive]: currentTab === 'tab-2' }, [])}
-          onClick={() => handlerClickTab('tab-2')}
-        >
+        </Tab>
+
+        <Tab value={'tab-2'} currentValue={currentTab} onClick={changeTabHandler}>
           Devices
-        </button>
-        <button
-          className={classNames(cls.button, { [cls.buttonActive]: currentTab === 'tab-3' }, [])}
-          onClick={() => handlerClickTab('tab-3')}
-        >
+        </Tab>
+
+        <Tab value={'tab-3'} currentValue={currentTab} onClick={changeTabHandler}>
           Account Management
-        </button>
-        <button
-          className={classNames(cls.button, { [cls.buttonActive]: currentTab === 'tab-4' }, [])}
-          onClick={() => handlerClickTab('tab-4')}
-        >
+        </Tab>
+
+        <Tab value={'tab-4'} currentValue={currentTab} onClick={changeTabHandler}>
           My payments
-        </button>
+        </Tab>
       </div>
 
-      <div className={classNames(cls.content, { [cls.activeContent]: currentTab === 'tab-1' }, [])}>
-        {/*Content for General information*/}
-        <p>CONTENT-1</p>
-      </div>
+      <TabPanel value={'tab-1'} currentValue={currentTab}>
+        CONTENT-1
+      </TabPanel>
 
-      <div className={classNames(cls.content, { [cls.activeContent]: currentTab === 'tab-2' }, [])}>
-        {/*Content for Devices*/}
-        <p>CONTENT-2</p>
-      </div>
+      <TabPanel value={'tab-2'} currentValue={currentTab}>
+        CONTENT-2
+      </TabPanel>
 
-      <div className={classNames(cls.content, { [cls.activeContent]: currentTab === 'tab-3' }, [])}>
-        {/*Content for Account Management*/}
-        <p>CONTENT-3</p>
-      </div>
-      <div className={classNames(cls.content, { [cls.activeContent]: currentTab === 'tab-4' }, [])}>
-        {/*Content for My payments*/}
-        <p>CONTENT-4</p>
-      </div>
+      <TabPanel value={'tab-3'} currentValue={currentTab}>
+        CONTENT-3
+      </TabPanel>
+
+      <TabPanel value={'tab-4'} currentValue={currentTab}>
+        CONTENT-4
+      </TabPanel>
     </div>
   )
-}
+})
