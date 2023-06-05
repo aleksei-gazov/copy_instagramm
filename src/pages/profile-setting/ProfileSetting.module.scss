@@ -1,3 +1,25 @@
 .ProfileSetting {
+  display: flex;
+  flex-direction: column;
 
+  align-items: center;
+}
+
+.profileSettingBlock {
+  width: 726px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid var(--dark-100);
+}
+
+.button {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.buttonBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 726px;
 }
