@@ -1,0 +1,24 @@
+
+.photoBlock {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+  align-items: center;
+  margin-right: 40px;
+  margin-top: 40px;
+}
+
+.photo {
+  margin-bottom: 40px;
+  border-radius: 50%;
+  background-color: rgba(23, 23, 23, 1);
+  width: 180px;
+  height: 180px;
+  padding: 40px;
+}
+
+.addButton {
+  padding: 10px;
+  font-weight: bold;
+}

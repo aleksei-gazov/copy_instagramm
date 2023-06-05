@@ -1,0 +1,12 @@
+.userProfileData{
+  width: 494px;
+  height: 528px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.item{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 2px solid var(--dark-100);
+}
