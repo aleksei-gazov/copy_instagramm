@@ -1,8 +1,8 @@
 import { memo, ReactNode } from 'react'
 
 import { classNames } from 'shared/lib/classNames/classNames'
-import { TabsType } from 'shared/ui/Tabs/Tabs'
 import cls from 'shared/ui/Tabs/Tabs.module.scss'
+import { TabsType } from 'shared/ui/Tabs/TabsExample'
 
 export type TabPropsType = {
   children: ReactNode
