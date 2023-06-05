@@ -18,13 +18,11 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
   const router = useRouter()
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading, isSuccess }] = useLoginMutation()
   const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
     'email',
     'loginPassword'
   )
-
-  if (isLoading) return <Loader />
 
   const onSubmit = (data: FieldValues) => {
     const payload = {
@@ -33,8 +31,14 @@ export const LoginForm = () => {
     }
 
     login(payload)
-      .unwrap()
-      .then(() => router.push(PATH.HOME))
+  }
+
+  if (isLoading) return <Loader />
+
+  if (isSuccess) {
+    router.push(PATH.HOME)
+
+    return <></>
   }
 
   return (
