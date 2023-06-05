@@ -22,7 +22,7 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
   if (isRejectedWithValue(action)) {
     if (action.payload.status === 401) return next(action)
 
-    if (action.payload.data && action.payload.data.messages[0]) {
+    if (action.payload.data?.messages?.length) {
       currentError = action.payload.data.messages[0].message
     } else {
       currentError = 'some error'
