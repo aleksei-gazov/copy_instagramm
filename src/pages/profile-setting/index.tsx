@@ -5,7 +5,6 @@ import cls from './ProfileSetting.module.scss'
 import { ProfilePhotoBlock } from 'features/profile/profileSetting/ui/profilePhoto/profilePhotoBlock'
 import { UserProfileData } from 'features/profile/profileSetting/ui/userProfileData/userProfileData'
 import { UserProfileNavigate } from 'features/profile/profileSetting/ui/userProfileNavigate/userProfileNavigate'
-import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const UserProfileSetting = () => {
@@ -15,11 +14,6 @@ const UserProfileSetting = () => {
       <div className={cls.profileSettingBlock}>
         <ProfilePhotoBlock />
         <UserProfileData />
-      </div>
-      <div className={cls.buttonBlock}>
-        <Button theme={ButtonTheme.PRIMARY} size={ButtonSize.XS} className={cls.button}>
-          Save Changes
-        </Button>
       </div>
     </div>
   )

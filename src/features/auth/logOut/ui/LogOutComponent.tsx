@@ -2,7 +2,9 @@ import { FC, memo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import Logout from '../../../../../public/icon/logOut.svg'
+import Logout from '../../../../../public/icon/log-out.svg'
+
+import cls from './AuthFormsStyles.module.scss'
 
 import { clearToken } from 'features/auth/login'
 import { Modal } from 'features/auth/logOut/modal/modal'
@@ -14,8 +16,7 @@ import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Loader } from 'shared/ui/Loader/Loader'
-import { Text, TextFontTheme } from 'shared/ui/Text/Text'
-import cls from 'widgets/Header/ui/Header.module.scss'
+import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface LogOutComponentProps {
   className?: string
@@ -47,9 +48,17 @@ export const LogOutComponent: FC<LogOutComponentProps> = memo(({ className = '' 
   if (isLoading) return <Loader />
 
   return (
-    <div className={classNames('', {}, [className])}>
-      <Button className={cls.mb18} theme={ButtonTheme.Clear} onClick={logOutHandler}>
+    <div className={classNames('', {}, [])}>
+      <Button className={cls.btn} theme={ButtonTheme.Clear} onClick={logOutHandler}>
         <Logout />
+        <Text
+          tag={'span'}
+          className={className}
+          font={TextFontTheme.INTER_MEDIUM_L}
+          color={TextColorTheme.LIGHT}
+        >
+          Log Out
+        </Text>
       </Button>
       <Modal title={'Log Out'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
         <Text

@@ -2,31 +2,29 @@ import React, { PropsWithChildren } from 'react'
 
 import cls from './userProfileData.module.scss'
 
-import { Text, TextColorTheme } from 'shared/ui/Text/Text'
+import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { CustomDatePicker } from 'shared/ui/DatePicker/DatePicker'
+import { Input } from 'shared/ui/Input/Input'
 import { TextArea } from 'shared/ui/TextArea/TextArea'
 
-const userProfileDataList = [
-  { id: '1', title: 'Username', item: '' },
-  { id: '2', title: 'First Name', item: '' },
-  { id: '3', title: 'Last Name', item: '' },
-  { id: '4', title: 'Date of birthday', item: '' },
-  { id: '5', title: 'City', item: '' },
-  { id: '6', title: 'About Me', item: <TextArea>{'Text-area'}</TextArea> },
-]
-
-export const UserProfileData = ({ children }: PropsWithChildren) => {
+export const UserProfileData = () => {
   return (
-    <div className={cls.userProfileData}>
-      {userProfileDataList.map(({ id, title, item }) => (
-        <div key={id} className={cls.item}>
-          <Text tag={'span'} color={TextColorTheme.LIGHT}>
-            {title}
-          </Text>
-          <Text tag={'h1'} color={TextColorTheme.LIGHT}>
-            {item}
-          </Text>
-        </div>
-      ))}
-    </div>
+    <form className={cls.form}>
+      <Input title={'UserName'} />
+      <Input title={'Name'} />
+      <Input title={'SurName'} />
+      <CustomDatePicker title={'Date of birthday'} />
+      <Input title={'City'} />
+      <TextArea title={'About Me'} />
+      <div className={cls.decor}></div>
+      <Button
+        type={'submit'}
+        theme={ButtonTheme.PRIMARY}
+        size={ButtonSize.XS}
+        className={cls.button}
+      >
+        Save Changes
+      </Button>
+    </form>
   )
 }

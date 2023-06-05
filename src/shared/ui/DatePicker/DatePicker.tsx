@@ -8,7 +8,7 @@ import cls from './DatePicker.module.scss'
 import { classNames } from 'shared/lib/classNames/classNames'
 
 // eslint-disable-next-line import/order
-import { format, formatISO } from 'date-fns'
+import { formatISO } from 'date-fns'
 
 export enum CustomDatePickerThemes {
   SINGLE_DATE = 'single',
@@ -22,6 +22,7 @@ interface CustomDatePickerProps {
   onChangeDate?: (data: string | null) => void
   theme?: CustomDatePickerThemes
   className?: string
+  title?: string
 }
 
 export const CustomDatePicker: FC<CustomDatePickerProps> = ({
@@ -30,6 +31,7 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   end,
   start,
   theme = 'single',
+  title,
   className = '',
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -64,40 +66,45 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   }
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className={cls.wrapper}>
       <div className={cls.container} onClick={() => setIsOpen(prev => !prev)}>
-        <DatePicker
-          wrapperClassName={classNames(
-            cls.wrapper,
-            {
-              [cls.single]: theme === CustomDatePickerThemes.SINGLE_DATE,
-              [cls.singleOpen]: theme === CustomDatePickerThemes.SINGLE_DATE && isOpen,
-            },
-            []
-          )}
-          showIcon
-          selectsRange={theme === CustomDatePickerThemes.RANGE}
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={() => {}}
-          calendarClassName={cls.calendar}
-        />
+        <label className={cls.label}>
+          {title}
+          <DatePicker
+            wrapperClassName={classNames(
+              cls.wrapper,
+              {
+                [cls.single]: theme === CustomDatePickerThemes.SINGLE_DATE,
+                [cls.singleOpen]: theme === CustomDatePickerThemes.SINGLE_DATE && isOpen,
+              },
+              []
+            )}
+            showIcon
+            selectsRange={theme === CustomDatePickerThemes.RANGE}
+            selected={startDate}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={() => {}}
+            calendarClassName={cls.calendar}
+          />
+        </label>
       </div>
 
       {isOpen && (
-        <DatePicker
-          dayClassName={date => cls.day}
-          popperClassName={cls.popper}
-          weekDayClassName={() => cls.weekDay}
-          monthClassName={() => cls.month}
-          selected={startDate}
-          selectsRange={theme === CustomDatePickerThemes.RANGE}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={onChange}
-          inline
-        />
+        <div className={cls.absolute}>
+          <DatePicker
+            dayClassName={date => cls.day}
+            popperClassName={cls.popper}
+            weekDayClassName={() => cls.weekDay}
+            monthClassName={() => cls.month}
+            selected={startDate}
+            selectsRange={theme === CustomDatePickerThemes.RANGE}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={onChange}
+            inline
+          />
+        </div>
       )}
     </div>
   )

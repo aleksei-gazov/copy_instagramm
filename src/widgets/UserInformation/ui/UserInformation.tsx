@@ -20,10 +20,14 @@ const userInformationList = [
 
 export const UserInformation: FC<UserInformationProps> = memo(({ className = '' }) => {
   return (
-    <ul className={classNames(cls.UserInformation, {}, [className])}>
+    <ul className={classNames(cls.UserInformation, {}, [])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
         <li key={id}>
-          <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
+          <NavLink
+            href={href}
+            color={NavLinkColor.PRIMARY}
+            className={classNames(cls.navLink, {}, [className])}
+          >
             <Icon fill={'currentColor'} />
             {title}
           </NavLink>

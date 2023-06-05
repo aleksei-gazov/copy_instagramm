@@ -23,10 +23,14 @@ interface UserNavigationProps {
 
 export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' }) => {
   return (
-    <ul className={classNames(cls.UserInformation, {}, [className, s.UserNavigation])}>
+    <ul className={classNames(cls.UserInformation, {}, [s.UserNavigation])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
         <li key={id}>
-          <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
+          <NavLink
+            href={href}
+            color={NavLinkColor.PRIMARY}
+            className={classNames(cls.navLink, {}, [className])}
+          >
             <Icon fill={'currentColor'} />
             {title}
           </NavLink>

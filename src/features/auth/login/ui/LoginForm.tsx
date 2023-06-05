@@ -3,11 +3,11 @@ import { FieldValues } from 'react-hook-form'
 
 import Github from '../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../../styles/AuthFormsStyles.module.scss'
 
 import cls from './LoginForm.module.scss'
 
 import { useLoginMutation } from 'features/auth/login/authByEmail/service/authByEmail'
+import formCls from 'features/auth/logOut/ui/AuthFormsStyles.module.scss'
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'

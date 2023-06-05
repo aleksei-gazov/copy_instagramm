@@ -4,7 +4,7 @@
 
   color: var(--light-100);
   border-bottom: 1px solid var(--dark-300);
-  background-color: var(--dark-500);
+  background: none;
   caret-color: var(--light-100);
 
   &:active {
@@ -30,7 +30,7 @@
 
 .label {
   position: relative;
-  color: var(--dark-100);
+  color: var(--light-900);
 }
 
 .btn {

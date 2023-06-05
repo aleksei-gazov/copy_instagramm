@@ -1,20 +1,17 @@
 .ProfileSetting {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 61px);
+  padding: 42px 310px 30px 124px;
 
-  align-items: center;
 }
 
 .profileSettingBlock {
+  position: relative;
   width: 726px;
   display: flex;
+  padding-top: 22px;
   flex-direction: row;
-  border-bottom: 2px solid var(--dark-100);
-}
-
-.button {
-  margin-top: 20px;
-  font-weight: bold;
 }
 
 .buttonBlock {
@@ -23,3 +20,4 @@
   align-items: end;
   width: 726px;
 }
+
