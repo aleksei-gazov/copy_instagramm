@@ -11,13 +11,11 @@ export type TabPropsType = {
   onClick: (value: TabsType) => void
 }
 
-export const Tab = memo(({ children, onClick, value, currentValue }: TabPropsType) => {
-  return (
-    <button
-      className={classNames(cls.button, { [cls.buttonActive]: currentValue === value }, [])}
-      onClick={() => onClick(value)}
-    >
-      {children}
-    </button>
-  )
-})
+export const Tab = memo(({ children, onClick, value, currentValue }: TabPropsType) => (
+  <button
+    className={classNames(cls.button, { [cls.buttonActive]: currentValue === value }, [])}
+    onClick={() => onClick(value)}
+  >
+    {children}
+  </button>
+))
