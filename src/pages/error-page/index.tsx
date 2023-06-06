@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router'
-
 import cls from './ErrorPage.module.scss'
 
 import { PATH } from 'shared/const/path'
@@ -8,7 +6,9 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const ErrorPage = () => {
-  const { push } = useRouter()
+  const reload = () => {
+    location.assign(PATH.HOME)
+  }
 
   return (
     <div className={cls.ErrorPage}>
@@ -24,7 +24,7 @@ const ErrorPage = () => {
         >
           An unexpected error occurred
         </Text>
-        <Button onClick={() => push(PATH.HOME)} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
+        <Button onClick={reload} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
           Go to home page
         </Button>
       </div>
