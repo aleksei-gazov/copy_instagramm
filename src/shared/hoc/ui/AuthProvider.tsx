@@ -21,11 +21,25 @@ export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
 
   const isAuthPage = authMeData || asPath.startsWith(PATH.AUTH)
 
-  if (error && !isAuthPage) {
-    push(PATH.LOGIN)
+  console.log(error)
 
-    return <></>
+  if (error) {
+    if ('status' in error && error.status === 401 && !isAuthPage) {
+      push(PATH.LOGIN)
+
+      return <></>
+    } else {
+      push(PATH.ERROR_PAGE)
+
+      return <></>
+    }
   }
+
+  // if (error && error.status && !isAuthPage) {
+  //   push(PATH.LOGIN)
+  //
+  //   return <></>
+  // }
 
   if (isLoading) return <Loader />
 
