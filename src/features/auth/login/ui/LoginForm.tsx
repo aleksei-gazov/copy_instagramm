@@ -67,6 +67,7 @@ export const LoginForm = () => {
         error={errorEmail}
         placeholder={'Epam@epam.com'}
         title={'Email'}
+        autoComplete={'username'}
         className={cls.mb24}
       />
       <Input
@@ -74,6 +75,7 @@ export const LoginForm = () => {
         register={register}
         error={errorLoginPassword}
         type={'password'}
+        autoComplete={'current-password'}
         placeholder={'Epam@epam.com'}
         title={'Password'}
         className={cls.mb60}
