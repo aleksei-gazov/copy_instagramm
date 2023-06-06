@@ -15,13 +15,13 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
   const { push, asPath } = useRouter()
   const authMeData = useAppSelector(getAuthMeData)?.email
+  const skipAuthMe =
+    Boolean(authMeData) || asPath.startsWith(PATH.AUTH) || asPath === PATH.ERROR_PAGE
   const { isLoading, error } = useAuthQuery(undefined, {
-    skip: Boolean(authMeData) || asPath.startsWith(PATH.AUTH),
+    skip: skipAuthMe,
   })
 
   const isAuthPage = authMeData || asPath.startsWith(PATH.AUTH)
-
-  console.log(error)
 
   if (error) {
     if ('status' in error && error.status === 401 && !isAuthPage) {
@@ -34,12 +34,6 @@ export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
       return <></>
     }
   }
-
-  // if (error && error.status && !isAuthPage) {
-  //   push(PATH.LOGIN)
-  //
-  //   return <></>
-  // }
 
   if (isLoading) return <Loader />
 

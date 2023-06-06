@@ -8,5 +8,5 @@ export enum PATH {
   FAVORITES = '/favorites',
   STATISTICS = '/statistics',
   PROFILE = '/profile',
-  ERROR_PAGE = 'error-page',
+  ERROR_PAGE = '/error-page',
 }

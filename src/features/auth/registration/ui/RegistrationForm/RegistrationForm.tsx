@@ -78,8 +78,8 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         error={errorName}
         placeholder={'Epam'}
         title={'Username'}
-        className={cls.mb36}
       />
+      <div className={cls.h36}></div>
 
       <Input
         register={register}
@@ -87,9 +87,8 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         error={errorEmail}
         placeholder={'Epam@epam.com'}
         title={'Email'}
-        className={cls.mb36}
       />
-
+      <div className={cls.h36}></div>
       <Input
         register={register}
         nameForValidate={'password'}
@@ -97,9 +96,8 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         type={'password'}
         placeholder={'Password'}
         title={'Password'}
-        className={cls.mb36}
       />
-
+      <div className={cls.h36}></div>
       <Input
         register={register}
         nameForValidate={'confirmPassword'}
@@ -107,29 +105,23 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         type={'password'}
         placeholder={'Password confirmation'}
         title={'Password confirmation'}
-        className={cls.mb36}
       />
-
-      <Button
-        disabled={!isValid}
-        type={'submit'}
-        className={cls.mb18}
-        theme={ButtonTheme.PRIMARY}
-        size={ButtonSize.XXl}
-      >
+      <div className={cls.h36}></div>
+      <Button disabled={!isValid} type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Sign Up
         </Text>
       </Button>
-
+      <div className={cls.h18}></div>
       <Text
-        className={`${cls.mb12} ${formCls.alignSelfCenter}`}
+        className={formCls.alignSelfCenter}
         tag={'p'}
         color={TextColorTheme.LIGHT}
         font={TextFontTheme.INTER_REGULAR_XL}
       >
         Do you have an account?
       </Text>
+      <div className={cls.h12}></div>
 
       <NavLink className={cls.alignSelfCenterPure} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Sign In

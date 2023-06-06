@@ -7,12 +7,12 @@
   background: none;
   caret-color: var(--light-100);
 
-  &:active {
-    border-bottom: 1px solid var(--light-100);
-  }
-
   &:hover {
     border-bottom: 1px solid var(--light-900);
+  }
+
+  &:active {
+    border-bottom: 1px solid var(--light-100);
   }
 }
 
@@ -31,6 +31,10 @@
 .label {
   position: relative;
   color: var(--light-900);
+
+  //&:focus-within {
+  //  outline: 2px solid var(--primary-700);
+  //}
 }
 
 .btn {

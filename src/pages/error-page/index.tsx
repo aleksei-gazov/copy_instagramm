@@ -5,6 +5,7 @@ import cls from './ErrorPage.module.scss'
 import { PATH } from 'shared/const/path'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+import { getLayout } from 'widgets/Layout/Layout'
 
 const ErrorPage = () => {
   const { push } = useRouter()
@@ -30,5 +31,7 @@ const ErrorPage = () => {
     </div>
   )
 }
+
+ErrorPage.getLayout = getLayout
 
 export default ErrorPage
