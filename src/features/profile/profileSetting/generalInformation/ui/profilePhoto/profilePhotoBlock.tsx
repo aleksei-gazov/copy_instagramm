@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Photo from '../../../../../../public/icon/photo.svg'
+import Photo from '../../../../../../../public/icon/photo.svg'
 
 import cls from './profilePhotoBlock.module.scss'
 
