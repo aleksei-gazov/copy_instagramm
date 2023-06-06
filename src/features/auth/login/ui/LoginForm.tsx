@@ -3,11 +3,11 @@ import { FieldValues } from 'react-hook-form'
 
 import Github from '../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../public/icon/google-svgrepo-com.svg'
-import formCls from '../../../../styles/AuthFormsStyles.module.scss'
 
 import cls from './LoginForm.module.scss'
 
 import { useLoginMutation } from 'features/auth/login/authByEmail/service/authByEmail'
+import formCls from 'features/auth/logOut/ui/AuthFormsStyles.module.scss'
 import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
@@ -67,43 +67,40 @@ export const LoginForm = () => {
         error={errorEmail}
         placeholder={'Epam@epam.com'}
         title={'Email'}
-        className={cls.mb24}
+        autoComplete={'username'}
       />
+      <div className={cls.h24}></div>
       <Input
         nameForValidate={'loginPassword'}
         register={register}
         error={errorLoginPassword}
         type={'password'}
+        autoComplete={'current-password'}
         placeholder={'Epam@epam.com'}
         title={'Password'}
-        className={cls.mb60}
       />
-
+      <div className={cls.h60}></div>
       <NavLink className={cls.alignSelfEnd} href={PATH.PASSWORD_RECOVERY} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
           Forgot Password
         </Text>
       </NavLink>
-
-      <Button
-        disabled={!isValid}
-        type={'submit'}
-        className={cls.mb18}
-        theme={ButtonTheme.PRIMARY}
-        size={ButtonSize.XXl}
-      >
+      <div className={cls.h24}></div>
+      <Button disabled={!isValid} type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Sign In
         </Text>
       </Button>
+      <div className={cls.h18}></div>
       <Text
-        className={`${cls.mb12} ${formCls.alignSelfCenter}`}
+        className={formCls.alignSelfCenter}
         tag={'p'}
         color={TextColorTheme.LIGHT}
         font={TextFontTheme.INTER_REGULAR_XL}
       >
         Don’t have an account?
       </Text>
+      <div className={cls.h12}></div>
       <NavLink
         className={formCls.alignSelfCenter}
         href={PATH.REGISTRATION}

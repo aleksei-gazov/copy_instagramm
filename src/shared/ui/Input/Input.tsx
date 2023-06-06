@@ -19,6 +19,7 @@ interface InputType extends HTMLInputProps {
   nameForValidate?: string
   onChange?: (value: string) => void
   className?: string
+  value?: string
 }
 
 export const Input: FC<InputType> = memo(

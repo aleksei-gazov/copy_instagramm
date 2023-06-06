@@ -18,7 +18,7 @@ import { store } from 'store/store'
 export const Layout: NextPage<PropsWithChildren> = props => {
   const { asPath } = useRouter()
   const { children } = props
-  const isLoggedInUser = asPath.startsWith(PATH.AUTH)
+  const isLoggedInUser = asPath.startsWith(PATH.AUTH) || asPath === PATH.ERROR_PAGE
 
   return (
     <div className={cls.Layout}>

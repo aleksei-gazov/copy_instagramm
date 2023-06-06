@@ -64,6 +64,7 @@
   &:focus-visible {
     background-color: var(--primary-700);
     color: var(--light-100);
+    outline: 2px solid var(--primary-700);
   }
 
   &:disabled {
@@ -148,11 +149,11 @@
   width: 182px;
 }
 
-//.s {
-//  width: 96px;
+.s {
+  width: 96px;
 //  height: 36px;
-//}
+}
 
 .xs {
-  width: 96px;
+  width: 140px;
 }

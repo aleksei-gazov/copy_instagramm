@@ -1,0 +1,19 @@
+.Navigate{
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--dark-100);
+  display: flex;
+  flex-direction: row;
+
+  width: 726px;
+  height: 36px;
+  left: 244px;
+  top: 96px;
+}
+.navLink{
+  padding-left: 10px;
+  font-weight: bold;
+}
+.navLink.active{
+  border-bottom: 5px solid var(--primary-900);
+}
