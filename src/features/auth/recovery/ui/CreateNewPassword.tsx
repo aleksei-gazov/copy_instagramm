@@ -3,8 +3,8 @@ import { memo } from 'react'
 import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
-import { useCreateNewPasswordMutation } from 'features/auth/recovery/service/createNewPassword'
-import s from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
+import { useCreateNewPasswordMutation } from 'features/auth/createNewPassword/service/createNewPassword'
+import s from 'features/auth/createNewPassword/ui/CreateNewPassword.module.scss'
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
@@ -16,7 +16,7 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 export const CreateNewPasswordForm = memo(() => {
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
-  const { id } = router.query
+  const { code } = router.query
 
   const { errorPassword, errorConfirmPassword, isValid, register, handleSubmit } = useFormHandler(
     'password',
@@ -27,7 +27,7 @@ export const CreateNewPasswordForm = memo(() => {
   const onSubmit = (data: FieldValues) => {
     const payload = {
       newPassword: data.password,
-      recoveryCode: id,
+      recoveryCode: code as string,
     }
 
     createNewPassword(payload)
@@ -68,7 +68,14 @@ export const CreateNewPasswordForm = memo(() => {
         title={'Password confirmation'}
         className={s.mb36}
       />
-
+      <Text
+        className={`${s.mb12} ${s.alignSelfCenter}`}
+        tag={'p'}
+        color={TextColorTheme.LIGHT}
+        font={TextFontTheme.INTER_REGULAR_XL}
+      >
+        Your password must be between 6 and 20 characters
+      </Text>
       <Button
         disabled={!isValid}
         type={'submit'}

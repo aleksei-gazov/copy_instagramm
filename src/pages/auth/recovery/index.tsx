@@ -1,4 +1,4 @@
-import { CreateNewPasswordForm } from 'features/auth/recovery/ui/CreateNewPassword'
+import { CreateNewPasswordForm } from 'features/auth/createNewPassword/ui/CreateNewPassword'
 import s from 'pages/auth/recovery/CreateNewPassword.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
