@@ -4,8 +4,7 @@ import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
 import { useCreateNewPasswordMutation } from 'features/auth/createNewPassword/service/createNewPassword'
-import s from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
-import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
+import s from 'features/auth/createNewPassword/ui/CreateNewPassword.module.scss'
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
@@ -13,14 +12,12 @@ import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
-import formCls from 'styles/AuthFormsStyles.module.scss'
 
 export const CreateNewPasswordForm = memo(() => {
   const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const { code } = router.query
 
-  console.log(router.query)
   const { errorPassword, errorConfirmPassword, isValid, register, handleSubmit } = useFormHandler(
     'password',
     'confirmPassword'
@@ -72,7 +69,7 @@ export const CreateNewPasswordForm = memo(() => {
         className={s.mb36}
       />
       <Text
-        className={`${cls.mb12} ${formCls.alignSelfCenter}`}
+        className={`${s.mb12} ${s.alignSelfCenter}`}
         tag={'p'}
         color={TextColorTheme.LIGHT}
         font={TextFontTheme.INTER_REGULAR_XL}
