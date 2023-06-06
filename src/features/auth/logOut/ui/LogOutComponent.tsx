@@ -6,12 +6,10 @@ import Logout from '../../../../../public/icon/log-out.svg'
 
 import cls from './AuthFormsStyles.module.scss'
 
-import { clearToken } from 'features/auth/login'
 import { Modal } from 'features/auth/logOut/modal/modal'
 import { useLogOutMutation } from 'features/auth/logOut/service/logOut'
 import { PATH } from 'shared/const/path'
 import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
-import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
@@ -23,12 +21,11 @@ interface LogOutComponentProps {
 }
 
 export const LogOutComponent: FC<LogOutComponentProps> = memo(({ className = '' }) => {
-  const dispatch = useAppDispatch()
   const router = useRouter()
   const logOutHandler = () => {
     setShowModal(true)
   }
-  const [logOut, { isLoading }] = useLogOutMutation()
+  const [logOut, { isLoading, isSuccess }] = useLogOutMutation()
   const authMeData = useAppSelector(getAuthMeData)
   const email = authMeData?.email
   const [showModal, setShowModal] = useState<boolean>(false) //modal
@@ -37,15 +34,16 @@ export const LogOutComponent: FC<LogOutComponentProps> = memo(({ className = '' 
   }
   const onSubmit = () => {
     logOut()
-      .unwrap()
-      .then(() => {
-        dispatch(clearToken())
-        router.push(PATH.LOGIN)
-      })
     setShowModal(false)
   }
 
   if (isLoading) return <Loader />
+
+  if (isSuccess) {
+    router.push(PATH.LOGIN)
+
+    return <></>
+  }
 
   return (
     <div className={classNames('', {}, [])}>
