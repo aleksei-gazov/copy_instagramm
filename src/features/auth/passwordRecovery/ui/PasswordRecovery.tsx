@@ -41,7 +41,7 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
       })
   }
 
-  const onChange = value => {
+  const onChange = (value: string | null) => {
     setToken(value)
   }
 

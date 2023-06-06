@@ -8,6 +8,7 @@ import cls from './UserInformation.module.scss'
 import { PATH } from 'shared/const/path'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
+import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface UserInformationProps {
   className?: string
@@ -20,12 +21,14 @@ const userInformationList = [
 
 export const UserInformation: FC<UserInformationProps> = memo(({ className = '' }) => {
   return (
-    <ul className={classNames(cls.UserInformation, {}, [className])}>
+    <ul className={classNames(cls.UserInformation, {}, [])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
         <li key={id}>
           <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
             <Icon fill={'currentColor'} />
-            {title}
+            <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
+              {title}
+            </Text>
           </NavLink>
         </li>
       ))}
