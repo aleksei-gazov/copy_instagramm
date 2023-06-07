@@ -1,5 +1,6 @@
 import React, { FC, InputHTMLAttributes } from 'react'
 
+import { classNames } from 'shared/lib/classNames/classNames'
 import { TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'shared/ui/TextArea/TextArea.module.scss'
 
@@ -10,7 +11,7 @@ interface TextAreaProps extends HTMLTextAreaProps {
   font?: TextFontTheme
   color?: TextColorTheme
   onChange?: (value: string) => void
-  value?: string
+  value: string
 }
 
 export const TextArea: FC<TextAreaProps> = ({
@@ -18,12 +19,29 @@ export const TextArea: FC<TextAreaProps> = ({
   font = 'interRegularM',
   color = '',
   title,
+  value,
+  placeholder = 'Text-area',
+  disabled = false,
+  onChange,
   ...otherProps
 }) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (onChange) {
+      onChange(e.target.value)
+    }
+  }
+
   return (
-    <label className={cls.label}>
+    <label className={classNames(cls.label, { [cls.disabled]: disabled }, [])}>
       {title}
-      <textarea className={cls.textArea}></textarea>
+      <textarea
+        {...otherProps}
+        onChange={onChangeHandler}
+        disabled={disabled}
+        placeholder={placeholder}
+        value={value}
+        className={classNames(cls.textArea, {}, [className])}
+      ></textarea>
     </label>
   )
 }
