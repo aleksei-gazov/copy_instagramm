@@ -8,18 +8,28 @@ import { InputTypeFile } from 'shared/ui/InputTypeFile/InputTypeFile'
 import { ModalHeader } from 'shared/ui/ModalHeader/ModalHeader'
 import { Portal } from 'shared/ui/Portal/Portal'
 
-export const SettingPhotoModal = () => {
+export type SettingPhotoModalType = {
+  isModalOpen: boolean
+  setIsModalOpen: (isModalOpen: boolean) => void
+}
+
+export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoModalType) => {
+  const handleButtonClick = () => {
+    setIsModalOpen(false)
+  }
+
+  if (!isModalOpen) return null
+
   return (
     <Portal>
       <div className={cls.container}>
-        <ModalHeader title={'Add a Profile Photo'} handleButtonClick={() => {}} />
+        <ModalHeader title={'Add a Profile Photo'} handleButtonClick={handleButtonClick} />
         <div className={cls.main}>
           <div className={cls.photoContainer}>
             <Photo className={cls.photo} />
           </div>
           <div className={cls.selectPhoto}>
             <InputTypeFile />
-            {/*<Button theme={ButtonTheme.PRIMARY}>Select</Button>*/}
           </div>
         </div>
       </div>
