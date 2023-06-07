@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
+import Avatar from 'react-avatar'
+
 import Photo from '../../../../../../../public/icon/photo.svg'
 
 import cls from './SettingPhotoModal.module.scss'
 
-import { SelectedImage } from 'features/profile/profileSetting/photoSetting/ui/SelectedImage/SelectedImage'
 import { InputTypeFile } from 'shared/ui/InputTypeFile/InputTypeFile'
 import { ModalHeader } from 'shared/ui/ModalHeader/ModalHeader'
 import { Portal } from 'shared/ui/Portal/Portal'
@@ -30,11 +31,12 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
         <div className={cls.main}>
           <div className={cls.photoContainer}>
             {selectedImage ? (
-              <SelectedImage selectedImage={selectedImage} />
+              <Avatar src={URL.createObjectURL(selectedImage)} size="200" />
             ) : (
               <Photo className={cls.photo} />
             )}
           </div>
+
           <div className={cls.selectPhoto}>
             <InputTypeFile setSelectedImage={setSelectedImage} />
           </div>
