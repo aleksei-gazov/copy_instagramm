@@ -1,5 +1,7 @@
 import React, { FC, InputHTMLAttributes } from 'react'
 
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+
 import { classNames } from 'shared/lib/classNames/classNames'
 import { TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'shared/ui/TextArea/TextArea.module.scss'
@@ -11,7 +13,9 @@ interface TextAreaProps extends HTMLTextAreaProps {
   font?: TextFontTheme
   color?: TextColorTheme
   onChange?: (value: string) => void
-  value: string
+  value?: string
+  register?: UseFormRegister<FieldValues>
+  nameForValidate?: string
 }
 
 export const TextArea: FC<TextAreaProps> = ({
@@ -21,6 +25,8 @@ export const TextArea: FC<TextAreaProps> = ({
   title,
   value,
   placeholder = 'Text-area',
+  register,
+  nameForValidate = '',
   disabled = false,
   onChange,
   ...otherProps
@@ -31,11 +37,14 @@ export const TextArea: FC<TextAreaProps> = ({
     }
   }
 
+  const registerParam = nameForValidate && register && register(nameForValidate)
+
   return (
     <label className={classNames(cls.label, { [cls.disabled]: disabled }, [])}>
       {title}
       <textarea
         {...otherProps}
+        {...registerParam}
         onChange={onChangeHandler}
         disabled={disabled}
         placeholder={placeholder}
