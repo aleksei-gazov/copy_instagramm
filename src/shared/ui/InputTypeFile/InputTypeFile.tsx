@@ -4,7 +4,11 @@ import cls from './InputTypeFile.module.scss'
 
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 
-export const InputTypeFile = () => {
+type InputTypeFileProps = {
+  setSelectedImage: (image: File) => void
+}
+
+export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const selectFileHandler = () => {
@@ -15,6 +19,7 @@ export const InputTypeFile = () => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
+      setSelectedImage(file)
       console.log('file: ', file)
     }
   }
@@ -24,7 +29,13 @@ export const InputTypeFile = () => {
       <Button theme={ButtonTheme.PRIMARY} onClick={selectFileHandler} className={cls.btn}>
         Select from Computer
       </Button>
-      <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={uploadHandler} />
+      <input
+        style={{ display: 'none' }}
+        ref={inputRef}
+        type="file"
+        onChange={uploadHandler}
+        accept="image/png, image/jpeg, image/jpg"
+      />
     </div>
   )
 }
