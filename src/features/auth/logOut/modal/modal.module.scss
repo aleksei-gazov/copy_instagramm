@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3000;
 }
 
 .modalContent {
@@ -17,6 +18,7 @@
   border-radius: 2px;
   background-color: var(--dark-300);
   color: white;
+  z-index: 3000;
 
   .strip {
     width: 100%;

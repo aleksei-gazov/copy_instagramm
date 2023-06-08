@@ -41,7 +41,6 @@ export const UserProfileData = () => {
   useSetValuesFromProfileData(setValue, profileData)
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data)
     const payload = {
       userName: data.name,
       firstName: data.firstName,

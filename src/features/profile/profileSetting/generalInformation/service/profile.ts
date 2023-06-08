@@ -32,6 +32,7 @@ export const profile = baseAPI.injectEndpoints({
       invalidatesTags: ['User'],
     }),
   }),
+  overrideExisting: true,
 })
 
 export const { useGetProfileQuery, useUpdateProfileMutation, useDelProfileMutation } = profile
