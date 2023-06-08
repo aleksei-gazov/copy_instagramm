@@ -56,8 +56,7 @@ export const CreateNewPasswordForm = memo(() => {
         nameForValidate={'password'}
         error={errorPassword}
         type={'password'}
-        placeholder={'Password'}
-        title={'Password'}
+        title={'New password'}
         className={s.mb36}
       />
 
@@ -66,7 +65,6 @@ export const CreateNewPasswordForm = memo(() => {
         nameForValidate={'confirmPassword'}
         error={errorConfirmPassword}
         type={'password'}
-        placeholder={'Password confirmation'}
         title={'Password confirmation'}
         className={s.mb36}
       />
