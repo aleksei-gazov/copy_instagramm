@@ -68,7 +68,7 @@ export const useFormHandler = (...keys: string[]) => {
     setFocus,
     control,
     setValue,
-  } = useForm({ resolver: yupResolver(formSchema), mode: 'onBlur' })
+  } = useForm({ resolver: yupResolver(formSchema), mode: 'onTouched' })
 
   const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')

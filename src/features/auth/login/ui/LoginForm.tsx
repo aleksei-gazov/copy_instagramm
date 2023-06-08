@@ -65,7 +65,6 @@ export const LoginForm = () => {
       <input name="f_password" style={{ display: 'none' }} type="password" />
 
       <Input
-        autoFocus
         register={register}
         nameForValidate={'email'}
         error={errorEmail}
