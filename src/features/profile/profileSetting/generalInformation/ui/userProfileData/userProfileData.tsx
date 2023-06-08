@@ -6,7 +6,7 @@ import { useGetProfileQuery } from '../../../../service/profile'
 
 import cls from './userProfileData.module.scss'
 
-import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
+import { getAuthMeData } from 'shared/hoc'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'

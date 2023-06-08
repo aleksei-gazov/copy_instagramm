@@ -83,7 +83,7 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
             selected={startDate}
             startDate={startDate}
             endDate={endDate}
-            onChange={() => {}}
+            onChange={onChangeHandler}
             calendarClassName={cls.calendar}
           />
         </label>
