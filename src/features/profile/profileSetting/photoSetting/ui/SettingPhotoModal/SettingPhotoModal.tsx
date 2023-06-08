@@ -6,6 +6,7 @@ import Photo from '../../../../../../../public/icon/photo.svg'
 
 import cls from './SettingPhotoModal.module.scss'
 
+import { useSendAvatarMutation } from 'features/profile/profileSetting/photoSetting/service/photoSetting'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { InputTypeFile } from 'shared/ui/InputTypeFile/InputTypeFile'
@@ -21,15 +22,27 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const editorRef = useRef<AvatarEditor>(null)
   const [position, setPosition] = useState({ x: 0.5, y: 0.5 })
+  const [sendAvatar] = useSendAvatarMutation()
 
   const handleSaveAvatar = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas()
-      const dataUrl = canvas.toDataURL('image/jpeg')
 
       setIsModalOpen(false)
       setSelectedImage(null)
-      console.log(dataUrl)
+
+      canvas.toBlob(blob => {
+        if (blob) {
+          // Create a new File object from the Blob
+          const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
+
+          // Perform necessary actions with the file
+          console.log(file) // Output the file object
+          sendAvatar(file)
+          // You can now use the file object for further processing (e.g., upload to the server)
+        }
+      }, 'image/jpeg')
+
       // Perform necessary actions with the centered avatar dataUrl
       // (e.g., upload to the server)
     }

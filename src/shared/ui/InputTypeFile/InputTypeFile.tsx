@@ -10,7 +10,6 @@ type InputTypeFileProps = {
 
 export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
-
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()
   }
