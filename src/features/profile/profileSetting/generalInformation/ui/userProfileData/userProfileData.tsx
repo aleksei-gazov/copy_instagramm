@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Controller, FieldValues } from 'react-hook-form'
 
-import { useGetProfileQuery } from '../../../../service/profile'
+import { useGetProfileQuery, useUpdateProfileMutation } from '../../../../service/profile'
 
 import cls from './userProfileData.module.scss'
 
@@ -27,7 +27,8 @@ export const UserProfileData = () => {
   } = useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
-  const { data: profile } = useGetProfileQuery(userId)
+  const { data: profileData } = useGetProfileQuery(userId)
+  const [profile, { isLoading, isSuccess }] = useUpdateProfileMutation()
 
   const onSubmit = (data: FieldValues) => {
     console.log(data)
@@ -39,6 +40,8 @@ export const UserProfileData = () => {
       dateOfBirth: data.date,
       aboutMe: data.textArea,
     }
+
+    profile(payload)
   }
 
   return (
@@ -48,27 +51,27 @@ export const UserProfileData = () => {
         register={register}
         nameForValidate={'name'}
         error={errorName}
-        defaultValue={profile?.userName}
+        defaultValue={profileData?.userName}
         title={'User Name'}
       />
       <Input
         register={register}
         nameForValidate={'firstName'}
         error={errorFirstName}
-        defaultValue={profile?.firstName}
+        defaultValue={profileData?.firstName}
         title={'First Name'}
       />
       <Input
         register={register}
         nameForValidate={'lastName'}
         error={errorLastName}
-        defaultValue={profile?.lastName}
+        defaultValue={profileData?.lastName}
         title={'Last Name'}
       />
       <Controller
         control={control}
         name="date"
-        defaultValue={profile?.dateOfBirth}
+        defaultValue={profileData?.dateOfBirth}
         render={({ field }) => (
           <CustomDatePicker
             title={'Date of birthday'}
@@ -78,14 +81,14 @@ export const UserProfileData = () => {
         )}
       />
       <Input
-        defaultValue={profile?.city}
+        defaultValue={profileData?.city}
         register={register}
         nameForValidate={'city'}
         error={errorCity}
         title={'City'}
       />
       <TextArea
-        defaultValue={profile?.aboutMe}
+        defaultValue={profileData?.aboutMe}
         register={register}
         nameForValidate={'textArea'}
         title={'About Me'}

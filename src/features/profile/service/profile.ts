@@ -5,14 +5,21 @@ import { baseAPI } from 'shared/api/baseAPI'
 export const profile = baseAPI.injectEndpoints({
   endpoints: build => ({
     getProfile: build.query<ProfileParamsType, number | null>({
-      query: Id => {
+      query: arg => {
         return {
           url: '/api/users/profile',
-          params: { Id },
+          params: { arg },
         }
       },
+    }),
+    updateProfile: build.mutation<void, ProfileParamsType>({
+      query: arg => ({
+        url: `/api/users/profile`,
+        method: 'PUT',
+        body: arg,
+      }),
     }),
   }),
 })
 
-export const { useGetProfileQuery } = profile
+export const { useGetProfileQuery, useUpdateProfileMutation } = profile
