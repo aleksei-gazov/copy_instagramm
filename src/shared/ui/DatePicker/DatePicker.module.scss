@@ -1,6 +1,6 @@
 .wrapper {
   position: relative;
-  width: max-content;
+  width: min-content;
 
   .absolute {
     position: absolute;
@@ -32,7 +32,7 @@
 }
 
 .calendar {
- display: none;
+  display: none;
 }
 
 .calendar:nth-child(2) {
@@ -49,13 +49,13 @@
 }
 
 .wrapper {
-  width: 100%;
+  width: min-content;
   cursor: pointer;
 }
 
 .container {
   display: flex;
-  width: 330px
+  width: min-content;
 }
 
 .single {
@@ -70,4 +70,13 @@
   color: var(--light-900);
   display: flex;
   flex-direction: column;
+}
+
+.customInput {
+  border: none;
+  outline: none;
+  .Input:hover {
+    border: none;
+    outline: none;
+  }
 }

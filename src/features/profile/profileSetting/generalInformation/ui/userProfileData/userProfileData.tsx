@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { FieldValues } from 'react-hook-form'
+import { Controller, FieldValues } from 'react-hook-form'
 
-import { getAuthMeData } from '../../../../../../shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
 import { useGetProfileQuery } from '../../../../service/profile'
 
 import cls from './userProfileData.module.scss'
 
-import { getUserName } from 'shared/hoc'
+import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
@@ -16,9 +15,19 @@ import { Input } from 'shared/ui/Input/Input'
 import { TextArea } from 'shared/ui/TextArea/TextArea'
 
 export const UserProfileData = () => {
-  const { isValid, register, handleSubmit, errorName, errorCity, errorFirstName, errorLastName } =
-    useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
-  const userName = useAppSelector(getUserName)
+  const {
+    isValid,
+    register,
+    handleSubmit,
+    errorName,
+    errorCity,
+    errorFirstName,
+    errorLastName,
+    control,
+  } = useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
+  const authMeData = useAppSelector(getAuthMeData)
+  const userId = authMeData?.userId
+  const { data: profile } = useGetProfileQuery(userId)
 
   const onSubmit = (data: FieldValues) => {
     console.log(data)
@@ -27,22 +36,15 @@ export const UserProfileData = () => {
       firstName: data.firstName,
       lastName: data.lastName,
       city: data.city,
-      dateOfBirth: '',
+      dateOfBirth: data.date,
       aboutMe: data.textArea,
     }
   }
 
-  const authMeData = useAppSelector(getAuthMeData)
-  const userId = authMeData?.userId
-
-  console.log(userId)
-  const { data: profile } = useGetProfileQuery(userId)
-
-  console.log('dataProfile', profile)
-
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
+        autoFocus
         register={register}
         nameForValidate={'name'}
         error={errorName}
@@ -63,18 +65,29 @@ export const UserProfileData = () => {
         defaultValue={profile?.lastName}
         title={'Last Name'}
       />
-      <CustomDatePicker title={'Date of birthday'} start={profile?.dateOfBirth} />
+      <Controller
+        control={control}
+        name="date"
+        defaultValue={profile?.dateOfBirth}
+        render={({ field }) => (
+          <CustomDatePicker
+            title={'Date of birthday'}
+            start={field.value}
+            onChange={date => field.onChange(date)}
+          />
+        )}
+      />
       <Input
+        defaultValue={profile?.city}
         register={register}
         nameForValidate={'city'}
         error={errorCity}
-        defaultValue={profile?.city}
         title={'City'}
       />
       <TextArea
+        defaultValue={profile?.aboutMe}
         register={register}
         nameForValidate={'textArea'}
-        defaultValue={profile?.aboutMe}
         title={'About Me'}
       />
       <div className={cls.decor}></div>
