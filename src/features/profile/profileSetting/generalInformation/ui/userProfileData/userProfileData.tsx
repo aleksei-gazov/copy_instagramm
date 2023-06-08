@@ -2,7 +2,11 @@ import React from 'react'
 
 import { Controller, FieldValues } from 'react-hook-form'
 
-import { useGetProfileQuery, useUpdateProfileMutation } from '../../service/profile'
+import {
+  useDelProfileMutation,
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from '../../service/profile'
 
 import cls from './userProfileData.module.scss'
 
@@ -29,6 +33,7 @@ export const UserProfileData = () => {
   const userId = authMeData?.userId
   const { data: profileData } = useGetProfileQuery(userId)
   const [profile] = useUpdateProfileMutation()
+  const [delProfile] = useDelProfileMutation()
 
   const onSubmit = (data: FieldValues) => {
     console.log(data)
@@ -103,6 +108,9 @@ export const UserProfileData = () => {
       >
         Save Changes
       </Button>
+      {/*//TODO*/}
+      {/*delete button*/}
+      <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
     </form>
   )
 }

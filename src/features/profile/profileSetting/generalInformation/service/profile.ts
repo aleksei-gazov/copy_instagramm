@@ -23,7 +23,15 @@ export const profile = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    delProfile: build.mutation<void, number | null>({
+      query: arg => ({
+        url: `/api/users/profile`,
+        method: 'DELETE',
+        body: arg,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 })
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = profile
+export const { useGetProfileQuery, useUpdateProfileMutation, useDelProfileMutation } = profile
