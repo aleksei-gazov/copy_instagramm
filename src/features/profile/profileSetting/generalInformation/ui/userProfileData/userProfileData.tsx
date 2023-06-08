@@ -41,21 +41,18 @@ export const UserProfileData = () => {
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
         autoFocus
-        defaultValue={userName}
         register={register}
         nameForValidate={'name'}
         error={errorName}
         title={'User Name'}
       />
       <Input
-        defaultValue={userName}
         register={register}
         nameForValidate={'firstName'}
         error={errorFirstName}
         title={'First Name'}
       />
       <Input
-        defaultValue={userName}
         register={register}
         nameForValidate={'lastName'}
         error={errorLastName}
@@ -63,7 +60,6 @@ export const UserProfileData = () => {
       />
       <Controller
         control={control}
-        defaultValue={null}
         name="date"
         render={({ field }) => (
           <CustomDatePicker
@@ -73,13 +69,7 @@ export const UserProfileData = () => {
           />
         )}
       />
-      <Input
-        defaultValue={userName}
-        register={register}
-        nameForValidate={'city'}
-        error={errorCity}
-        title={'City'}
-      />
+      <Input register={register} nameForValidate={'city'} error={errorCity} title={'City'} />
       <TextArea register={register} nameForValidate={'textArea'} title={'About Me'} />
       <div className={cls.decor}></div>
       <Button
