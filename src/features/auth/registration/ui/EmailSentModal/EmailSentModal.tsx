@@ -1,4 +1,7 @@
+import { router } from 'next/client'
+
 import CloseIcon from '../../../../../../public/icon/close.svg'
+import { PATH } from '../../../../../shared/const/path'
 
 import cls from './EmailSentModal.module.scss'
 
@@ -20,6 +23,7 @@ export const EmailSentModal = ({ isOpen, title, setOn }: EmailSentModalType) => 
 
   const handleButtonClick = () => {
     setOn(false)
+    router.push(PATH.LOGIN)
   }
 
   return (
