@@ -67,6 +67,7 @@ export const useFormHandler = (...keys: string[]) => {
     reset,
     setFocus,
     control,
+    setValue,
   } = useForm({ resolver: yupResolver(formSchema), mode: 'onBlur' })
 
   const errorName = getErrorMessage(errors, 'name')
@@ -93,5 +94,6 @@ export const useFormHandler = (...keys: string[]) => {
     errorCity,
     setFocus,
     control,
+    setValue,
   }
 }
