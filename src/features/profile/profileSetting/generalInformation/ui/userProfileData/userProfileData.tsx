@@ -41,6 +41,7 @@ export const UserProfileData = () => {
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
         autoFocus
+        defaultValue={userName}
         register={register}
         nameForValidate={'name'}
         error={errorName}
