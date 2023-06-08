@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FieldValues } from 'react-hook-form'
+import { Controller, FieldValues } from 'react-hook-form'
 
 import cls from './userProfileData.module.scss'
 
@@ -13,8 +13,16 @@ import { Input } from 'shared/ui/Input/Input'
 import { TextArea } from 'shared/ui/TextArea/TextArea'
 
 export const UserProfileData = () => {
-  const { isValid, register, handleSubmit, errorName, errorCity, errorFirstName, errorLastName } =
-    useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
+  const {
+    isValid,
+    register,
+    handleSubmit,
+    errorName,
+    errorCity,
+    errorFirstName,
+    errorLastName,
+    control,
+  } = useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
   const userName = useAppSelector(getUserName)
 
   const onSubmit = (data: FieldValues) => {
@@ -24,48 +32,61 @@ export const UserProfileData = () => {
       firstName: data.firstName,
       lastName: data.lastName,
       city: data.city,
-      dateOfBirth: '',
+      dateOfBirth: data.date,
       aboutMe: data.textArea,
     }
   }
 
   return (
-    <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={cls.form}
+      onSubmit={e => {
+        e.preventDefault()
+        setTimeout(() => handleSubmit(onSubmit)(), 0)
+      }}
+    >
       <Input
+        autoFocus
+        defaultValue={userName}
         register={register}
         nameForValidate={'name'}
         error={errorName}
-        defaultValue={userName}
         title={'User Name'}
       />
       <Input
+        defaultValue={userName}
         register={register}
         nameForValidate={'firstName'}
         error={errorFirstName}
-        defaultValue={'Данные из гет запроса в defaultValue'}
         title={'First Name'}
       />
       <Input
+        defaultValue={userName}
         register={register}
         nameForValidate={'lastName'}
         error={errorLastName}
-        defaultValue={'Данные из гет запроса в defaultValue'}
         title={'Last Name'}
       />
-      <CustomDatePicker title={'Date of birthday'} />
+      <Controller
+        control={control}
+        name="date"
+        defaultValue={null}
+        render={({ field }) => (
+          <CustomDatePicker
+            title={'Date of birthday'}
+            start={field.value}
+            onChange={date => field.onChange(date)}
+          />
+        )}
+      />
       <Input
+        defaultValue={userName}
         register={register}
         nameForValidate={'city'}
         error={errorCity}
-        defaultValue={'Данные из гет запроса в defaultValue'}
         title={'City'}
       />
-      <TextArea
-        register={register}
-        nameForValidate={'textArea'}
-        defaultValue={'Данные из гет запроса в defaultValue'}
-        title={'About Me'}
-      />
+      <TextArea register={register} nameForValidate={'textArea'} title={'About Me'} />
       <div className={cls.decor}></div>
       <Button
         disabled={!isValid}

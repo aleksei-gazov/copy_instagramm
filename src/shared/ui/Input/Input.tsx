@@ -46,12 +46,13 @@ export const Input: FC<InputType> = memo(
     const registerParam = nameForValidate && register && register(nameForValidate)
 
     const iconPas = typeInput === 'password' ? <EyeOn /> : <EyeOff />
+    const autoComplete = typeInput === 'password' ? 'off' : 'on'
 
     return (
       <label className={cls.label}>
         {title}
         <input
-          // autoComplete={'off'}
+          autoComplete={autoComplete}
           {...arg}
           {...registerParam}
           className={classNames(cls.Input, {}, [className])}

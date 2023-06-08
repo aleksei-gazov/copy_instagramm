@@ -3,8 +3,10 @@ import { memo } from 'react'
 import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
-import { useCreateNewPasswordMutation } from 'features/auth/createNewPassword/service/createNewPassword'
-import s from 'features/auth/createNewPassword/ui/CreateNewPassword.module.scss'
+import { useCreateNewPasswordMutation } from '../service/createNewPassword'
+
+import s from './CreateNewPassword.module.scss'
+
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
