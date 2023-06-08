@@ -13,6 +13,7 @@ import cls from './userProfileData.module.scss'
 import { getAuthMeData } from 'shared/hoc'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
+import { useSetValuesFromProfileData } from 'shared/hooks/useSetValuesFromProfileData'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { CustomDatePicker } from 'shared/ui/DatePicker/DatePicker'
 import { Input } from 'shared/ui/Input/Input'
@@ -29,12 +30,15 @@ export const UserProfileData = () => {
     errorFirstName,
     errorLastName,
     control,
+    setValue,
   } = useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
   const { data: profileData, isLoading: isLoadingGetProfile } = useGetProfileQuery(userId)
   const [profile, { isLoading: isLoadingUpdateProfile }] = useUpdateProfileMutation()
   const [delProfile] = useDelProfileMutation()
+
+  useSetValuesFromProfileData(setValue, profileData)
 
   const onSubmit = (data: FieldValues) => {
     console.log(data)
