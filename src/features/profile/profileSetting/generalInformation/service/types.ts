@@ -5,7 +5,7 @@ export type ProfileParamsType = {
   lastName: any
   city: any
   dateOfBirth: any
-  aboutMe: any
+  aboutMe?: any
   avatars: any[]
 }
 

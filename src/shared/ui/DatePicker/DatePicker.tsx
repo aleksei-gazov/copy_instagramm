@@ -37,8 +37,6 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  console.log(start)
-
   const startDate = start ? parseISO(start) : null
 
   const endDate = end ? parseISO(end) : null

@@ -44,8 +44,6 @@ export const UserProfileData = () => {
     profile(payload)
   }
 
-  console.log(profileData?.dateOfBirth)
-
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
