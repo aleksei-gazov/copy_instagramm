@@ -38,13 +38,7 @@ export const UserProfileData = () => {
   }
 
   return (
-    <form
-      className={cls.form}
-      onSubmit={e => {
-        e.preventDefault()
-        setTimeout(() => handleSubmit(onSubmit)(), 0)
-      }}
-    >
+    <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
         autoFocus
         defaultValue={userName}
@@ -69,8 +63,8 @@ export const UserProfileData = () => {
       />
       <Controller
         control={control}
-        name="date"
         defaultValue={null}
+        name="date"
         render={({ field }) => (
           <CustomDatePicker
             title={'Date of birthday'}

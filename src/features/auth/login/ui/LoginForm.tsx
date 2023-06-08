@@ -61,13 +61,17 @@ export const LoginForm = () => {
         </Button>
       </div>
 
+      <input name="f_email" style={{ display: 'none' }} type="email" />
+      <input name="f_password" style={{ display: 'none' }} type="password" />
+
       <Input
+        autoFocus
         register={register}
         nameForValidate={'email'}
         error={errorEmail}
+        type={'email'}
         placeholder={'Epam@epam.com'}
         title={'Email'}
-        autoComplete={'username'}
       />
       <div className={cls.h24}></div>
       <Input
@@ -75,7 +79,6 @@ export const LoginForm = () => {
         register={register}
         error={errorLoginPassword}
         type={'password'}
-        autoComplete={'current-password'}
         placeholder={'Epam@epam.com'}
         title={'Password'}
       />
