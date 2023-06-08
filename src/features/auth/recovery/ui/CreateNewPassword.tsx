@@ -12,11 +12,10 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
-import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const CreateNewPasswordForm = memo(() => {
-  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
+  const [createNewPassword] = useCreateNewPasswordMutation()
   const router = useRouter()
   const { code } = router.query
 
@@ -24,8 +23,6 @@ export const CreateNewPasswordForm = memo(() => {
     'password',
     'confirmPassword'
   )
-
-  const dispatch = useAppDispatch()
   const onSubmit = (data: FieldValues) => {
     const payload = {
       newPassword: data.password,
@@ -38,8 +35,6 @@ export const CreateNewPasswordForm = memo(() => {
         router.push(PATH.LOGIN)
       })
   }
-
-  if (isLoading) return <Loader />
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>

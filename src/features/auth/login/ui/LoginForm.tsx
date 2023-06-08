@@ -12,13 +12,12 @@ import { PATH } from 'shared/const/path'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
-import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const LoginForm = () => {
   const router = useRouter()
-  const [login, { isLoading, isSuccess }] = useLoginMutation()
+  const [login, { isSuccess }] = useLoginMutation()
   const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
     'email',
     'loginPassword'
@@ -32,8 +31,6 @@ export const LoginForm = () => {
 
     login(payload)
   }
-
-  if (isLoading) return <Loader />
 
   if (isSuccess) {
     router.push(PATH.HOME)

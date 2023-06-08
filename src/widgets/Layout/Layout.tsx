@@ -12,7 +12,7 @@ import { Sidebar } from '../Sidebar/ui/Sidebar'
 import cls from './Layout.module.scss'
 
 import { PATH } from 'shared/const/path'
-import { AuthProvider } from 'shared/hoc'
+import { AuthProvider } from 'shared/hoc/AuthProvider/AuthProvider'
 import { store } from 'store/store'
 
 export const Layout: NextPage<PropsWithChildren> = props => {

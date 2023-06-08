@@ -1,7 +1,7 @@
 import { AuthMeResponse } from './types'
 
+import { setAuthMeDAta } from 'features/auth/authMe/model/slice/authMeSlice'
 import { baseAPI } from 'shared/api/baseAPI'
-import { setAuthMeDAta } from 'shared/hoc/model/slice/authMeSlice'
 
 const authMeApi = baseAPI.injectEndpoints({
   endpoints: build => ({

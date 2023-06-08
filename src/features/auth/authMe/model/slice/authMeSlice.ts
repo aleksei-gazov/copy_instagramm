@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { AuthMeSchema } from 'shared/hoc/model/types/types'
+import { AuthMeSchema } from '../types/types'
 
 const authMeSlice = createSlice({
   name: 'authMe',

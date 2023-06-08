@@ -2,11 +2,11 @@ import React, { FC, memo, ReactNode } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { getIsLoading, Loader } from 'entities/globalLoader'
+import { getAuthMeData } from 'features/auth/authMe/model/selectors/getAuthMeData/getAuthMeData'
+import { useAuthQuery } from 'features/auth/authMe/service/authProvider'
 import { PATH } from 'shared/const/path'
-import { getAuthMeData } from 'shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
-import { useAuthQuery } from 'shared/hoc/service/authProvider'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
-import { Loader } from 'shared/ui/Loader/Loader'
 
 interface AuthProviderProps {
   children: ReactNode
@@ -15,9 +15,10 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = memo(({ children }) => {
   const { push, asPath } = useRouter()
   const authMeData = useAppSelector(getAuthMeData)?.email
+  const isLoading = useAppSelector(getIsLoading)
   const skipAuthMe =
     Boolean(authMeData) || asPath.startsWith(PATH.AUTH) || asPath === PATH.ERROR_PAGE
-  const { isLoading, error } = useAuthQuery(undefined, {
+  const { error } = useAuthQuery(undefined, {
     skip: skipAuthMe,
   })
 

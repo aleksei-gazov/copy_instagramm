@@ -62,11 +62,12 @@ export const useFormHandler = (...keys: string[]) => {
   const formSchema = Yup.object().shape(param)
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, defaultValues },
     handleSubmit,
     reset,
     setFocus,
     control,
+    setValue,
   } = useForm({ resolver: yupResolver(formSchema), mode: 'onBlur' })
 
   const errorName = getErrorMessage(errors, 'name')
@@ -93,5 +94,7 @@ export const useFormHandler = (...keys: string[]) => {
     errorCity,
     setFocus,
     control,
+    setValue,
+    defaultValues,
   }
 }
