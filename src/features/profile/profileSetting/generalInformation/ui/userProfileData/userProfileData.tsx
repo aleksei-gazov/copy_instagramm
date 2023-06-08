@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Controller, FieldValues } from 'react-hook-form'
 
-import { useGetProfileQuery, useUpdateProfileMutation } from '../../../../service/profile'
+import { useGetProfileQuery, useUpdateProfileMutation } from '../../service/profile'
 
 import cls from './userProfileData.module.scss'
 
@@ -28,7 +28,7 @@ export const UserProfileData = () => {
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
   const { data: profileData } = useGetProfileQuery(userId)
-  const [profile, { isLoading, isSuccess }] = useUpdateProfileMutation()
+  const [profile] = useUpdateProfileMutation()
 
   const onSubmit = (data: FieldValues) => {
     console.log(data)
@@ -43,6 +43,8 @@ export const UserProfileData = () => {
 
     profile(payload)
   }
+
+  console.log(profileData?.dateOfBirth)
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>

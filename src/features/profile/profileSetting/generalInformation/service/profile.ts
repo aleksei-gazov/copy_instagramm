@@ -1,5 +1,7 @@
-import { ProfileParamsType } from './types'
-
+import {
+  ProfileParamsType,
+  UpdateUserInfoSchema,
+} from 'features/profile/profileSetting/generalInformation/service/types'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const profile = baseAPI.injectEndpoints({
@@ -11,13 +13,15 @@ export const profile = baseAPI.injectEndpoints({
           params: { arg },
         }
       },
+      providesTags: ['User'],
     }),
-    updateProfile: build.mutation<void, ProfileParamsType>({
+    updateProfile: build.mutation<void, UpdateUserInfoSchema>({
       query: arg => ({
         url: `/api/users/profile`,
         method: 'PUT',
         body: arg,
       }),
+      invalidatesTags: ['User'],
     }),
   }),
 })

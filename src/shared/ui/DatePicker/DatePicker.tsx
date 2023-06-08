@@ -8,7 +8,7 @@ import cls from './DatePicker.module.scss'
 import { classNames } from 'shared/lib/classNames/classNames'
 
 // eslint-disable-next-line import/order
-import { format, parse } from 'date-fns'
+import { parseISO, formatISO } from 'date-fns'
 
 export enum CustomDatePickerThemes {
   SINGLE_DATE = 'single',
@@ -37,9 +37,11 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  const startDate = start ? parse(start, 'dd.MM.yyyy', new Date()) : null
+  console.log(start)
 
-  const endDate = end ? parse(end, 'dd.MM.yyyy', new Date()) : null
+  const startDate = start ? parseISO(start) : null
+
+  const endDate = end ? parseISO(end) : null
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -58,9 +60,9 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   const onChangeHandler = (dates: Date | [Date | null, Date | null] | null) => {
     if (!dates) return
     if (Array.isArray(dates)) {
-      onChangeDates?.(dates.map(date => (date ? format(date, 'dd.MM.yyyy') : null)))
+      onChangeDates?.(dates.map(date => (date ? formatISO(date) : null)))
     } else {
-      onChange?.(format(dates, 'dd.MM.yyyy'))
+      onChange?.(formatISO(dates))
     }
   }
 
