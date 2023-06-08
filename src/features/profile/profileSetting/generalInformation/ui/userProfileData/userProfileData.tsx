@@ -16,6 +16,7 @@ import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { CustomDatePicker } from 'shared/ui/DatePicker/DatePicker'
 import { Input } from 'shared/ui/Input/Input'
+import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
 import { TextArea } from 'shared/ui/TextArea/TextArea'
 
 export const UserProfileData = () => {
@@ -31,8 +32,8 @@ export const UserProfileData = () => {
   } = useFormHandler('name', 'firstName', 'lastName', 'city', 'textArea')
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
-  const { data: profileData } = useGetProfileQuery(userId)
-  const [profile] = useUpdateProfileMutation()
+  const { data: profileData, isLoading: isLoadingGetProfile } = useGetProfileQuery(userId)
+  const [profile, { isLoading: isLoadingUpdateProfile }] = useUpdateProfileMutation()
   const [delProfile] = useDelProfileMutation()
 
   const onSubmit = (data: FieldValues) => {
@@ -51,53 +52,56 @@ export const UserProfileData = () => {
 
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        autoFocus
-        register={register}
-        nameForValidate={'name'}
-        error={errorName}
-        defaultValue={profileData?.userName}
-        title={'User Name'}
-      />
-      <Input
-        register={register}
-        nameForValidate={'firstName'}
-        error={errorFirstName}
-        defaultValue={profileData?.firstName}
-        title={'First Name'}
-      />
-      <Input
-        register={register}
-        nameForValidate={'lastName'}
-        error={errorLastName}
-        defaultValue={profileData?.lastName}
-        title={'Last Name'}
-      />
-      <Controller
-        control={control}
-        name="date"
-        defaultValue={profileData?.dateOfBirth}
-        render={({ field }) => (
-          <CustomDatePicker
-            title={'Date of birthday'}
-            start={field.value}
-            onChange={date => field.onChange(date)}
-          />
-        )}
-      />
-      <Input
-        defaultValue={profileData?.city}
-        register={register}
-        nameForValidate={'city'}
-        error={errorCity}
-        title={'City'}
-      />
-      <TextArea
-        defaultValue={profileData?.aboutMe}
-        register={register}
-        nameForValidate={'textArea'}
-        title={'About Me'}
-      />
+      <div className={cls.form}>
+        {(isLoadingGetProfile || isLoadingUpdateProfile) && <LoaderContent />}
+        <Input
+          autoFocus
+          register={register}
+          nameForValidate={'name'}
+          error={errorName}
+          defaultValue={profileData?.userName}
+          title={'User Name'}
+        />
+        <Input
+          register={register}
+          nameForValidate={'firstName'}
+          error={errorFirstName}
+          defaultValue={profileData?.firstName}
+          title={'First Name'}
+        />
+        <Input
+          register={register}
+          nameForValidate={'lastName'}
+          error={errorLastName}
+          defaultValue={profileData?.lastName}
+          title={'Last Name'}
+        />
+        <Controller
+          control={control}
+          name="date"
+          defaultValue={profileData?.dateOfBirth}
+          render={({ field }) => (
+            <CustomDatePicker
+              title={'Date of birthday'}
+              start={field.value}
+              onChange={date => field.onChange(date)}
+            />
+          )}
+        />
+        <Input
+          defaultValue={profileData?.city}
+          register={register}
+          nameForValidate={'city'}
+          error={errorCity}
+          title={'City'}
+        />
+        <TextArea
+          defaultValue={profileData?.aboutMe}
+          register={register}
+          nameForValidate={'textArea'}
+          title={'About Me'}
+        />
+      </div>
       <div className={cls.decor}></div>
       <Button
         disabled={!isValid}
@@ -110,7 +114,7 @@ export const UserProfileData = () => {
       </Button>
       {/*//TODO*/}
       {/*delete button*/}
-      <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
+      {/*<button onClick={e => delProfile(userId)}>DEL PROFILE</button>*/}
     </form>
   )
 }
