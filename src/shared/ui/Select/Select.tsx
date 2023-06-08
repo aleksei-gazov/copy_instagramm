@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, MouseEvent, useState } from 'react'
+import { KeyboardEvent, MouseEvent, useState } from 'react'
 
 import { Listbox } from '@headlessui/react'
 import Image from 'next/image'

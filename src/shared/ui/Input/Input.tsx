@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, InputHTMLAttributes, memo, useState } from 'react'
+import { ChangeEvent, FC, InputHTMLAttributes, memo, useState } from 'react'
 
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 

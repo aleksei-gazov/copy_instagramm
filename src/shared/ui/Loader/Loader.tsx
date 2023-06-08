@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import { FC, memo } from 'react'
 
 import { classNames } from 'shared/lib/classNames/classNames'
 import cls from 'shared/ui/Loader/Loader.module.scss'
