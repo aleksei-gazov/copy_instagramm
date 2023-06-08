@@ -117,7 +117,7 @@ export const UserProfileData = () => {
       </Button>
       {/*//TODO*/}
       {/*delete button*/}
-      {/*<button onClick={e => delProfile(userId)}>DEL PROFILE</button>*/}
+      <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
     </form>
   )
 }
