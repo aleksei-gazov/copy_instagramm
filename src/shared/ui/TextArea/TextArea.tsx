@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes } from 'react'
+import { ChangeEvent, FC, InputHTMLAttributes } from 'react'
 
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
@@ -31,7 +31,7 @@ export const TextArea: FC<TextAreaProps> = ({
   onChange,
   ...otherProps
 }) => {
-  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
       onChange(e.target.value)
     }

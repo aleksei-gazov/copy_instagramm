@@ -2,6 +2,9 @@ import React from 'react'
 
 import { FieldValues } from 'react-hook-form'
 
+import { getAuthMeData } from '../../../../../../shared/hoc/model/selectors/getAuthMeData/getAuthMeData'
+import { useGetProfileQuery } from '../../../../service/profile'
+
 import cls from './userProfileData.module.scss'
 
 import { getUserName } from 'shared/hoc'
@@ -29,41 +32,49 @@ export const UserProfileData = () => {
     }
   }
 
+  const authMeData = useAppSelector(getAuthMeData)
+  const userId = authMeData?.userId
+
+  console.log(userId)
+  const { data: profile } = useGetProfileQuery(userId)
+
+  console.log('dataProfile', profile)
+
   return (
     <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
       <Input
         register={register}
         nameForValidate={'name'}
         error={errorName}
-        defaultValue={userName}
+        defaultValue={profile?.userName}
         title={'User Name'}
       />
       <Input
         register={register}
         nameForValidate={'firstName'}
         error={errorFirstName}
-        defaultValue={'Данные из гет запроса в defaultValue'}
+        defaultValue={profile?.firstName}
         title={'First Name'}
       />
       <Input
         register={register}
         nameForValidate={'lastName'}
         error={errorLastName}
-        defaultValue={'Данные из гет запроса в defaultValue'}
+        defaultValue={profile?.lastName}
         title={'Last Name'}
       />
-      <CustomDatePicker title={'Date of birthday'} />
+      <CustomDatePicker title={'Date of birthday'} start={profile?.dateOfBirth} />
       <Input
         register={register}
         nameForValidate={'city'}
         error={errorCity}
-        defaultValue={'Данные из гет запроса в defaultValue'}
+        defaultValue={profile?.city}
         title={'City'}
       />
       <TextArea
         register={register}
         nameForValidate={'textArea'}
-        defaultValue={'Данные из гет запроса в defaultValue'}
+        defaultValue={profile?.aboutMe}
         title={'About Me'}
       />
       <div className={cls.decor}></div>
