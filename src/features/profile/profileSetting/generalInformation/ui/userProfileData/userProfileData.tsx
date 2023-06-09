@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import { Controller } from 'react-hook-form'
 
 import {
@@ -24,11 +22,7 @@ export const UserProfileData = () => {
   const { control, handleSubmit, setValue } = useProfileDataForm()
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
-  const {
-    data: profileData,
-    isLoading: isLoadingGetProfile,
-    isSuccess,
-  } = useGetProfileQuery(userId)
+  const { data: profileData, isLoading: isLoadingGetProfile } = useGetProfileQuery(userId)
   const [profile, { isLoading: isLoadingUpdateProfile }] = useUpdateProfileMutation()
   const [delProfile] = useDelProfileMutation()
 
@@ -62,7 +56,6 @@ export const UserProfileData = () => {
       </div>
       <div className={cls.decor}></div>
       <Button
-        // disabled={!isValid}
         type={'submit'}
         theme={ButtonTheme.PRIMARY}
         size={ButtonSize.XS}
@@ -70,8 +63,7 @@ export const UserProfileData = () => {
       >
         Save Changes
       </Button>
-      {/*//TODO*/}
-      {/*delete button*/}
+      {/*//TODO*/}k{/*delete button*/}
       <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
     </form>
   )
