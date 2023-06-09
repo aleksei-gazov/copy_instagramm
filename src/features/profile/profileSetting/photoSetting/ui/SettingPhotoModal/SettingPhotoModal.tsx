@@ -21,7 +21,7 @@ export type SettingPhotoModalType = {
 export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoModalType) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const editorRef = useRef<AvatarEditor>(null)
-  const [position, setPosition] = useState({ x: 0.5, y: 0.5 })
+  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
   const [sendAvatar] = useSendAvatarMutation()
 
   const handleSaveAvatar = () => {
@@ -33,18 +33,11 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
 
       canvas.toBlob(blob => {
         if (blob) {
-          // Create a new File object from the Blob
           const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
 
-          // Perform necessary actions with the file
-          console.log(file) // Output the file object
           sendAvatar(file)
-          // You can now use the file object for further processing (e.g., upload to the server)
         }
       }, 'image/jpeg')
-
-      // Perform necessary actions with the centered avatar dataUrl
-      // (e.g., upload to the server)
     }
   }
 
