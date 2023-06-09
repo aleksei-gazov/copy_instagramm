@@ -63,7 +63,8 @@ export const UserProfileData = () => {
       >
         Save Changes
       </Button>
-      {/*//TODO*/}k{/*delete button*/}
+      {/*//TODO*/}
+      {/*delete button*/}
       <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
     </form>
   )
