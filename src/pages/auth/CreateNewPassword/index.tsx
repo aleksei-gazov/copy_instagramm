@@ -1,5 +1,6 @@
+import s from './CreateNewPassword.module.scss'
+
 import { CreateNewPasswordForm } from 'features/auth/recovery/ui/CreateNewPassword'
-import s from 'pages/auth/recovery/CreateNewPassword.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const CreateNewPasswordPage = () => {

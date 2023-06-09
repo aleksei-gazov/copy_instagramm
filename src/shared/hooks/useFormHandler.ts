@@ -8,13 +8,27 @@ const getErrorMessage = (errors: Record<string, any>, key: string): string | und
   return errors[key] ? errors[key].message : undefined
 }
 
-const validKeys = ['email', 'password', 'name', 'confirmPassword', 'loginPassword']
+const validKeys = [
+  'email',
+  'password',
+  'name',
+  'confirmPassword',
+  'loginPassword',
+  'firstName',
+  'lastName',
+  'city',
+  'textArea',
+]
 const schemaParam = {
-  name: Yup.string().required(),
+  name: Yup.string().required().min(6).max(30),
   email: Yup.string().required().email(),
   password: Yup.string().required().min(6).max(20),
   confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords does not match'),
   loginPassword: Yup.string().required(),
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
+  city: Yup.string().required(),
+  textArea: Yup.string(),
 }
 
 /**
@@ -52,13 +66,18 @@ export const useFormHandler = (...keys: string[]) => {
     handleSubmit,
     reset,
     setFocus,
-  } = useForm({ resolver: yupResolver(formSchema), mode: 'onBlur' })
+    control,
+    setValue,
+  } = useForm({ resolver: yupResolver(formSchema), mode: 'onTouched' })
 
   const errorName = getErrorMessage(errors, 'name')
   const errorEmail = getErrorMessage(errors, 'email')
   const errorPassword = getErrorMessage(errors, 'password')
   const errorLoginPassword = getErrorMessage(errors, 'loginPassword')
   const errorConfirmPassword = getErrorMessage(errors, 'confirmPassword')
+  const errorFirstName = getErrorMessage(errors, 'firstName')
+  const errorLastName = getErrorMessage(errors, 'lastName')
+  const errorCity = getErrorMessage(errors, 'city')
 
   return {
     register,
@@ -70,6 +89,11 @@ export const useFormHandler = (...keys: string[]) => {
     errorPassword,
     errorConfirmPassword,
     errorLoginPassword,
+    errorFirstName,
+    errorLastName,
+    errorCity,
     setFocus,
+    control,
+    setValue,
   }
 }

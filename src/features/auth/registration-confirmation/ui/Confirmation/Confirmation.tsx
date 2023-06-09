@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ConfirmPageImage from '../../../../../../public/icon/bro.svg'
+import { Button, ButtonSize, ButtonTheme } from '../../../../../shared/ui/Button/Button'
 
 import cls from 'features/auth/registration-confirmation/ui/Confirmation/Confirmation.module.scss'
 import { PATH } from 'shared/const/path'
@@ -27,7 +28,12 @@ export const Confirmation = () => {
         Your email has been confirmed
       </Text>
       <NavLink className={cls.signInLink} href={PATH.LOGIN}>
-        <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.LIGHT}>
+        <Text
+          tag={'span'}
+          font={TextFontTheme.INTER_BOLD_M}
+          color={TextColorTheme.LIGHT}
+          className={cls.signInLinkText}
+        >
           Sign In
         </Text>
       </NavLink>

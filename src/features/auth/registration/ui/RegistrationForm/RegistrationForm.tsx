@@ -10,7 +10,9 @@ import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
+import { useRegisterForm } from 'shared/hooks/useRegisterForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
@@ -21,39 +23,26 @@ type RegistrationFormType = {
 }
 
 export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
-  const [registration, { isLoading }] = useRegisterMutation()
-
-  const {
-    errorName,
-    errorEmail,
-    errorPassword,
-    errorConfirmPassword,
-    isValid,
-    register,
-    handleSubmit,
-  } = useFormHandler('name', 'email', 'password', 'confirmPassword')
+  const [registration, { isLoading, isSuccess }] = useRegisterMutation()
+  const { control, handleSubmit } = useRegisterForm()
 
   const dispatch = useAppDispatch()
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = handleSubmit(data => {
     const payload = {
-      userName: data.name,
+      userName: data.userName,
       email: data.email,
       password: data.password,
     }
 
     dispatch(setEmail({ email: data.email }))
-
     registration(payload)
-      .unwrap()
-      .then(() => {
-        setIsModalOpen(true)
-      })
-  }
+  })
 
   if (isLoading) return <Loader />
+  if (isSuccess) setIsModalOpen(true)
 
   return (
-    <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={cls.form} onSubmit={onSubmit}>
       <Text
         tag={'h2'}
         className={formCls.alignSelfCenter}
@@ -72,47 +61,38 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
         </Button>
       </div>
 
-      <Input
-        register={register}
-        nameForValidate={'name'}
-        error={errorName}
-        placeholder={'Epam'}
-        title={'Username'}
-      />
-      <div className={cls.h36}></div>
+      <ControlledInputNew control={control} name={'userName'} placeholder={'Epam'} title={'Epam'} />
+      <div className={cls.mb36}></div>
 
-      <Input
-        register={register}
-        nameForValidate={'email'}
-        error={errorEmail}
-        placeholder={'Epam@epam.com'}
+      <ControlledInputNew
+        control={control}
+        name={'email'}
+        placeholder={'EpamEpam@epam.com'}
         title={'Email'}
       />
-      <div className={cls.h36}></div>
-      <Input
-        register={register}
-        nameForValidate={'password'}
-        error={errorPassword}
+      <div className={cls.mb36}></div>
+      <ControlledInputNew
+        control={control}
+        name={'password'}
         type={'password'}
-        placeholder={'Password'}
+        placeholder={'******************'}
         title={'Password'}
       />
-      <div className={cls.h36}></div>
-      <Input
-        register={register}
-        nameForValidate={'confirmPassword'}
-        error={errorConfirmPassword}
+      <div className={cls.mb36}></div>
+      <ControlledInputNew
+        control={control}
         type={'password'}
-        placeholder={'Password confirmation'}
+        name={'confirmPassword'}
+        placeholder={'******************'}
         title={'Password confirmation'}
       />
-      <div className={cls.h36}></div>
-      <Button disabled={!isValid} type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
+      <div className={cls.mb36}></div>
+      <Button type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Sign Up
         </Text>
       </Button>
-      <div className={cls.h18}></div>
+      <div className={cls.mb18}></div>
       <Text
         className={formCls.alignSelfCenter}
         tag={'p'}
@@ -121,7 +101,7 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
       >
         Do you have an account?
       </Text>
-      <div className={cls.h12}></div>
+      <div className={cls.mb12}></div>
 
       <NavLink className={cls.alignSelfCenterPure} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Sign In

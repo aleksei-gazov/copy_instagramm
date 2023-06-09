@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 import DatePicker from 'react-datepicker'
 
@@ -8,7 +8,7 @@ import cls from './DatePicker.module.scss'
 import { classNames } from 'shared/lib/classNames/classNames'
 
 // eslint-disable-next-line import/order
-import { formatISO } from 'date-fns'
+import { parseISO, formatISO, isValid } from 'date-fns'
 
 export enum CustomDatePickerThemes {
   SINGLE_DATE = 'single',
@@ -19,14 +19,14 @@ interface CustomDatePickerProps {
   start?: string | null
   end?: string | null
   onChangeDates?: (dates: (string | null)[]) => void
-  onChangeDate?: (data: string | null) => void
+  onChange?: (data: string | null) => void
   theme?: CustomDatePickerThemes
   className?: string
   title?: string
 }
 
 export const CustomDatePicker: FC<CustomDatePickerProps> = ({
-  onChangeDate,
+  onChange,
   onChangeDates,
   end,
   start,
@@ -37,8 +37,9 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  const startDate = start ? new Date(start) : null
-  const endDate = end ? new Date(end) : null
+  const startDate = start && isValid(new Date(start)) ? parseISO(start) : null
+
+  const endDate = end && isValid(new Date(end)) ? parseISO(end) : null
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -54,14 +55,12 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
     }
   })
 
-  const onChange = (dates: Date | [Date | null, Date | null] | null) => {
+  const onChangeHandler = (dates: Date | [Date | null, Date | null] | null) => {
     if (!dates) return
     if (Array.isArray(dates)) {
-      onChangeDates?.(
-        dates.map(date => (date ? formatISO(date, { representation: 'complete' }) : null))
-      )
+      onChangeDates?.(dates.map(date => (date ? formatISO(date) : null)))
     } else {
-      onChangeDate?.(formatISO(dates, { representation: 'complete' }))
+      onChange?.(formatISO(dates))
     }
   }
 
@@ -84,7 +83,7 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
             selected={startDate}
             startDate={startDate}
             endDate={endDate}
-            onChange={() => {}}
+            onChange={onChangeHandler}
             calendarClassName={cls.calendar}
           />
         </label>
@@ -101,7 +100,7 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = ({
             selectsRange={theme === CustomDatePickerThemes.RANGE}
             startDate={startDate}
             endDate={endDate}
-            onChange={onChange}
+            onChange={onChangeHandler}
             inline
           />
         </div>

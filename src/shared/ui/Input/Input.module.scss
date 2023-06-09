@@ -14,7 +14,12 @@
   &:active {
     border-bottom: 1px solid var(--light-100);
   }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: none !important;
+  }
 }
+
 
 .error {
   .Input {
@@ -24,14 +29,13 @@
 
 .errorText {
   position: absolute;
-  top: 52px;
+  top: 50px;
   left: 0;
 }
 
 .label {
   position: relative;
   color: var(--light-900);
-
   //&:focus-within {
   //  outline: 2px solid var(--primary-700);
   //}

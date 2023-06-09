@@ -11,23 +11,25 @@
   border-bottom: 2px solid var(--dark-100);
 }
 
-.decor {
-  position: absolute;
-  left: 0;
-  bottom: 60px;
-  width: 100%;
-  height: 1px;
-  background-color: var(--dark-300);
-}
-
 .form {
   display: flex;
   width: 100%;
+  position: relative;
   flex-direction: column;
   gap: 22px;
+  z-index: 15;
 }
 
 .button {
   align-self: flex-end;
   margin-top: 22px;
 }
+
+//.decor {
+//  position: absolute;
+//  left: 0;
+//  bottom: 60px;
+//  width: 100%;
+//  height: 1px;
+//  background-color: var(--dark-300);
+//}

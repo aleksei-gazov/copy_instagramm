@@ -1,16 +1,15 @@
 import { useState } from 'react'
 
 import ReCAPTCHA from 'react-google-recaptcha'
-import { FieldValues } from 'react-hook-form'
 
 import { usePasswordRecoveryMutation } from 'features/auth/passwordRecovery/service/passwordRecoveryApi'
 import s from 'features/auth/passwordRecovery/ui/PasswordRecovery.module.scss'
 import { setEmail } from 'features/auth/registration/model/slice/registrationSlice'
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
-import { useFormHandler } from 'shared/hooks/useFormHandler'
+import { useForgotForm } from 'shared/hooks/useForgotPassword'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
-import { Input } from 'shared/ui/Input/Input'
+import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
@@ -20,35 +19,35 @@ type RegistrationFormType = {
 }
 
 export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
-  const [passwordRecovery, { isLoading }] = usePasswordRecoveryMutation()
-  const { errorEmail, isValid, register, handleSubmit } = useFormHandler('email')
+  const [passwordRecovery, { isLoading, isSuccess }] = usePasswordRecoveryMutation()
+  const { control, handleSubmit } = useForgotForm()
   const [token, setToken] = useState<string | null>(null)
 
   const dispatch = useAppDispatch()
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = handleSubmit(data => {
     if (!token) {
       return
     }
-    dispatch(setEmail({ email: data.email }))
-    passwordRecovery({
+
+    const payload = {
       email: data.email,
       recaptcha: token,
-    })
-      .unwrap()
-      .then(() => {
-        setIsModalOpen(true)
-      })
-  }
+    }
+
+    dispatch(setEmail({ email: data.email }))
+    passwordRecovery(payload)
+  })
 
   const onChange = (value: string | null) => {
     setToken(value)
   }
 
   if (isLoading) return <Loader />
+  if (isSuccess) setIsModalOpen(true)
 
   return (
-    <form className={s.PasswordRecoveryForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.PasswordRecoveryForm} onSubmit={onSubmit}>
       <Text
         className={s.alignSelfCenter}
         tag={'h2'}
@@ -58,14 +57,15 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
         Forgot Password
       </Text>
 
-      <Input
-        register={register}
-        nameForValidate={'email'}
-        error={errorEmail}
+      <ControlledInputNew
+        control={control}
+        name={'email'}
+        type={'email'}
         placeholder={'Epam@epam.com'}
         title={'Email'}
-        className={s.mb24}
       />
+
+      <div className={s.mb15}></div>
 
       <NavLink className={s.alignSelfEnd} href={'#'} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
@@ -73,21 +73,22 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
         </Text>
       </NavLink>
 
-      <Button
-        disabled={!isValid}
-        type={'submit'}
-        className={s.mb18}
-        theme={ButtonTheme.PRIMARY}
-        size={ButtonSize.XXl}
-      >
+      <div className={s.mb29}></div>
+
+      <Button type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Send Link
         </Text>
       </Button>
 
+      <div className={s.mb29}></div>
+
       <NavLink className={s.alignSelfCenter} href={PATH.LOGIN} color={NavLinkColor.SECONDARY}>
         Back to Sign In
       </NavLink>
+
+      <div className={s.mb29}></div>
+
       <div>
         <ReCAPTCHA sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ" onChange={onChange} />
       </div>

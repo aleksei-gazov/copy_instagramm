@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC, memo } from 'react'
 
 import cls from './Button.module.scss'
 

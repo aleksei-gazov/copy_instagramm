@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, InputHTMLAttributes, memo, useState } from 'react'
+import { ChangeEvent, FC, InputHTMLAttributes, memo, useState } from 'react'
 
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
@@ -46,12 +46,13 @@ export const Input: FC<InputType> = memo(
     const registerParam = nameForValidate && register && register(nameForValidate)
 
     const iconPas = typeInput === 'password' ? <EyeOn /> : <EyeOff />
+    const autoComplete = typeInput === 'password' ? 'new-password' : nameForValidate
 
     return (
       <label className={cls.label}>
         {title}
         <input
-          // autoComplete={'off'}
+          autoComplete={autoComplete}
           {...arg}
           {...registerParam}
           className={classNames(cls.Input, {}, [className])}

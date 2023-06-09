@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, memo } from 'react'
+import { ChangeEvent, FC, memo } from 'react'
 
 import Image from 'next/image'
 

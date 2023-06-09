@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactNode } from 'react'
+import { FC, memo, ReactNode } from 'react'
 
 import cls from './Text.module.scss'
 

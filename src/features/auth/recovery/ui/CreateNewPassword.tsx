@@ -3,44 +3,46 @@ import { memo } from 'react'
 import { useRouter } from 'next/router'
 import { FieldValues } from 'react-hook-form'
 
-import { useCreateNewPasswordMutation } from 'features/auth/createNewPassword/service/createNewPassword'
-import s from 'features/auth/createNewPassword/ui/CreateNewPassword.module.scss'
+import { useCreateNewPasswordMutation } from '../service/createNewPassword'
+
+import s from './CreateNewPassword.module.scss'
+
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
+import { useRecoveryForm } from 'shared/hooks/useRecoveryForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const CreateNewPasswordForm = memo(() => {
-  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
+  const [createNewPassword, { isLoading, isSuccess }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const { code } = router.query
 
-  const { errorPassword, errorConfirmPassword, isValid, register, handleSubmit } = useFormHandler(
-    'password',
-    'confirmPassword'
-  )
+  const { control, handleSubmit } = useRecoveryForm()
 
   const dispatch = useAppDispatch()
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = handleSubmit(data => {
     const payload = {
       newPassword: data.password,
       recoveryCode: code as string,
     }
 
     createNewPassword(payload)
-      .unwrap()
-      .then(() => {
-        router.push(PATH.LOGIN)
-      })
-  }
+  })
 
   if (isLoading) return <Loader />
+  if (isSuccess) {
+    router.push(PATH.LOGIN)
+
+    return <></>
+  }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.form} onSubmit={onSubmit}>
       <Text
         tag={'h2'}
         className={s.alignSelfCenter}
@@ -49,25 +51,25 @@ export const CreateNewPasswordForm = memo(() => {
       >
         Create New Password
       </Text>
-      <Input
-        register={register}
-        nameForValidate={'password'}
-        error={errorPassword}
+
+      <ControlledInputNew
+        control={control}
+        name={'password'}
         type={'password'}
-        placeholder={'Password'}
+        placeholder={'******************'}
         title={'Password'}
-        className={s.mb36}
       />
 
-      <Input
-        register={register}
-        nameForValidate={'confirmPassword'}
-        error={errorConfirmPassword}
+      <div className={s.mb22}></div>
+
+      <ControlledInputNew
+        control={control}
         type={'password'}
-        placeholder={'Password confirmation'}
+        name={'confirmPassword'}
+        placeholder={'******************'}
         title={'Password confirmation'}
-        className={s.mb36}
       />
+      <div className={s.mb18}></div>
       <Text
         className={`${s.mb12} ${s.alignSelfCenter}`}
         tag={'p'}
@@ -76,13 +78,8 @@ export const CreateNewPasswordForm = memo(() => {
       >
         Your password must be between 6 and 20 characters
       </Text>
-      <Button
-        disabled={!isValid}
-        type={'submit'}
-        className={s.mb18}
-        theme={ButtonTheme.PRIMARY}
-        size={ButtonSize.XXl}
-      >
+      <div className={s.mb41}></div>
+      <Button type={'submit'} className={s.mb18} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Create New Password
         </Text>

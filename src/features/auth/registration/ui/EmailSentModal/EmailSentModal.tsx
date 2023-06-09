@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router'
+
 import CloseIcon from '../../../../../../public/icon/close.svg'
+import { PATH } from '../../../../../shared/const/path'
 
 import cls from './EmailSentModal.module.scss'
 
@@ -15,11 +18,13 @@ type EmailSentModalType = {
 
 export const EmailSentModal = ({ isOpen, title, setOn }: EmailSentModalType) => {
   const email = useAppSelector(state => state.registration.email)
+  const router = useRouter()
 
   if (!isOpen) return null
 
   const handleButtonClick = () => {
     setOn(false)
+    router.push(PATH.LOGIN)
   }
 
   return (
