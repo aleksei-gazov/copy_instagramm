@@ -1,4 +1,4 @@
-import { router } from 'next/client'
+import { useRouter } from 'next/router'
 
 import CloseIcon from '../../../../../../public/icon/close.svg'
 import { PATH } from '../../../../../shared/const/path'
@@ -18,6 +18,7 @@ type EmailSentModalType = {
 
 export const EmailSentModal = ({ isOpen, title, setOn }: EmailSentModalType) => {
   const email = useAppSelector(state => state.registration.email)
+  const router = useRouter()
 
   if (!isOpen) return null
 

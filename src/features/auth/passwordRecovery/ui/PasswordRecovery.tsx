@@ -29,8 +29,13 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
     if (!token) {
       return
     }
+
+    const payload = {
+      email: data.email,
+      recaptcha: token,
+    }
     dispatch(setEmail({ email: data.email }))
-    passwordRecovery(data)
+    passwordRecovery(payload)
   })
 
   const onChange = (value: string | null) => {
@@ -84,7 +89,11 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
       <div className={s.mb29}></div>
 
       <div>
-        <ReCAPTCHA sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ" onChange={onChange} />
+        <ReCAPTCHA
+          key={Math.random()}
+          sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ"
+          onChange={onChange}
+        />
       </div>
     </form>
   )
