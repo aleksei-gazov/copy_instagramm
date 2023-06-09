@@ -12,10 +12,10 @@ import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { useRecoveryForm } from 'shared/hooks/useRecoveryForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
+import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
-import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 
 export const CreateNewPasswordForm = memo(() => {
   const [createNewPassword, { isLoading, isSuccess }] = useCreateNewPasswordMutation()
@@ -59,7 +59,7 @@ export const CreateNewPasswordForm = memo(() => {
         placeholder={'******************'}
         title={'Password'}
       />
-      
+
       <div className={s.mb22}></div>
 
       <ControlledInputNew
@@ -79,12 +79,7 @@ export const CreateNewPasswordForm = memo(() => {
         Your password must be between 6 and 20 characters
       </Text>
       <div className={s.mb41}></div>
-      <Button
-        type={'submit'}
-        className={s.mb18}
-        theme={ButtonTheme.PRIMARY}
-        size={ButtonSize.XXl}
-      >
+      <Button type={'submit'} className={s.mb18} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Create New Password
         </Text>

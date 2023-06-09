@@ -34,6 +34,7 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
       email: data.email,
       recaptcha: token,
     }
+
     dispatch(setEmail({ email: data.email }))
     passwordRecovery(payload)
   })
@@ -89,11 +90,7 @@ export const PasswordRecovery = ({ setIsModalOpen }: RegistrationFormType) => {
       <div className={s.mb29}></div>
 
       <div>
-        <ReCAPTCHA
-          key={Math.random()}
-          sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ"
-          onChange={onChange}
-        />
+        <ReCAPTCHA sitekey="6LeY2y0mAAAAANwI_paCWfoksCgBm1n2z9J0nwNQ" onChange={onChange} />
       </div>
     </form>
   )
