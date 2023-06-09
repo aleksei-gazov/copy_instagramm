@@ -1,37 +1,46 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
-import { FieldValues } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import Github from '../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../public/icon/google-svgrepo-com.svg'
+import { ControlledInputNew } from '../../../../shared/ui/ControlledInput/ControlledInput'
 
 import cls from './LoginForm.module.scss'
 
 import { useLoginMutation } from 'features/auth/login/authByEmail/service/authByEmail'
 import formCls from 'features/auth/logOut/ui/AuthFormsStyles.module.scss'
 import { PATH } from 'shared/const/path'
-import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
-import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
+// Вынести в отдельный файл
+// --------------------------------------------------------------------------------
+const loginSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+})
+
+type FormData = yup.InferType<typeof loginSchema>
+const useLoginForm = () => {
+  return useForm<FormData>({
+    mode: 'onSubmit',
+    resolver: yupResolver(loginSchema),
+  })
+}
+// --------------------------------------------------------------------------------
+
 export const LoginForm = () => {
   const router = useRouter()
   const [login, { isLoading, isSuccess }] = useLoginMutation()
-  const { errorLoginPassword, errorEmail, isValid, register, handleSubmit } = useFormHandler(
-    'email',
-    'loginPassword'
-  )
+  const { control, handleSubmit } = useLoginForm()
 
-  const onSubmit = (data: FieldValues) => {
-    const payload = {
-      email: data.email,
-      password: data.loginPassword,
-    }
-
-    login(payload)
-  }
+  const onSubmit = handleSubmit(data => {
+    login(data)
+  })
 
   if (isLoading) return <Loader />
 
@@ -42,7 +51,7 @@ export const LoginForm = () => {
   }
 
   return (
-    <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={cls.form} onSubmit={onSubmit}>
       <Text
         className={formCls.alignSelfCenter}
         tag={'h2'}
@@ -61,22 +70,17 @@ export const LoginForm = () => {
         </Button>
       </div>
 
-      <input name="f_email" style={{ display: 'none' }} type="email" />
-      <input name="f_password" style={{ display: 'none' }} type="password" />
-
-      <Input
-        register={register}
-        nameForValidate={'email'}
-        error={errorEmail}
+      <ControlledInputNew
+        control={control}
+        name={'email'}
         type={'email'}
         placeholder={'Epam@epam.com'}
         title={'Email'}
       />
       <div className={cls.h24}></div>
-      <Input
-        nameForValidate={'loginPassword'}
-        register={register}
-        error={errorLoginPassword}
+      <ControlledInputNew
+        control={control}
+        name={'password'}
         type={'password'}
         placeholder={'Epam@epam.com'}
         title={'Password'}
@@ -88,7 +92,7 @@ export const LoginForm = () => {
         </Text>
       </NavLink>
       <div className={cls.h24}></div>
-      <Button disabled={!isValid} type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
+      <Button type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Sign In
         </Text>
