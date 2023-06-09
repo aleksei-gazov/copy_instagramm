@@ -10,39 +10,39 @@ import s from './CreateNewPassword.module.scss'
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useFormHandler } from 'shared/hooks/useFormHandler'
+import { useRecoveryForm } from 'shared/hooks/useRecoveryForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 
 export const CreateNewPasswordForm = memo(() => {
-  const [createNewPassword, { isLoading }] = useCreateNewPasswordMutation()
+  const [createNewPassword, { isLoading, isSuccess }] = useCreateNewPasswordMutation()
   const router = useRouter()
   const { code } = router.query
 
-  const { errorPassword, errorConfirmPassword, isValid, register, handleSubmit } = useFormHandler(
-    'password',
-    'confirmPassword'
-  )
+  const { control, handleSubmit } = useRecoveryForm()
 
   const dispatch = useAppDispatch()
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = handleSubmit(data => {
     const payload = {
       newPassword: data.password,
       recoveryCode: code as string,
     }
 
     createNewPassword(payload)
-      .unwrap()
-      .then(() => {
-        router.push(PATH.LOGIN)
-      })
-  }
+  })
 
   if (isLoading) return <Loader />
+  if (isSuccess) {
+    router.push(PATH.LOGIN)
+
+    return <></>
+  }
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.form} onSubmit={onSubmit}>
       <Text
         tag={'h2'}
         className={s.alignSelfCenter}
@@ -51,23 +51,25 @@ export const CreateNewPasswordForm = memo(() => {
       >
         Create New Password
       </Text>
-      <Input
-        register={register}
-        nameForValidate={'password'}
-        error={errorPassword}
-        type={'password'}
-        title={'New password'}
-        className={s.mb36}
-      />
 
-      <Input
-        register={register}
-        nameForValidate={'confirmPassword'}
-        error={errorConfirmPassword}
+      <ControlledInputNew
+        control={control}
+        name={'password'}
         type={'password'}
-        title={'Password confirmation'}
-        className={s.mb36}
+        placeholder={'******************'}
+        title={'Password'}
       />
+      
+      <div className={s.mb22}></div>
+
+      <ControlledInputNew
+        control={control}
+        type={'password'}
+        name={'confirmPassword'}
+        placeholder={'******************'}
+        title={'Password confirmation'}
+      />
+      <div className={s.mb18}></div>
       <Text
         className={`${s.mb12} ${s.alignSelfCenter}`}
         tag={'p'}
@@ -76,8 +78,8 @@ export const CreateNewPasswordForm = memo(() => {
       >
         Your password must be between 6 and 20 characters
       </Text>
+      <div className={s.mb41}></div>
       <Button
-        disabled={!isValid}
         type={'submit'}
         className={s.mb18}
         theme={ButtonTheme.PRIMARY}

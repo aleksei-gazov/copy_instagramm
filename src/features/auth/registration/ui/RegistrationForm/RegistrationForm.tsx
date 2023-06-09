@@ -28,8 +28,14 @@ export const RegistrationForm = ({ setIsModalOpen }: RegistrationFormType) => {
 
   const dispatch = useAppDispatch()
   const onSubmit = handleSubmit(data => {
+    const payload = {
+      userName: data.userName,
+      email: data.email,
+      password: data.password,
+    }
+
     dispatch(setEmail({ email: data.email }))
-    registration(data)
+    registration(payload)
   })
 
   if (isLoading) return <Loader />

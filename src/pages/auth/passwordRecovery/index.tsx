@@ -2,9 +2,7 @@ import { useState } from 'react'
 
 import { PasswordRecovery } from 'features/auth/passwordRecovery/ui/PasswordRecovery'
 import { EmailSentModal } from 'features/auth/registration/ui/EmailSentModal/EmailSentModal'
-import { RegistrationForm } from 'features/auth/registration/ui/RegistrationForm/RegistrationForm'
 import s from 'pages/auth/passwordRecovery/PasswordRecovery.module.scss'
-import cls from 'pages/auth/registration/RegistrationPage.module.scss'
 import { getLayout } from 'widgets/Layout/Layout'
 
 const PassWordRecoveryPage = () => {
