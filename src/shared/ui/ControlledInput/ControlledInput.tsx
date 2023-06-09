@@ -11,13 +11,13 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = {
-  name: FieldPath<TFieldValues>
+  name: FieldPath<TFieldValues> 
   control: Control<TFieldValues>
 } & Omit<ComponentPropsWithoutRef<'input'>, 'onChange' | 'value' | 'id' | 'onValueChange'>
 
 export const ControlledInputNew = <TFieldValues extends FieldValues>({
   title,
-  type,
+  type = 'text',
   className,
   ...props
 }: ControlledInputProps<TFieldValues>) => {
