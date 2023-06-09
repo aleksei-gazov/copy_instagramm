@@ -1,7 +1,4 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 import Github from '../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../public/icon/google-svgrepo-com.svg'
@@ -12,26 +9,11 @@ import cls from './LoginForm.module.scss'
 import { useLoginMutation } from 'features/auth/login/authByEmail/service/authByEmail'
 import formCls from 'features/auth/logOut/ui/AuthFormsStyles.module.scss'
 import { PATH } from 'shared/const/path'
+import { useLoginForm } from 'shared/hooks/useLoginForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
-
-// Вынести в отдельный файл
-// --------------------------------------------------------------------------------
-const loginSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
-})
-
-type FormData = yup.InferType<typeof loginSchema>
-const useLoginForm = () => {
-  return useForm<FormData>({
-    mode: 'onSubmit',
-    resolver: yupResolver(loginSchema),
-  })
-}
-// --------------------------------------------------------------------------------
 
 export const LoginForm = () => {
   const router = useRouter()
@@ -77,7 +59,7 @@ export const LoginForm = () => {
         placeholder={'Epam@epam.com'}
         title={'Email'}
       />
-      <div className={cls.h24}></div>
+      <div className={cls.mb24}></div>
       <ControlledInputNew
         control={control}
         name={'password'}
@@ -85,19 +67,19 @@ export const LoginForm = () => {
         placeholder={'Epam@epam.com'}
         title={'Password'}
       />
-      <div className={cls.h60}></div>
+      <div className={cls.mb60}></div>
       <NavLink className={cls.alignSelfEnd} href={PATH.PASSWORD_RECOVERY} color={NavLinkColor.GREY}>
         <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L}>
           Forgot Password
         </Text>
       </NavLink>
-      <div className={cls.h24}></div>
+      <div className={cls.mb24}></div>
       <Button type={'submit'} theme={ButtonTheme.PRIMARY} size={ButtonSize.XXl}>
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           Sign In
         </Text>
       </Button>
-      <div className={cls.h18}></div>
+      <div className={cls.mb18}></div>
       <Text
         className={formCls.alignSelfCenter}
         tag={'p'}
@@ -106,7 +88,7 @@ export const LoginForm = () => {
       >
         Don’t have an account?
       </Text>
-      <div className={cls.h12}></div>
+      <div className={cls.mb12}></div>
       <NavLink
         className={formCls.alignSelfCenter}
         href={PATH.REGISTRATION}
