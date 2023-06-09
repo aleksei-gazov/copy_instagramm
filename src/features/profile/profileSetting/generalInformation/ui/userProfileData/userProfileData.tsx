@@ -13,6 +13,7 @@ import cls from './userProfileData.module.scss'
 import { getAuthMeData } from 'shared/hoc'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { useProfileDataForm } from 'shared/hooks/useProfileDataForm'
+import { useSetValuesFromProfileData } from 'shared/hooks/useSetValuesFromProfileData'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
 import { ControlledTextArea } from 'shared/ui/ControlledTextArea/ControlledTextArea'
@@ -20,6 +21,7 @@ import { CustomDatePicker } from 'shared/ui/DatePicker/DatePicker'
 import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
 
 export const UserProfileData = () => {
+  const { control, handleSubmit, setValue } = useProfileDataForm()
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
   const {
@@ -27,24 +29,14 @@ export const UserProfileData = () => {
     isLoading: isLoadingGetProfile,
     isSuccess,
   } = useGetProfileQuery(userId)
-  const { control, handleSubmit, setValue } = useProfileDataForm()
   const [profile, { isLoading: isLoadingUpdateProfile }] = useUpdateProfileMutation()
   const [delProfile] = useDelProfileMutation()
+
+  useSetValuesFromProfileData(setValue, profileData)
 
   const onSubmit = handleSubmit(data => {
     profile(data)
   })
-
-  useEffect(() => {
-    if (isSuccess) {
-      setValue('userName', profileData.userName)
-      setValue('firstName', profileData.firstName)
-      setValue('lastName', profileData.lastName)
-      setValue('dateOfBirth', profileData.dateOfBirth)
-      setValue('city', profileData.city)
-      setValue('aboutMe', profileData.aboutMe)
-    }
-  }, [profileData])
 
   return (
     <form className={cls.form} onSubmit={onSubmit}>

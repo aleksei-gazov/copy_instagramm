@@ -13,12 +13,12 @@ type ProfileParamsType = {
 }
 
 const fieldMap: { [K in keyof ProfileParamsType]?: string } = {
-  userName: 'name',
+  userName: 'userName',
   firstName: 'firstName',
   lastName: 'lastName',
-  dateOfBirth: 'date',
+  dateOfBirth: 'dateOfBirth',
   city: 'city',
-  aboutMe: 'textArea',
+  aboutMe: 'aboutMe',
 }
 
 export const useSetValuesFromProfileData = (
