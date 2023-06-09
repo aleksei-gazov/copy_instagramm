@@ -1,12 +1,12 @@
 import {
   ErrorResponseType,
-  SettingPhotoRequestType,
+  SettingPhotoResponseType,
 } from 'features/profile/profileSetting/photoSetting/service/types'
 import { baseAPI } from 'shared/api/baseAPI'
 
 export const PhotoSetting = baseAPI.injectEndpoints({
   endpoints: build => ({
-    sendAvatar: build.mutation<void | ErrorResponseType, SettingPhotoRequestType>({
+    sendAvatar: build.mutation<SettingPhotoResponseType | ErrorResponseType, File>({
       query: arg => ({
         url: `/api/users/profile/avatar`,
         method: 'POST',

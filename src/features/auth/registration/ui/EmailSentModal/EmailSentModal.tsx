@@ -7,8 +7,8 @@ import cls from './EmailSentModal.module.scss'
 
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { ModalHeader } from 'shared/ui/ModalHeader/ModalHeader'
 import { Portal } from 'shared/ui/Portal/Portal'
-import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 type EmailSentModalType = {
   isOpen: boolean
@@ -30,14 +30,7 @@ export const EmailSentModal = ({ isOpen, title, setOn }: EmailSentModalType) => 
   return (
     <Portal>
       <div className={cls.container}>
-        <div className={cls.header}>
-          <Text tag={'h2'} font={TextFontTheme.INTER_BOLD_XL} color={TextColorTheme.LIGHT}>
-            {title}
-          </Text>
-          <Button theme={ButtonTheme.Clear} onClick={handleButtonClick}>
-            <CloseIcon />
-          </Button>
-        </div>
+        <ModalHeader title={title} handleButtonClick={handleButtonClick} />
         <div className={cls.main}>
           <div className={cls.description}>
             We have sent a link to confirm your email to {email ?? 'your email'}
