@@ -35,7 +35,14 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
         if (blob) {
           const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
 
-          sendAvatar(file)
+          let r = new FileReader()
+
+          r.onload = function () {
+            console.log(file)
+            console.log(r.result)
+            sendAvatar(r.result)
+          }
+          r.readAsBinaryString(file)
         }
       }, 'image/jpeg')
     }
