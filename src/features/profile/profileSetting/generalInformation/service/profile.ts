@@ -6,11 +6,10 @@ import { baseAPI } from 'shared/api/baseAPI'
 
 export const profile = baseAPI.injectEndpoints({
   endpoints: build => ({
-    getProfile: build.query<ProfileParamsType, number | null>({
-      query: arg => {
+    getProfile: build.query<ProfileParamsType, void>({
+      query: () => {
         return {
           url: '/api/users/profile',
-          params: { arg },
         }
       },
       providesTags: ['User'],
