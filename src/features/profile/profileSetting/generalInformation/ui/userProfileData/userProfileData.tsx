@@ -22,7 +22,7 @@ export const UserProfileData = () => {
   const { control, handleSubmit, setValue } = useProfileDataForm()
   const authMeData = useAppSelector(getAuthMeData)
   const userId = authMeData?.userId
-  const { data: profileData, isLoading: isLoadingGetProfile } = useGetProfileQuery(userId)
+  const { data: profileData, isLoading: isLoadingGetProfile } = useGetProfileQuery()
   const [profile, { isLoading: isLoadingUpdateProfile }] = useUpdateProfileMutation()
   const [delProfile] = useDelProfileMutation()
 
@@ -65,7 +65,7 @@ export const UserProfileData = () => {
       </Button>
       {/*//TODO*/}
       {/*delete button*/}
-      <button onClick={e => delProfile(userId)}>DEL PROFILE</button>
+      <button onClick={() => delProfile(userId)}>DEL PROFILE</button>
     </form>
   )
 }

@@ -24,6 +24,7 @@ export enum TextFontTheme {
 export enum TextColorTheme {
   LIGHT = 'light',
   ERROR = 'error',
+  PRIMARY = 'primary',
 }
 
 interface TextProps {

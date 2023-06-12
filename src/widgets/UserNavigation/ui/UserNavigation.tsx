@@ -3,13 +3,12 @@ import React, { FC, memo } from 'react'
 import Home from '../../../../public/icon/home.svg'
 import Message from '../../../../public/icon/message.svg'
 import Person from '../../../../public/icon/person.svg'
-import Plus from '../../../../public/icon/plus-square.svg'
 
 import s from './UserNavigation.module.scss'
 
+import { UploadPhoto } from 'features/profile/uploadPhoto'
 import { PATH } from 'shared/const/path'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'widgets/UserInformation/ui/UserInformation.module.scss'
@@ -38,12 +37,7 @@ export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' })
         </li>
       ))}
       <li>
-        <Button theme={ButtonTheme.Clear} className={cls.btn}>
-          <Plus fill={'currentColor'} />
-          <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
-            Create
-          </Text>
-        </Button>
+        <UploadPhoto />
       </li>
     </ul>
   )

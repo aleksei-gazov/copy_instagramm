@@ -19,7 +19,6 @@ export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
       const file = e.target.files[0]
 
       setSelectedImage(file)
-      console.log('file: ', file)
     }
   }
 
