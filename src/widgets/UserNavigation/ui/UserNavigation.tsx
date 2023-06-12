@@ -37,7 +37,7 @@ export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' })
         </li>
       ))}
       <li>
-        <UploadPhoto />
+        <UploadPhoto className={className} />
       </li>
     </ul>
   )

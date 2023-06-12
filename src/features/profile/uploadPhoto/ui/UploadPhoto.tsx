@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { FC, memo, useCallback, useState } from 'react'
 
 import Plus from '../../../../../public/icon/plus-square.svg'
 
@@ -13,7 +13,11 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Portal } from 'shared/ui/Portal/Portal'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 
-export const UploadPhoto = () => {
+interface UploadPhotoProps {
+  className?: string
+}
+
+export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const image = useAppSelector(getImage)
@@ -33,7 +37,7 @@ export const UploadPhoto = () => {
     <>
       <Button onClick={onClickHandler} theme={ButtonTheme.Clear} className={cls.btn}>
         <Plus fill={'currentColor'} />
-        <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L}>
+        <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
           Create
         </Text>
       </Button>
@@ -44,4 +48,4 @@ export const UploadPhoto = () => {
       )}
     </>
   )
-}
+})
