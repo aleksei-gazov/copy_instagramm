@@ -2,7 +2,6 @@ import React, { ChangeEvent, useRef } from 'react'
 
 import cls from './InputTypeFile.module.scss'
 
-import { useSendAvatarMutation } from 'features/profile/profileSetting/photoSetting/service/photoSetting'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 
 type InputTypeFileProps = {
@@ -18,7 +17,6 @@ export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
   const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
-      const form = new FormData()
 
       setSelectedImage(file)
     }
