@@ -33,11 +33,15 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
 
       canvas.toBlob(blob => {
         if (blob) {
-          const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
+          const file = new File([blob], 'avatar', { type: blob.type })
 
-          sendAvatar(file)
+          const formData = new FormData()
+
+          formData.append('file', file)
+
+          sendAvatar(formData)
         }
-      }, 'image/jpeg')
+      })
     }
   }
 

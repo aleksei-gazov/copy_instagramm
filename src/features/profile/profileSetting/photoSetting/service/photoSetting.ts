@@ -6,11 +6,11 @@ import { baseAPI } from 'shared/api/baseAPI'
 
 export const PhotoSetting = baseAPI.injectEndpoints({
   endpoints: build => ({
-    sendAvatar: build.mutation<SettingPhotoResponseType | ErrorResponseType, File>({
-      query: arg => ({
+    sendAvatar: build.mutation<SettingPhotoResponseType | ErrorResponseType, any>({
+      query: body => ({
         url: `/api/users/profile/avatar`,
         method: 'POST',
-        arg,
+        body,
       }),
     }),
     deleteAvatar: build.mutation<void | ErrorResponseType, void>({
