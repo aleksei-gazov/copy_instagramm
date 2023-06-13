@@ -11,7 +11,6 @@ type InputTypeFileProps = {
 
 export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [sendAvatar] = useSendAvatarMutation()
   const selectFileHandler = () => {
     inputRef && inputRef.current?.click()
   }
@@ -22,9 +21,6 @@ export const InputTypeFile = ({ setSelectedImage }: InputTypeFileProps) => {
       const form = new FormData()
 
       setSelectedImage(file)
-      // form.append('file', file)
-      // sendAvatar(form)
-      console.log('file: ', file)
     }
   }
 
