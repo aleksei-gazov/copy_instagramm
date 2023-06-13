@@ -21,7 +21,7 @@ export const UserProfileHeader = () => {
   return (
     <div className={cls.UserProfileHeader}>
       <div className={cls.avatarContainer}>
-        <Image src={url} alt={'user avatar'} width={204} height={204} />
+        <Image src={url || defaultPhoto} alt={'user avatar'} width={204} height={204} />
       </div>
       <div className={cls.userProfileInfoContainer}>
         <UserInfoHeader />
