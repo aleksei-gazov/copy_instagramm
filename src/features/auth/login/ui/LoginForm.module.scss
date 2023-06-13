@@ -1,4 +1,4 @@
-@import "../../logOut/ui/AuthFormsStyles.module";
+@import '../../logOut/ui/LogOutComponent.module';
 
 .form {
   @extend .parentForm;
@@ -10,7 +10,7 @@
 }
 
 .mb24 {
- margin-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .mb60 {
@@ -24,4 +24,3 @@
 .mb12 {
   margin-bottom: 12px;
 }
-
