@@ -1,6 +1,6 @@
-import { FC, memo, useCallback } from 'react'
+import { FC, memo, useCallback, useState } from 'react'
 
-import Image from 'next/image'
+import AvatarEditor from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
 
 import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
@@ -10,6 +10,8 @@ import cls from './PhotoEditing.module.scss'
 
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { setCloseModal } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
+import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
@@ -19,6 +21,8 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [scale, setScale] = useState(1)
+  const [crop, setCrop] = useState<undefined | number[]>(undefined)
   const dispatch = useAppDispatch()
   const isOpen = useSelector(getIsOpenModal)
   const OnOpenedCloseModal = useCallback(() => {
@@ -45,8 +49,20 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           </Text>
         </Button>
       </header>
-      <div className={cls.imageContainer}>
-        <Image src={image} alt={'image'} width={1000} height={500} />
+      <div>
+        <AvatarEditor
+          image={image}
+          width={525}
+          height={669}
+          scale={scale}
+          className={cls.canvas}
+          border={crop}
+        />
+
+        <div className={cls.popup}>
+          <PopoverCrop onCrop={setCrop} />
+          <PopoverZoom onScale={setScale} scale={scale} />
+        </div>
       </div>
     </div>
   )

@@ -15,10 +15,17 @@
   border-bottom: 1px solid var(--dark-100);
 }
 
-.imageContainer {
-  overflow: hidden;
-  width: 100%;
-  height: calc(100% - 45px);
+.canvas {
+  overflow: visible;
+}
+
+.popup {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  column-gap: 24px;
+  color: white;
 }
 
 .btn {
