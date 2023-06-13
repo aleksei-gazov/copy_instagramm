@@ -2,8 +2,8 @@ import { FieldValues } from 'react-hook-form'
 
 import Github from '../../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../../public/icon/google-svgrepo-com.svg'
+import formCls from '../../../logOut/ui/LogOutComponent.module.scss'
 
-import formCls from 'features/auth/logOut/ui/AuthFormsStyles.module.scss'
 import { setEmail } from 'features/auth/registration/model/slice/registrationSlice'
 import { useRegisterMutation } from 'features/auth/registration/service/registration'
 import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'

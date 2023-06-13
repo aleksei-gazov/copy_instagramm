@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import Logout from '../../../../../public/icon/log-out.svg'
 
-import cls from './AuthFormsStyles.module.scss'
+import cls from './LogOutComponent.module.scss'
 
 import { Modal } from 'features/auth/logOut/modal/modal'
 import { useLogOutMutation } from 'features/auth/logOut/service/logOut'
