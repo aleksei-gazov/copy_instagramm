@@ -19,11 +19,6 @@ export const Publication = () => {
   const dispatch = useAppDispatch()
   const { data } = useGetProfileQuery()
 
-  if (!data) return null
-
-  const src = data.avatars[1]?.url || defaultAva
-  const userName = data.userName
-
   const onChangeDescription = useCallback(
     (value: string) => {
       if (description.length < 500) {
@@ -32,6 +27,11 @@ export const Publication = () => {
     },
     [dispatch, description]
   )
+
+  if (!data) return null
+
+  const src = data.avatars[1]?.url || defaultAva
+  const userName = data.userName
 
   return (
     <div className={cls.Publication}>
