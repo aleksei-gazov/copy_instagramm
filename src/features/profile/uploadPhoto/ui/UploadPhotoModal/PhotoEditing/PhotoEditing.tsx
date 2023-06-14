@@ -11,6 +11,7 @@ import cls from './PhotoEditing.module.scss'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { setCloseModal } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
+import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
@@ -100,8 +101,11 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
         </div>
 
         <div className={cls.popup}>
-          <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
-          <PopoverZoom onScale={setScale} scale={scale} />
+          <div className={cls.popupCol}>
+            <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
+            <PopoverZoom onScale={setScale} scale={scale} />
+          </div>
+          <PopoverGallery />
         </div>
       </div>
     </div>
