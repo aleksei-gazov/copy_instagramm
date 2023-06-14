@@ -8,9 +8,14 @@ import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
 import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
+import { getDescription } from 'features/profile/uploadPhoto/model/selectors/getDescription/getDescription'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  useAddPostMutation,
+  useUploadMutation,
+} from 'features/profile/uploadPhoto/service/uploadPost'
 import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
@@ -26,6 +31,9 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [upload] = useUploadMutation()
+  const [addPost] = useAddPostMutation()
+  const editorRef = useRef<AvatarEditor>(null)
   const step = useAppSelector(getStep)
   const [height, setHeight] = useState(500)
   const [width, setWidth] = useState(500)
@@ -33,6 +41,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const parentRef = useRef<HTMLDivElement>(null)
   const [crop, setCrop] = useState<undefined | number>(undefined)
   const dispatch = useAppDispatch()
+  const description = useAppSelector(getDescription)
   const isOpen = useSelector(getIsOpenModal)
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
@@ -90,7 +99,27 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
-  const onPublishPost = () => {}
+  const onPublishPost = async () => {
+    if (editorRef.current) {
+      const canvas = editorRef.current.getImageScaledToCanvas()
+
+      canvas.toBlob(blob => {
+        if (blob) {
+          const file = new File([blob], 'avatar', { type: blob.type })
+
+          const formData = new FormData()
+
+          formData.append('file', file)
+
+          upload(formData)
+            .unwrap()
+            .then(res =>
+              addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
+            )
+        }
+      })
+    }
+  }
 
   return (
     <div className={cls.PhotoEditing}>
@@ -119,6 +148,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
       <div className={cls.wrapper} ref={parentRef}>
         <div className={cls.avatarContainer}>
           <AvatarEditor
+            ref={editorRef}
             image={image}
             width={width}
             height={height}
