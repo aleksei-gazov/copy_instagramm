@@ -11,6 +11,7 @@ import cls from './PhotoEditing.module.scss'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
@@ -35,8 +36,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
   }, [])
-
-  console.log(step)
 
   const stretchAvatar = () => {
     const parentElement = parentRef.current
@@ -98,11 +97,11 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           <ArrowBack />
         </Button>
         <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          Crop
+          {step === 2 ? 'Publication' : 'Crop'}
         </Text>
         <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
           <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-            Next
+            {step === 2 ? 'Publish' : 'Next'}
           </Text>
         </Button>
       </header>
@@ -115,7 +114,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
             scale={scale}
             className={cls.canvas}
             border={crop ? 1 : 0}
-            // style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover' }}
           />
         </div>
 
@@ -124,7 +123,9 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           <PopoverZoom onScale={setScale} scale={scale} />
         </div>
       </div>
-      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}></div>
+      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
+        <Filters />
+      </div>
     </div>
   )
 })

@@ -29,7 +29,7 @@
   height: 73vh;
 
   background-color: var(--dark-400);
-  transition: all .5s ease-in-out;
+  transition: all .1s ease-in-out;
 
   border-radius: 15px;
   //overflow-x: hidden;
@@ -47,6 +47,9 @@
   right: 20px;
 
   cursor: pointer;
+
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .open {

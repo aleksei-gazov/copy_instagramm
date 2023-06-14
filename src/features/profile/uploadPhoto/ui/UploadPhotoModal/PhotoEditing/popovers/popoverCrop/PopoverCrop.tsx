@@ -18,13 +18,13 @@ type PropsType = {
 
 export const PopoverCrop = ({ parentRef, callBack }: PropsType) => {
   const popoverData = [
-    { id: 1, value: 1, title: 'Original', Icon: SelectCropOriginal },
+    { id: 1, value: undefined, title: 'Original', Icon: SelectCropOriginal },
     { id: 2, value: 1, title: '1:1', Icon: SelectCrop1_1 },
     { id: 3, value: 4 / 5, title: '4:5', Icon: SelectCrop4_5 },
     { id: 4, value: 16 / 9, title: '16:9', Icon: SelectCrop16_9 },
   ]
 
-  const handlerCrop = (aspectRatio: number) => {
+  const handlerCrop = (aspectRatio: number | undefined) => {
     const parentElement = parentRef.current
 
     if (parentElement) {
@@ -34,7 +34,7 @@ export const PopoverCrop = ({ parentRef, callBack }: PropsType) => {
       let newWidth = parentWidth
       let newHeight = parentHeight
 
-      if (aspectRatio !== 0) {
+      if (aspectRatio) {
         if (parentWidth / parentHeight > aspectRatio) {
           newWidth = parentHeight * aspectRatio
           newHeight = parentHeight
