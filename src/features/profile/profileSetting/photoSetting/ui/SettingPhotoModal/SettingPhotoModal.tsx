@@ -10,6 +10,7 @@ import { useSendAvatarMutation } from 'features/profile/profileSetting/photoSett
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { InputTypeFile } from 'shared/ui/InputTypeFile/InputTypeFile'
+import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
 import { ModalHeader } from 'shared/ui/ModalHeader/ModalHeader'
 import { Portal } from 'shared/ui/Portal/Portal'
 
@@ -22,14 +23,11 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const editorRef = useRef<AvatarEditor>(null)
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
-  const [sendAvatar] = useSendAvatarMutation()
+  const [sendAvatar, { isLoading: isAvatarLoading }] = useSendAvatarMutation()
 
   const handleSaveAvatar = () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas()
-
-      setIsModalOpen(false)
-      setSelectedImage(null)
 
       canvas.toBlob(blob => {
         if (blob) {
@@ -40,6 +38,11 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
           formData.append('file', file)
 
           sendAvatar(formData)
+            .unwrap()
+            .then(() => {
+              setIsModalOpen(false)
+              setSelectedImage(null)
+            })
         }
       })
     }
@@ -58,6 +61,7 @@ export const SettingPhotoModal = ({ isModalOpen, setIsModalOpen }: SettingPhotoM
   return (
     <Portal>
       <div className={cls.container}>
+        {isAvatarLoading && <LoaderContent />}
         <ModalHeader title={'Add a Profile Photo'} handleButtonClick={handleButtonClick} />
         <div className={cls.main}>
           <div
