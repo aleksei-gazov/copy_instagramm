@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { DeletePostComponent } from '../../features/post/deletePost/ui/DeletePostComponent'
+import { MyMenu } from '../../features/post/myPostMenu/MyPostMenu'
 
 import { getLayout } from 'widgets/Layout/Layout'
 
 const Post = () => {
-  return <DeletePostComponent />
+  return <MyMenu />
 }
 
 Post.getLayout = getLayout
