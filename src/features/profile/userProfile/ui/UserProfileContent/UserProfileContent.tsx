@@ -1,7 +1,12 @@
+import { useRouter } from 'next/router'
+
 import img1 from '../../../../../../public/test/img1.jpg'
 import img2 from '../../../../../../public/test/img2.jpg'
 import img3 from '../../../../../../public/test/img3.jpg'
 import img4 from '../../../../../../public/test/img4.jpg'
+import { PATH } from '../../../../../shared/const/path'
+import { Loader } from '../../../../../shared/ui/Loader/Loader'
+import { useGetPostQuery } from '../../../../post/getPost/service/getPost'
 
 import cls from './UserProfileContent.module.scss'
 
@@ -19,10 +24,21 @@ const testData = [
 ]
 
 export const UserProfileContent = () => {
+  const router = useRouter()
+  const { data: posts } = useGetPostQuery(117)
+
+  console.log(posts)
+  const postHandler = (id: number) => {
+    // router.push(PATH.POST)
+    console.log(id)
+    console.log(posts)
+    // return <></>
+  }
+
   return (
     <div className={cls.UserProfileContent}>
       {testData.map(({ id, src, alt }) => (
-        <Card src={src} alt={alt} key={id} />
+        <Card src={src} alt={alt} key={id} onClick={() => postHandler(id)} />
       ))}
     </div>
   )

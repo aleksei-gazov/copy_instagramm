@@ -9,4 +9,5 @@ export enum PATH {
   STATISTICS = '/statistics',
   PROFILE = '/profile',
   ERROR_PAGE = '/error-page',
+  POST = '/post',
 }
