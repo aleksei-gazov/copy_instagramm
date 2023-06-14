@@ -9,6 +9,7 @@ import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
 import { getDescription } from 'features/profile/uploadPhoto/model/selectors/getDescription/getDescription'
+import { getFilter } from 'features/profile/uploadPhoto/model/selectors/getFilter/getFilter'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import {
@@ -51,6 +52,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
   }, [])
+  const filter = useAppSelector(getFilter)
 
   const stretchAvatar = () => {
     const parentElement = parentRef.current
@@ -161,7 +163,10 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
             scale={scale}
             className={cls.canvas}
             border={crop ? 1 : 0}
-            style={{ objectFit: 'cover' }}
+            style={{
+              objectFit: 'cover',
+              filter: filter,
+            }}
           />
         </div>
 
