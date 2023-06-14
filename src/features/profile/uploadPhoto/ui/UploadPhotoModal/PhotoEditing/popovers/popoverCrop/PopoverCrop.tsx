@@ -1,3 +1,5 @@
+import { RefObject } from 'react'
+
 import { Popover } from '@headlessui/react'
 
 import SelectCrop1_1 from '../../../../../../../../../public/icon/select-crop-1-1.svg'
@@ -10,19 +12,39 @@ import clsG from '../popovers.module.scss'
 import cls from './PopoverCrop.module.scss'
 
 type PropsType = {
-  onCrop: (crop: undefined | number[]) => void
+  parentRef: RefObject<HTMLDivElement>
+  callBack: (width: number, height: number, crop: number | undefined) => void
 }
 
-export const PopoverCrop = ({ onCrop }: PropsType) => {
+export const PopoverCrop = ({ parentRef, callBack }: PropsType) => {
   const popoverData = [
-    { id: 1, value: undefined, title: 'Original', Icon: SelectCropOriginal },
-    { id: 2, value: [1, 1], title: '1:1', Icon: SelectCrop1_1 },
-    { id: 3, value: [4, 5], title: '4:5', Icon: SelectCrop4_5 },
-    { id: 4, value: [16, 9], title: '16:9', Icon: SelectCrop16_9 },
+    { id: 1, value: 1, title: 'Original', Icon: SelectCropOriginal },
+    { id: 2, value: 1, title: '1:1', Icon: SelectCrop1_1 },
+    { id: 3, value: 4 / 5, title: '4:5', Icon: SelectCrop4_5 },
+    { id: 4, value: 16 / 9, title: '16:9', Icon: SelectCrop16_9 },
   ]
 
-  const handlerCrop = (currentCrop: number[] | undefined) => {
-    onCrop(currentCrop)
+  const handlerCrop = (aspectRatio: number) => {
+    const parentElement = parentRef.current
+
+    if (parentElement) {
+      const parentWidth = parentElement.offsetWidth
+      const parentHeight = parentElement.offsetHeight
+
+      let newWidth = parentWidth
+      let newHeight = parentHeight
+
+      if (aspectRatio !== 0) {
+        if (parentWidth / parentHeight > aspectRatio) {
+          newWidth = parentHeight * aspectRatio
+          newHeight = parentHeight
+        } else {
+          newWidth = parentWidth
+          newHeight = parentWidth / aspectRatio
+        }
+      }
+      callBack(newWidth, newHeight, undefined)
+    }
   }
 
   return (

@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useState } from 'react'
+import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 
 import AvatarEditor from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
@@ -21,12 +21,49 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [height, setHeight] = useState(500)
+  const [width, setWidth] = useState(500)
   const [scale, setScale] = useState(1)
-  const [crop, setCrop] = useState<undefined | number[]>(undefined)
+  const parentRef = useRef<HTMLDivElement>(null)
+  const [crop, setCrop] = useState<undefined | number>(undefined)
   const dispatch = useAppDispatch()
   const isOpen = useSelector(getIsOpenModal)
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
+  }, [])
+
+  const stretchAvatar = () => {
+    const parentElement = parentRef.current
+
+    if (parentElement) {
+      const parentWidth = parentElement.offsetWidth
+      const parentHeight = parentElement.offsetHeight
+
+      // Задаем новые размеры для аватарки
+      // Можно использовать useState для установки размеров
+      const newWidth = parentWidth
+      const newHeight = parentHeight
+
+      setWidth(newWidth)
+      setHeight(newHeight)
+      // Обновляем размеры аватарки
+      // Можно использовать useState и передать новые размеры в свойства width и height компонента AvatarEditor
+    }
+  }
+
+  const onChangeParam = useCallback((width: number, height: number, crop: number | undefined) => {
+    setCrop(crop)
+    setHeight(height)
+    setWidth(width)
+  }, [])
+
+  useEffect(() => {
+    stretchAvatar()
+    window.addEventListener('resize', stretchAvatar)
+
+    return () => {
+      window.removeEventListener('resize', stretchAvatar)
+    }
   }, [])
 
   return (
@@ -49,18 +86,21 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           </Text>
         </Button>
       </header>
-      <div>
-        <AvatarEditor
-          image={image}
-          width={525}
-          height={669}
-          scale={scale}
-          className={cls.canvas}
-          border={crop}
-        />
+      <div className={cls.wrapper} ref={parentRef}>
+        <div className={cls.avatarContainer}>
+          <AvatarEditor
+            image={image}
+            width={width}
+            height={height}
+            scale={scale}
+            className={cls.canvas}
+            border={crop ? 1 : 0}
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
 
         <div className={cls.popup}>
-          <PopoverCrop onCrop={setCrop} />
+          <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
           <PopoverZoom onScale={setScale} scale={scale} />
         </div>
       </div>
