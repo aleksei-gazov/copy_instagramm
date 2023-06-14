@@ -6,7 +6,10 @@ import cls from './UploadPhoto.module.scss'
 import { UploadPhotoModal } from './UploadPhotoModal/UploadPhotoModal'
 
 import { getImage } from 'features/profile/uploadPhoto/model/selectors/getImage/getImage'
-import { setCloseModal } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  setClearImagesAvatar,
+  setCloseModal,
+} from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'

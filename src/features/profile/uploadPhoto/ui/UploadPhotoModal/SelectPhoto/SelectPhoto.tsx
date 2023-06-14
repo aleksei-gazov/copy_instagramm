@@ -2,7 +2,10 @@ import { useCallback } from 'react'
 
 import cls from './SelectPhoto.module.scss'
 
-import { setImage } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  setImage,
+  setImagesAvatar,
+} from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { Photo } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/SelectPhoto/Photo/Photo'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { InputTypeFile } from 'shared/ui/InputTypeFile/InputTypeFile'
@@ -15,6 +18,7 @@ export const SelectPhoto = () => {
       const imageUrl = URL.createObjectURL(image)
 
       dispatch(setImage(imageUrl))
+      dispatch(setImagesAvatar(imageUrl))
     },
     [dispatch]
   )

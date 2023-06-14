@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 
-import AvatarEditor from 'react-avatar-editor'
+import AvatarEditor, { ImageState } from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
 
 import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
@@ -10,7 +10,11 @@ import cls from './PhotoEditing.module.scss'
 
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
-import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  setClearImagesAvatar,
+  setCloseModal,
+  setStep,
+} from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
@@ -25,6 +29,7 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const editorRef = useRef<AvatarEditor>(null)
   const step = useAppSelector(getStep)
   const [height, setHeight] = useState(500)
   const [width, setWidth] = useState(500)
@@ -70,6 +75,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
 
     return () => {
       window.removeEventListener('resize', stretchAvatar)
+      dispatch(setClearImagesAvatar())
     }
   }, [])
 
@@ -80,7 +86,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
       dispatch(setStep(nextStep))
     }
   }
-
   const prevStepHandler = () => {
     if (step) {
       const nextStep = step - 1
@@ -89,6 +94,16 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     } else {
       dispatch(setCloseModal(true))
     }
+  }
+
+  const handlerSaveClick = () => {
+    if (editorRef.current) {
+      const canvas = editorRef.current.getImageScaledToCanvas()
+
+      console.log(canvas)
+    }
+
+    // теперь вы можете использовать этот canvas для сохранения изменений
   }
 
   return (
@@ -110,13 +125,14 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
       <div className={cls.wrapper} ref={parentRef}>
         <div className={cls.avatarContainer}>
           <AvatarEditor
+            ref={editorRef}
             image={image}
             width={width}
             height={height}
             scale={scale}
             className={cls.canvas}
             border={crop ? 1 : 0}
-            // style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover' }}
           />
         </div>
 
