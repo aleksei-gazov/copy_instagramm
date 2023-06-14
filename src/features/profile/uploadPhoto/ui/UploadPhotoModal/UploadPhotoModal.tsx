@@ -6,6 +6,7 @@ import { SelectPhoto } from './SelectPhoto/SelectPhoto'
 import cls from './UploadPhotoModal.module.scss'
 
 import { getImage } from 'features/profile/uploadPhoto/model/selectors/getImage/getImage'
+import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import { PhotoEditing } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/PhotoEditing'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
@@ -17,6 +18,7 @@ interface UploadPhotoModalProps {
 }
 
 export const UploadPhotoModal: FC<UploadPhotoModalProps> = memo(({ callback, isOpen }) => {
+  const step = useAppSelector(getStep)
   const image = useAppSelector(getImage)
   const onClickContentHandler = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
@@ -32,7 +34,10 @@ export const UploadPhotoModal: FC<UploadPhotoModalProps> = memo(({ callback, isO
         <Close width={16} heigth={16} />
       </Button>
       <div onClick={callback} className={cls.overlay}>
-        <div onClick={onClickContentHandler} className={cls.content}>
+        <div
+          onClick={onClickContentHandler}
+          className={classNames(cls.content, { [cls.open]: step !== 0 }, [])}
+        >
           {image ? <PhotoEditing image={image} /> : <SelectPhoto />}
         </div>
       </div>
