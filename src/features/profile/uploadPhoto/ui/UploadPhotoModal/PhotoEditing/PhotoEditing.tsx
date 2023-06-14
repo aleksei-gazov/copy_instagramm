@@ -8,6 +8,7 @@ import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
 import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
+import { getDescription } from 'features/profile/uploadPhoto/model/selectors/getDescription/getDescription'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import {
@@ -15,9 +16,16 @@ import {
   setCloseModal,
   setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  useAddPostMutation,
+  useUploadMutation,
+} from 'features/profile/uploadPhoto/service/uploadPost'
+import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
+import { Publication } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Publication/Publication'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
@@ -29,6 +37,8 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [upload] = useUploadMutation()
+  const [addPost] = useAddPostMutation()
   const editorRef = useRef<AvatarEditor>(null)
   const step = useAppSelector(getStep)
   const [height, setHeight] = useState(500)
@@ -37,14 +47,13 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const parentRef = useRef<HTMLDivElement>(null)
   const [crop, setCrop] = useState<undefined | number>(undefined)
   const dispatch = useAppDispatch()
+  const description = useAppSelector(getDescription)
   const isOpen = useSelector(getIsOpenModal)
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
   }, [])
 
-  console.log(step)
-
-  const stretchAvatar = () => {
+   const stretchAvatar = () => {
     const parentElement = parentRef.current
 
     if (parentElement) {
@@ -86,6 +95,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
       dispatch(setStep(nextStep))
     }
   }
+
   const prevStepHandler = () => {
     if (step) {
       const nextStep = step - 1
@@ -96,14 +106,26 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
-  const handlerSaveClick = () => {
+  const onPublishPost = async () => {
     if (editorRef.current) {
       const canvas = editorRef.current.getImageScaledToCanvas()
 
-      console.log(canvas)
-    }
+      canvas.toBlob(blob => {
+        if (blob) {
+          const file = new File([blob], 'avatar', { type: blob.type })
 
-    // теперь вы можете использовать этот canvas для сохранения изменений
+          const formData = new FormData()
+
+          formData.append('file', file)
+
+          upload(formData)
+            .unwrap()
+            .then(res =>
+              addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
+            )
+        }
+      })
+    }
   }
 
   return (
@@ -114,13 +136,21 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           <ArrowBack />
         </Button>
         <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          Crop
+          {step === 2 ? 'Publication' : 'Crop'}
         </Text>
-        <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
-          <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-            Next
-          </Text>
-        </Button>
+        {step === 2 ? (
+          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
+            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
+              Publish
+            </Text>
+          </Button>
+        ) : (
+          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
+            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
+              Next
+            </Text>
+          </Button>
+        )}
       </header>
       <div className={cls.wrapper} ref={parentRef}>
         <div className={cls.avatarContainer}>
@@ -144,7 +174,9 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           <PopoverGallery />
         </div>
       </div>
-      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}></div>
+      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
+        {step === 1 ? <Filters /> : <Publication />}
+      </div>
     </div>
   )
 })

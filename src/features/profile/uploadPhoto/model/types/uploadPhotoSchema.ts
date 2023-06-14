@@ -3,4 +3,5 @@ export interface UploadPhotoSchema {
   isOpen: boolean
   step: number
   imagesAvatar: string[]
+  description: string
 }

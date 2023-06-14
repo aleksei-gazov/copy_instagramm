@@ -4,7 +4,7 @@ import { UploadPhotoSchema } from '../types/uploadPhotoSchema'
 
 const uploadPhotoSlice = createSlice({
   name: 'uploadPhoto',
-  initialState: { step: 0, imagesAvatar: [] as string[] } as UploadPhotoSchema,
+  initialState: { step: 0, imagesAvatar: [] as string[], description: '' } as UploadPhotoSchema,
   reducers: {
     setImage: (state, action: PayloadAction<string>) => {
       state.image = action.payload
@@ -14,6 +14,9 @@ const uploadPhotoSlice = createSlice({
     },
     setStep: (state, action: PayloadAction<number>) => {
       state.step = action.payload
+    },
+    setDescriptionPost: (state, action: PayloadAction<string>) => {
+      state.description = action.payload
     },
     setImagesAvatar: (state, action: PayloadAction<string | string[]>) => {
       if (typeof action.payload === 'string') {
@@ -43,4 +46,5 @@ export const {
   setImagesAvatar,
   setClearImagesAvatar,
   deleteAvatar,
+  setDescriptionPost,
 } = uploadPhotoSlice.actions

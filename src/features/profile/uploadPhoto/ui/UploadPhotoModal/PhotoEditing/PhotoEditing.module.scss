@@ -15,7 +15,7 @@
   border-bottom: 1px solid var(--dark-100);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  transition: all .4s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 
 .canvas {
@@ -68,11 +68,12 @@
   right: 0;
   width: 0;
   height: 100%;
-  transition: all .4s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 
 .open {
-  width: 20vw;
+  width: 23vw;
+  padding: 10px;
   background-color:var(--dark-400);
-  //border-left: 1px solid var(--dark-100);
+  border-left: 1px solid var(--dark-100);
 }
