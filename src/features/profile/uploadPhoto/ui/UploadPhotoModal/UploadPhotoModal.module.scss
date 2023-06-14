@@ -27,14 +27,12 @@
   align-items: center;
   width: 33vw;
   height: 73vh;
-  //width: fit-content;
-  //height: fit-content;
 
   background-color: var(--dark-400);
   transition: all .5s ease-in-out;
 
   border-radius: 15px;
-  overflow: hidden;
+  //overflow-x: hidden;
 }
 
 .opened {
@@ -49,6 +47,10 @@
   right: 20px;
 
   cursor: pointer;
+}
+
+.open {
+  width: 53vw;
 }
 
 //.isClosing {

@@ -9,10 +9,13 @@ import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
-import { setCloseModal } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
+import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
+import { useAppSelector } from 'shared/hooks/useAppSelector'
+import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
@@ -21,6 +24,7 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const step = useAppSelector(getStep)
   const [height, setHeight] = useState(500)
   const [width, setWidth] = useState(500)
   const [scale, setScale] = useState(1)
@@ -31,6 +35,8 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const OnOpenedCloseModal = useCallback(() => {
     dispatch(setCloseModal(false))
   }, [])
+
+  console.log(step)
 
   const stretchAvatar = () => {
     const parentElement = parentRef.current
@@ -66,21 +72,35 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }, [])
 
+  const onNextStepHandler = () => {
+    if (step < 2) {
+      const nextStep = step + 1
+
+      dispatch(setStep(nextStep))
+    }
+  }
+
+  const prevStepHandler = () => {
+    if (step) {
+      const nextStep = step - 1
+
+      dispatch(setStep(nextStep))
+    } else {
+      dispatch(setCloseModal(true))
+    }
+  }
+
   return (
     <div className={cls.PhotoEditing}>
       <CloseModal isOpen={isOpen} callBack={OnOpenedCloseModal} />
-      <header className={cls.header}>
-        <Button
-          onClick={() => dispatch(setCloseModal(true))}
-          className={cls.btn}
-          theme={ButtonTheme.Clear}
-        >
+      <header className={classNames(cls.header, {}, [])}>
+        <Button onClick={prevStepHandler} className={cls.btn} theme={ButtonTheme.Clear}>
           <ArrowBack />
         </Button>
         <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          Editing
+          Crop
         </Text>
-        <Button theme={ButtonTheme.Clear}>
+        <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
           <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
             Next
           </Text>
@@ -95,7 +115,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
             scale={scale}
             className={cls.canvas}
             border={crop ? 1 : 0}
-            style={{ objectFit: 'cover' }}
+            // style={{ objectFit: 'cover' }}
           />
         </div>
 
@@ -104,6 +124,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           <PopoverZoom onScale={setScale} scale={scale} />
         </div>
       </div>
+      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}></div>
     </div>
   )
 })
