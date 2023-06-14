@@ -16,7 +16,7 @@ const uploadPost = baseAPI.injectEndpoints({
     }),
     addPost: build.mutation<AddPostResponse, AddPostRequest>({
       query: (arg: AddPostRequest) => ({
-        url: `/api/post`,
+        url: `/api/posts`,
         method: 'POST',
         body: arg,
       }),
