@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import src from 'redux-thunk/src'
 
 import img1 from '../../../../../../public/test/img1.jpg'
 import img2 from '../../../../../../public/test/img2.jpg'
@@ -7,6 +8,7 @@ import img4 from '../../../../../../public/test/img4.jpg'
 import { PATH } from '../../../../../shared/const/path'
 import { Loader } from '../../../../../shared/ui/Loader/Loader'
 import { useGetPostQuery } from '../../../../post/getPost/service/getPost'
+import { useGetPostsQuery } from '../../../../post/getPosts/service/getPosts'
 
 import cls from './UserProfileContent.module.scss'
 
@@ -25,20 +27,27 @@ const testData = [
 
 export const UserProfileContent = () => {
   const router = useRouter()
-  const { data: posts } = useGetPostQuery(117)
-
-  console.log(posts)
+  const { data: posts } = useGetPostsQuery(241)
   const postHandler = (id: number) => {
-    // router.push(PATH.POST)
-    console.log(id)
-    console.log(posts)
-    // return <></>
+    const { data: post } = useGetPostQuery(id)
+
+    console.log(post)
+    router.push(PATH.POST)
+
+    return <></>
   }
 
   return (
     <div className={cls.UserProfileContent}>
-      {testData.map(({ id, src, alt }) => (
-        <Card src={src} alt={alt} key={id} onClick={() => postHandler(id)} />
+      {posts?.items.map(({ id, images, description }) => (
+        <Card
+          //@ts-ignore
+          src={images ? images : img1}
+          alt={'photo'}
+          key={id}
+          description={description}
+          onClick={() => postHandler(id)}
+        />
       ))}
     </div>
   )
