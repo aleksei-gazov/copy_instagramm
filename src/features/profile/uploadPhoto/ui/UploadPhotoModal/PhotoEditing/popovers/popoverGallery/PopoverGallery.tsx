@@ -9,6 +9,7 @@ import { getImage } from 'features/profile/uploadPhoto/model/selectors/getImage/
 import { getImagesAvatar } from 'features/profile/uploadPhoto/model/selectors/getImagesAvatar/getImagesAvatar'
 import {
   deleteAvatar,
+  setCloseModal,
   setImage,
   setImagesAvatar,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
@@ -42,7 +43,11 @@ export const PopoverGallery = () => {
 
   const handlerDeletePhoto = (e: MouseEvent, img: string) => {
     e.stopPropagation()
-    dispatch(deleteAvatar(img))
+    if (images.length === 1) {
+      dispatch(setCloseModal(true))
+    } else {
+      dispatch(deleteAvatar(img))
+    }
   }
 
   return (

@@ -31,7 +31,7 @@ const uploadPhotoSlice = createSlice({
     deleteAvatar: (state, action: PayloadAction<string>) => {
       const curIndex = state.imagesAvatar.findIndex(el => el === action.payload)
 
-      if (curIndex) {
+      if (curIndex !== -1) {
         state.imagesAvatar.splice(curIndex, 1)
       }
     },
