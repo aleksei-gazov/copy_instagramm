@@ -4,4 +4,5 @@ export interface UploadPhotoSchema {
   step: number
   imagesAvatar: string[]
   description: string
+  filter: string
 }
