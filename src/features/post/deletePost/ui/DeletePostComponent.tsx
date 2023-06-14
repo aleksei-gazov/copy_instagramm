@@ -2,7 +2,10 @@ import { FC, memo, useState } from 'react'
 
 import { useRouter } from 'next/router'
 
-import DeletePost from '../../../../../public/icon/delete.svg'
+import DeletePostImage from '../../../../../public/icon/delete.svg'
+import { PATH } from '../../../../shared/const/path'
+import { Loader } from '../../../../shared/ui/Loader/Loader'
+import { useDeletePostMutation } from '../service/deletePost'
 
 import cls from './DeletePostComponent.module.scss'
 
@@ -20,28 +23,31 @@ export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ classNa
   const deletePostHandler = () => {
     setShowModal(true)
   }
-  // const [logOut, { isLoading, isSuccess }] = useLogOutMutation()
+  const [DeletePost, { isLoading, isSuccess }] = useDeletePostMutation()
   const [showModal, setShowModal] = useState<boolean>(false) //modal
   const closeModal = () => {
     setShowModal(false)
   }
+  //TODO
+  //postId hardcode
+  const postId = 91
   const onSubmit = () => {
-    // logOut()
+    DeletePost(postId)
     setShowModal(false)
   }
 
-  // if (isLoading) return <Loader />
-  //
-  // if (isSuccess) {
-  //   router.push(PATH.PROFILE)
-  //
-  //   return <></>
-  // }
+  if (isLoading) return <Loader />
+
+  if (isSuccess) {
+    router.push(PATH.PROFILE)
+
+    return <></>
+  }
 
   return (
     <div className={classNames('', {}, [])}>
       <Button className={cls.btn} theme={ButtonTheme.Clear} onClick={deletePostHandler}>
-        <DeletePost />
+        <DeletePostImage />
         <Text
           tag={'span'}
           className={className}
