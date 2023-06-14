@@ -12,7 +12,7 @@ export const LoaderContent: FC<LoaderProps> = memo(({ className = '' }) => {
   return (
     <div className={classNames(cls.Loader, {}, [className])}>
       <span className={cls.loader}></span>
-      <span className={cls.text}>Loading...</span>
+      {/*<span className={cls.text}>Loading...</span>*/}
     </div>
   )
 })

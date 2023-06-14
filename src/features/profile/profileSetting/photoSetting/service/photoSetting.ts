@@ -12,6 +12,7 @@ export const PhotoSetting = baseAPI.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['User'],
     }),
     deleteAvatar: build.mutation<void | ErrorResponseType, void>({
       query: () => ({
