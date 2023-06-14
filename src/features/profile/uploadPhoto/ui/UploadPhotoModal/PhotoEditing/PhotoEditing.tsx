@@ -14,6 +14,7 @@ import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice
 import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
+import { Publication } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Publication/Publication'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
@@ -89,6 +90,8 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
+  const onPublishPost = () => {}
+
   return (
     <div className={cls.PhotoEditing}>
       <CloseModal isOpen={isOpen} callBack={OnOpenedCloseModal} />
@@ -99,11 +102,19 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
         <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
           {step === 2 ? 'Publication' : 'Crop'}
         </Text>
-        <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
-          <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-            {step === 2 ? 'Publish' : 'Next'}
-          </Text>
-        </Button>
+        {step === 2 ? (
+          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
+            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
+              Publish
+            </Text>
+          </Button>
+        ) : (
+          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
+            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
+              Next
+            </Text>
+          </Button>
+        )}
       </header>
       <div className={cls.wrapper} ref={parentRef}>
         <div className={cls.avatarContainer}>
@@ -124,7 +135,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
         </div>
       </div>
       <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
-        <Filters />
+        {step === 1 ? <Filters /> : <Publication />}
       </div>
     </div>
   )
