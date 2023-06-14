@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 
-import AvatarEditor, { ImageState } from 'react-avatar-editor'
+import AvatarEditor from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
 
 import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
@@ -16,7 +16,6 @@ import {
   setCloseModal,
   setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
-import { setCloseModal, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import {
   useAddPostMutation,
   useUploadMutation,
@@ -53,7 +52,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     dispatch(setCloseModal(false))
   }, [])
 
-   const stretchAvatar = () => {
+  const stretchAvatar = () => {
     const parentElement = parentRef.current
 
     if (parentElement) {
