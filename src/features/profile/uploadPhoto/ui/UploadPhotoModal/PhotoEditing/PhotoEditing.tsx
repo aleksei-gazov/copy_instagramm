@@ -103,13 +103,13 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           {step === 2 ? 'Publication' : 'Crop'}
         </Text>
         {step === 2 ? (
-          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
+          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
             <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
               Publish
             </Text>
           </Button>
         ) : (
-          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
+          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
             <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
               Next
             </Text>

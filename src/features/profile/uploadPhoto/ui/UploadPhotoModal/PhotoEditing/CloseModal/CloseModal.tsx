@@ -2,7 +2,11 @@ import { FC, memo } from 'react'
 
 import cls from './CloseModal.module.scss'
 
-import { setImage, setStep } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import {
+  setDescriptionPost,
+  setImage,
+  setStep,
+} from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
@@ -22,6 +26,7 @@ export const CloseModal: FC<CloseModalProps> = memo(({ isOpen, callBack }) => {
   const onDeleteHandler = () => {
     dispatch(setImage(''))
     dispatch(setStep(0))
+    dispatch(setDescriptionPost(''))
     callBack()
   }
 
