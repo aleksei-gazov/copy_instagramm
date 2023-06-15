@@ -1,4 +1,4 @@
-import React, { FC, memo, MouseEvent } from 'react'
+import { FC, memo, MouseEvent } from 'react'
 
 import Close from '../../../../../../public/icon/close.svg'
 
@@ -36,7 +36,7 @@ export const UploadPhotoModal: FC<UploadPhotoModalProps> = memo(({ callback, isO
       <div onClick={callback} className={cls.overlay}>
         <div
           onClick={onClickContentHandler}
-          className={classNames(cls.content, { [cls.open]: step !== 0 }, [])}
+          className={classNames(cls.content, { [cls.open]: step === 1 || step === 2 }, [])}
         >
           {image ? <PhotoEditing image={image} /> : <SelectPhoto />}
         </div>

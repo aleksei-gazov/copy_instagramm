@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useState } from 'react'
+import { FC, memo, useCallback, useState } from 'react'
 
 import Plus from '../../../../../public/icon/plus-square.svg'
 
@@ -6,9 +6,12 @@ import cls from './UploadPhoto.module.scss'
 import { UploadPhotoModal } from './UploadPhotoModal/UploadPhotoModal'
 
 import { getImage } from 'features/profile/uploadPhoto/model/selectors/getImage/getImage'
+import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import {
-  setClearImagesAvatar,
   setCloseModal,
+  setDescriptionPost,
+  setImage,
+  setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
@@ -21,6 +24,7 @@ interface UploadPhotoProps {
 }
 
 export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
+  const step = useAppSelector(getStep)
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const image = useAppSelector(getImage)
@@ -29,12 +33,21 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
   }
 
   const onChangeModalOpened = useCallback(() => {
+    if (step === 3) {
+      setIsOpen(false)
+      dispatch(setImage(''))
+      dispatch(setStep(0))
+      dispatch(setDescriptionPost(''))
+
+      return
+    }
+
     if (image) {
       dispatch(setCloseModal(true))
     } else {
       setIsOpen(prev => !prev)
     }
-  }, [image])
+  }, [image, step])
 
   return (
     <>
