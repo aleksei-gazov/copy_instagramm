@@ -170,13 +170,15 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           />
         </div>
 
-        <div className={cls.popup}>
-          <div className={cls.popupCol}>
-            <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
-            <PopoverZoom onScale={setScale} scale={scale} />
+        {step === 0 && (
+          <div className={cls.popup}>
+            <div className={cls.popupCol}>
+              <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
+              <PopoverZoom onScale={setScale} scale={scale} />
+            </div>
+            <PopoverGallery />
           </div>
-          <PopoverGallery />
-        </div>
+        )}
       </div>
       <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
         {step === 1 ? <Filters /> : <Publication />}
