@@ -29,7 +29,7 @@ export const UserProfileContent = () => {
   const router = useRouter()
   const { data: posts } = useGetPostsQuery(241)
 
-  console.log(posts?.items[0].images[0].src)
+  console.log(posts?.items[0].images[0]?.url)
   const postHandler = (id: number) => {
     // const { data: post } = useGetPostQuery(id)
 
@@ -42,16 +42,22 @@ export const UserProfileContent = () => {
   return (
     <div className={cls.UserProfileContent}>
       {posts?.items.map(({ id, images, description }) => (
-        <Card
-          //@ts-ignore
-          src={images ? images[1]?.url : testData[1].src}
-          alt={'photo'}
-          key={id}
-          width={images ? images[1]?.width : 640}
-          height={images ? images[1]?.height : 640}
-          description={description}
-          onClick={() => postHandler(id)}
-        />
+        <div key={id}>
+          <Card
+            src={images[0] === null ? testData[0].src : images[1]?.url}
+            // src={images[0] === null ? images[1]?.url : testData[0].src}
+            alt={'photo'}
+            key={id}
+            // width={images ? images[1]?.width : 120}
+            width={250}
+            // height={images ? images[1]?.height : 120}
+            height={250}
+            //@ts-ignore
+            description={description}
+            onClick={() => postHandler(id)}
+          />
+          <div style={{ color: 'white' }}>{description}</div>
+        </div>
       ))}
     </div>
   )
