@@ -27,10 +27,12 @@ import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/Ph
 import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { Publication } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Publication/Publication'
+import { PublicationCompleted } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/PublicationCompleted/PublicationCompleted'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface PhotoEditingProps {
@@ -38,6 +40,7 @@ interface PhotoEditingProps {
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [upload] = useUploadMutation()
   const [addPost] = useAddPostMutation()
   const editorRef = useRef<AvatarEditor>(null)
@@ -116,54 +119,77 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
 
       formData.append('file', file)
 
+      setIsLoading(true)
       upload(formData)
         .unwrap()
         .then(res =>
           addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
         )
+        .then(res => {
+          dispatch(setStep(3))
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }
 
   return (
     <div className={cls.PhotoEditing}>
+      {isLoading && <LoaderContent isText={true} className={cls.loaderContent} />}
       <CloseModal isOpen={isOpen} callBack={OnOpenedCloseModal} />
-      <header className={classNames(cls.header, {}, [])}>
-        <Button onClick={prevStepHandler} className={cls.btn} theme={ButtonTheme.Clear}>
-          <ArrowBack />
-        </Button>
-        <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          {step === 2 ? 'Publication' : 'Crop'}
-        </Text>
-        {step === 2 ? (
-          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
-            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-              Publish
-            </Text>
+      {step < 3 && (
+        <header className={classNames(cls.header, {}, [])}>
+          <Button onClick={prevStepHandler} className={cls.btn} theme={ButtonTheme.Clear}>
+            <ArrowBack />
           </Button>
-        ) : (
-          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
-            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-              Next
-            </Text>
-          </Button>
-        )}
-      </header>
+          <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
+            {step === 2 ? 'Publication' : 'Crop'}
+          </Text>
+          {step < 2 && (
+            <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
+              <Text
+                tag={'span'}
+                font={TextFontTheme.INTER_REGULAR_L}
+                color={TextColorTheme.PRIMARY}
+              >
+                Next
+              </Text>
+            </Button>
+          )}
+          {step === 2 && (
+            <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
+              <Text
+                tag={'span'}
+                font={TextFontTheme.INTER_REGULAR_L}
+                color={TextColorTheme.PRIMARY}
+              >
+                Publish
+              </Text>
+            </Button>
+          )}
+        </header>
+      )}
       <div className={cls.wrapper} ref={parentRef}>
-        <div className={cls.avatarContainer}>
-          <AvatarEditor
-            ref={editorRef}
-            image={image}
-            width={width}
-            height={height}
-            scale={scale}
-            className={cls.canvas}
-            border={crop ? 1 : 0}
-            style={{
-              objectFit: 'cover',
-              filter: filter,
-            }}
-          />
-        </div>
+        {step !== 3 ? (
+          <div className={cls.avatarContainer}>
+            <AvatarEditor
+              ref={editorRef}
+              image={image}
+              width={width}
+              height={height}
+              scale={scale}
+              className={cls.canvas}
+              border={crop ? 1 : 0}
+              style={{
+                objectFit: 'cover',
+                filter: filter,
+              }}
+            />
+          </div>
+        ) : (
+          <PublicationCompleted />
+        )}
 
         {step === 0 && (
           <div className={cls.popup}>
@@ -175,8 +201,9 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           </div>
         )}
       </div>
-      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
-        {step === 1 ? <Filters /> : <Publication />}
+      <div className={classNames(cls.sidebarR, { [cls.open]: step === 1 || step === 2 }, [])}>
+        {step === 1 && <Filters />}
+        {step === 2 && <Publication />}
       </div>
     </div>
   )

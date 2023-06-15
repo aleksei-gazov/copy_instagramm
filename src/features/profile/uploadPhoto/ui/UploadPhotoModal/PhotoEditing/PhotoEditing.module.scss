@@ -4,6 +4,12 @@
   height: calc(100% - 45px);
 }
 
+.loaderContent {
+  height: calc(100% + 46px);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
 .header {
   width: 100%;
   min-height: 45px;
