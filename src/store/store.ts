@@ -8,6 +8,8 @@ import {
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { toast } from 'react-toastify'
 
+import { postReducer } from '../features/post/model/slice/loginSlice'
+
 import { StateSchema } from './stateSchema'
 
 import { loginReducer } from 'features/auth/login'
@@ -48,6 +50,7 @@ const rootStore: ReducersMapObject<StateSchema> = {
   login: loginReducer,
   registration: registrationReducer,
   authMe: authMeReducer,
+  post: postReducer,
 }
 
 export const store = configureStore({

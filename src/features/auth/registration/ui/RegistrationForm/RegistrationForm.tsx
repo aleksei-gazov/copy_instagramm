@@ -1,5 +1,3 @@
-import { FieldValues } from 'react-hook-form'
-
 import Github from '../../../../../../public/icon/github-svgrepo-com.svg'
 import Google from '../../../../../../public/icon/google-svgrepo-com.svg'
 import formCls from '../../../logOut/ui/LogOutComponent.module.scss'
@@ -9,11 +7,9 @@ import { useRegisterMutation } from 'features/auth/registration/service/registra
 import cls from 'features/auth/registration/ui/RegistrationForm/RegistrationForm.module.scss'
 import { PATH } from 'shared/const/path'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
-import { useFormHandler } from 'shared/hooks/useFormHandler'
 import { useRegisterForm } from 'shared/hooks/useRegisterForm'
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button'
 import { ControlledInputNew } from 'shared/ui/ControlledInput/ControlledInput'
-import { Input } from 'shared/ui/Input/Input'
 import { Loader } from 'shared/ui/Loader/Loader'
 import { NavLink, NavLinkColor } from 'shared/ui/NavLink/Navlink'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'

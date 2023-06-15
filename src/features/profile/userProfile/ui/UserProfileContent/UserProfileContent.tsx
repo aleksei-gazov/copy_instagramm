@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router'
-import src from 'redux-thunk/src'
 
 import img1 from '../../../../../../public/test/img1.jpg'
 import img2 from '../../../../../../public/test/img2.jpg'
 import img3 from '../../../../../../public/test/img3.jpg'
 import img4 from '../../../../../../public/test/img4.jpg'
 import { PATH } from '../../../../../shared/const/path'
-import { Loader } from '../../../../../shared/ui/Loader/Loader'
-import { useGetPostQuery } from '../../../../post/getPost/service/getPost'
+import { useAppDispatch } from '../../../../../shared/hooks/useAppDispatch'
 import { useGetPostsQuery } from '../../../../post/getPosts/service/getPosts'
+import { setPostId } from '../../../../post/model/slice/loginSlice'
 
 import cls from './UserProfileContent.module.scss'
 
@@ -28,12 +27,9 @@ const testData = [
 export const UserProfileContent = () => {
   const router = useRouter()
   const { data: posts } = useGetPostsQuery(241)
-
-  console.log(posts?.items[0].images[0]?.url)
+  const dispatch = useAppDispatch()
   const postHandler = (id: number) => {
-    // const { data: post } = useGetPostQuery(id)
-
-    // console.log(post)
+    dispatch(setPostId({ postId: id }))
     router.push(PATH.POST)
 
     return <></>
@@ -44,8 +40,7 @@ export const UserProfileContent = () => {
       {posts?.items.map(({ id, images, description }) => (
         <div key={id}>
           <Card
-            src={images[0] === null ? testData[0].src : images[1]?.url}
-            // src={images[0] === null ? images[1]?.url : testData[0].src}
+            src={images[0] === undefined ? testData[0].src : images[1]?.url}
             alt={'photo'}
             key={id}
             // width={images ? images[1]?.width : 120}

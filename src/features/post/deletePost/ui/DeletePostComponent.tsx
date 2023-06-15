@@ -1,15 +1,17 @@
 import { FC, memo, useState } from 'react'
 
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 import DeletePostImage from '../../../../../public/icon/delete.svg'
 import { PATH } from '../../../../shared/const/path'
 import { Loader } from '../../../../shared/ui/Loader/Loader'
+import { Modal } from '../../../auth/logOut/modal/modal'
+import { getPostId } from '../../model/selectors/getPostId/getPostId'
 import { useDeletePostMutation } from '../service/deletePost'
 
 import cls from './DeletePostComponent.module.scss'
 
-import { Modal } from 'features/auth/logOut/modal/modal'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
@@ -20,17 +22,15 @@ interface DeletePostComponentProps {
 
 export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ className = '' }) => {
   const router = useRouter()
+  const postId = useSelector(getPostId)
   const deletePostHandler = () => {
     setShowModal(true)
   }
   const [DeletePost, { isLoading, isSuccess }] = useDeletePostMutation()
-  const [showModal, setShowModal] = useState<boolean>(false) //modal
+  const [showModal, setShowModal] = useState<boolean>(false)
   const closeModal = () => {
     setShowModal(false)
   }
-  //TODO
-  //postId hardcode
-  const postId = 91
   const onSubmit = () => {
     DeletePost(postId)
     setShowModal(false)

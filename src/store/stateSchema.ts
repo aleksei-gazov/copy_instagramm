@@ -1,3 +1,5 @@
+import { PostSchema } from '../features/post/model/types/PostSchema'
+
 import { LoginSchema } from 'features/auth/login'
 import { RegistrationSchema } from 'features/auth/registration/model/types/RegistrationSchema'
 import { baseAPI } from 'shared/api/baseAPI'
@@ -8,4 +10,5 @@ export interface StateSchema {
   login: LoginSchema
   registration: RegistrationSchema
   authMe: AuthMeSchema
+  post: PostSchema
 }
