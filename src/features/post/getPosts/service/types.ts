@@ -2,7 +2,7 @@ export type PostTypeResponse = {
   id: number
   description: string
   location?: any
-  images: any[]
+  images: Images[]
   createdAt: string
   updatedAt: string
 }
@@ -12,4 +12,11 @@ export type PostsResponseType = {
   page: number
   pageSize: number
   items: PostTypeResponse[]
+}
+export type Images = {
+  url: string
+  width: number
+  height: number
+  fileSize: number
+  uploadId: string
 }

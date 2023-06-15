@@ -28,10 +28,12 @@ const testData = [
 export const UserProfileContent = () => {
   const router = useRouter()
   const { data: posts } = useGetPostsQuery(241)
-  const postHandler = (id: number) => {
-    const { data: post } = useGetPostQuery(id)
 
-    console.log(post)
+  console.log(posts?.items[0].images[0].src)
+  const postHandler = (id: number) => {
+    // const { data: post } = useGetPostQuery(id)
+
+    // console.log(post)
     router.push(PATH.POST)
 
     return <></>
@@ -42,9 +44,11 @@ export const UserProfileContent = () => {
       {posts?.items.map(({ id, images, description }) => (
         <Card
           //@ts-ignore
-          src={images ? images : img1}
+          src={images ? images[1]?.url : testData[1].src}
           alt={'photo'}
           key={id}
+          width={images ? images[1]?.width : 640}
+          height={images ? images[1]?.height : 640}
           description={description}
           onClick={() => postHandler(id)}
         />
