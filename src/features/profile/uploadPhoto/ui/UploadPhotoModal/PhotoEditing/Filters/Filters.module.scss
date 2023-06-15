@@ -17,8 +17,6 @@
 }
 
 .container {
-  width: 84px;
-  height: 84px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,10 +32,8 @@
 }
 
 .block {
-  //min-width: 5vw;
-  //min-height: 8vh;
   max-width: 5vw;
-  max-height: 8vh;
+  max-height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
