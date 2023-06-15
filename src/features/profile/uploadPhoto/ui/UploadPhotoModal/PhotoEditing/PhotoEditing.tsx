@@ -8,6 +8,7 @@ import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
 import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
+import { createFilteredFile } from 'features/profile/uploadPhoto/lib/createFilteredFile'
 import { getDescription } from 'features/profile/uploadPhoto/model/selectors/getDescription/getDescription'
 import { getFilter } from 'features/profile/uploadPhoto/model/selectors/getFilter/getFilter'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
@@ -109,23 +110,17 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
 
   const onPublishPost = async () => {
     if (editorRef.current) {
-      const canvas = editorRef.current.getImageScaledToCanvas()
+      const file = await createFilteredFile(editorRef, filter)
 
-      canvas.toBlob(blob => {
-        if (blob) {
-          const file = new File([blob], 'avatar', { type: blob.type })
+      const formData = new FormData()
 
-          const formData = new FormData()
+      formData.append('file', file)
 
-          formData.append('file', file)
-
-          upload(formData)
-            .unwrap()
-            .then(res =>
-              addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
-            )
-        }
-      })
+      upload(formData)
+        .unwrap()
+        .then(res =>
+          addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
+        )
     }
   }
 
