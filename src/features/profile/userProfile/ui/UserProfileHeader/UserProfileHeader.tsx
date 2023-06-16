@@ -9,11 +9,10 @@ import cls from './UserProfileHeader.module.scss'
 import { UserStats } from './UserStats/UserStats'
 
 import { useGetProfileQuery } from 'features/profile/profileSetting/generalInformation/service/profile'
-import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 export const UserProfileHeader = () => {
-  const { data, isLoading } = useGetProfileQuery()
+  const { data } = useGetProfileQuery()
 
   if (!data) return null
 
