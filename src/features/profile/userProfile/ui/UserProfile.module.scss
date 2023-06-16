@@ -1,12 +1,14 @@
 .container {
   width: 100%;
   min-height: 100vh;
+  overflow: auto;
 }
 
 .innerWrapper {
   width: 1120px;
   margin: 0 auto;
   padding: 36px 0;
+  padding-bottom: 500px;
   display: flex;
   flex-direction: column;
   gap: 48px;
