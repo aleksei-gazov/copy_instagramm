@@ -33,9 +33,7 @@ export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ classNa
     setShowModal(false)
   }
   const onSubmit = () => {
-    console.log(123)
     DeletePost(postId)
-    console.log(postId)
     setShowModal(false)
   }
 
