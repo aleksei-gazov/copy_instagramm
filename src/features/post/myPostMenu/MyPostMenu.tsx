@@ -1,4 +1,6 @@
-import { Menu } from '@headlessui/react'
+import React from 'react'
+
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { DeletePostComponent } from '../deletePost/ui/DeletePostComponent'
 
@@ -7,20 +9,14 @@ import cls from './MyPostMenu.module.scss'
 export const MyPostMenu = () => {
   return (
     <div className={cls.menu}>
-      <Menu>
-        <div>
-          <Menu.Button>...</Menu.Button>
-        </div>
-        <Menu.Items>
-          <div>
-            <Menu.Item as={DeletePostComponent}></Menu.Item>
-            {/*заменить на Edit Post*/}
-          </div>
-          <div>
-            <Menu.Item as={DeletePostComponent}></Menu.Item>
-          </div>
-        </Menu.Items>
-      </Menu>
+      <DropdownMenu.Root modal={false}>
+        <DropdownMenu.Trigger asChild>
+          <button>...</button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <DeletePostComponent />
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </div>
   )
 }

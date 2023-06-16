@@ -15,7 +15,7 @@ type ModalType = {
   onClose: () => void
 }
 
-export const Modal = ({
+export const ModalDel = ({
   active,
   onClose,
   onSubmit,
