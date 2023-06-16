@@ -18,7 +18,13 @@ export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName }) => {
     <header className={cls.PostHeader}>
       <div className={cls.userContainer}>
         <div className={cls.avatarContainer}>
-          <Image src={avatar} alt={'avatar'} fill={true} />
+          <Image
+            sizes="(max-width: 60px) 100vw, 50vw"
+            priority={true}
+            src={avatar}
+            alt={'avatar'}
+            fill={true}
+          />
         </div>
         <div className={cls.userName}>
           <Text tag={'span'} color={TextColorTheme.LIGHT} font={TextFontTheme.INTER_REGULAR_M}>

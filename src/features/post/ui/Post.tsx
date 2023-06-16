@@ -33,15 +33,25 @@ export const Post: FC<PostProps> = memo(({ currentId, callBack }) => {
     <Modal callback={onChangeOpen} isOpen={isOpen}>
       {isLoading && <LoaderContent isText={true} className={cls.loader} />}
       <div className={cls.Post}>
-        <div className={cls.imageContainer}>
-          <Image src={imageUrl} alt={alt} fill={true} />
-        </div>
-        <div className={cls.postContainer}>
-          <PostHeader avatar={avatar} userName={userName} />
-          <div className={cls.mainContent}></div>
-          <div className={cls.otherBlock}></div>
-          <PostMessage />
-        </div>
+        {!isLoading && (
+          <>
+            <div className={cls.imageContainer}>
+              <Image
+                sizes="(max-width: 600px) 100vw, 50vw"
+                priority={true}
+                src={imageUrl}
+                alt={alt}
+                fill={true}
+              />
+            </div>
+            <div className={cls.postContainer}>
+              <PostHeader avatar={avatar} userName={userName} />
+              <div className={cls.mainContent}></div>
+              <div className={cls.otherBlock}></div>
+              <PostMessage />
+            </div>
+          </>
+        )}
       </div>
     </Modal>
   )

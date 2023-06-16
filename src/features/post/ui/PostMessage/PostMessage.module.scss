@@ -10,17 +10,4 @@
   flex-grow: 1;
   padding: 5px 0;
   height: 100%;
-  overflow: hidden;
-
-  background-color: var(--dark-900);
-  border: none;
-  &:active {
-    outline: none;
-    border: none;
-  }
-
-  &:focus {
-    outline: none;
-    border: none;
-  }
 }

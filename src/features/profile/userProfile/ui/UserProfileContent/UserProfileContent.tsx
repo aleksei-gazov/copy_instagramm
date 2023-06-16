@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import cls from './UserProfileContent.module.scss'
 
@@ -7,18 +7,21 @@ import { useGetPostsQuery } from 'features/profile/userProfile/service/posts'
 import { getUserId } from 'shared/hoc'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Card } from 'shared/ui/Card/Card'
+import { Loader } from 'shared/ui/Loader/Loader'
 
 export const UserProfileContent = () => {
   const [currentId, setCurrentId] = useState<null | number>(null)
   const userId = useAppSelector(getUserId)
 
-  const { data } = useGetPostsQuery(userId, {
+  const { data, isLoading } = useGetPostsQuery(userId, {
     skip: !userId,
   })
 
   const getCurrentPostId = useCallback((id: number | null) => {
     setCurrentId(id)
   }, [])
+
+  if (isLoading) return <Loader />
 
   return (
     <div className={cls.UserProfileContent}>
