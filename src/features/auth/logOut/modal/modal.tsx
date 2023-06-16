@@ -22,8 +22,6 @@ export const Modal = ({
   title,
   children,
 }: PropsWithChildren<ModalType>) => {
-  // const portalElement = document.getElementById('__next')
-
   if (!active) {
     return null
   }

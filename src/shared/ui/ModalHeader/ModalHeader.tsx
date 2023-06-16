@@ -18,7 +18,7 @@ export const ModalHeader = ({ title, handleButtonClick }: ModalHeaderType) => {
         {title}
       </Text>
       <Button theme={ButtonTheme.Clear} onClick={handleButtonClick}>
-        <CloseIcon />
+        <CloseIcon width={14} height={14} />
       </Button>
     </div>
   )

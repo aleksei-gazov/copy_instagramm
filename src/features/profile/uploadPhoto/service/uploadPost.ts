@@ -20,6 +20,7 @@ const uploadPost = baseAPI.injectEndpoints({
         method: 'POST',
         body: arg,
       }),
+      invalidatesTags: ['Posts'],
     }),
   }),
 })

@@ -1,6 +1,6 @@
 export interface AuthMeSchema {
   authMeData: {
-    userId: number | null
+    userId: number
     userName: string | undefined
     email: string | undefined
   }

@@ -1,19 +1,29 @@
 import { FC, memo } from 'react'
 
-import Image, { ImageProps } from 'next/image'
+import Image from 'next/image'
 
 import cls from './Card.module.scss'
 
 import { classNames } from 'shared/lib/classNames/classNames'
 
-interface CardProps extends ImageProps {
+interface CardProps {
   className?: string
+  id: number
+  src: string
+  alt: string
+  callBack: (value: number) => void
 }
 
-export const Card: FC<CardProps> = memo(({ className = '', ...arg }) => {
+export const Card: FC<CardProps> = memo(({ className = '', id, src, alt, callBack }) => {
+  const onClickHandler = () => {
+    callBack(id)
+  }
+
   return (
-    <div className={classNames(cls.Card, {}, [className])}>
-      <Image {...arg} />
+    <div onClick={onClickHandler} className={classNames(cls.Card, {}, [className])}>
+      <div className={cls.container}>
+        <Image sizes="(max-width: 270px) 100vw, 50vw" priority={true} src={src} alt={alt} fill />
+      </div>
     </div>
   )
 })

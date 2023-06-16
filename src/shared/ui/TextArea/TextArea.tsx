@@ -16,6 +16,12 @@ interface TextAreaProps extends HTMLTextAreaProps {
   value?: string
   register?: UseFormRegister<FieldValues>
   nameForValidate?: string
+  theme?: TextAreaTheme
+}
+
+export enum TextAreaTheme {
+  PRIMARY = 'primary',
+  DARK = 'dark',
 }
 
 export const TextArea: FC<TextAreaProps> = ({
@@ -24,6 +30,7 @@ export const TextArea: FC<TextAreaProps> = ({
   color = '',
   title,
   value,
+  theme = 'primary',
   placeholder = 'Text-area',
   register,
   nameForValidate = '',
@@ -40,7 +47,7 @@ export const TextArea: FC<TextAreaProps> = ({
   const registerParam = nameForValidate && register && register(nameForValidate)
 
   return (
-    <label className={classNames(cls.label, { [cls.disabled]: disabled }, [])}>
+    <label className={classNames(cls.label, { [cls.disabled]: disabled }, [className])}>
       {title}
       <textarea
         {...otherProps}
@@ -49,7 +56,7 @@ export const TextArea: FC<TextAreaProps> = ({
         disabled={disabled}
         placeholder={placeholder}
         value={value}
-        className={classNames(cls.textArea, {}, [className])}
+        className={classNames(cls.textArea, {}, [className, cls[theme]])}
       ></textarea>
     </label>
   )

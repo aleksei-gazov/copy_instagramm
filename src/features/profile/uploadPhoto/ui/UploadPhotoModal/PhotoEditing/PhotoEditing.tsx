@@ -3,12 +3,12 @@ import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
 
-import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
-
 import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
+import { createFilteredFile } from 'features/profile/uploadPhoto/lib/createFilteredFile'
 import { getDescription } from 'features/profile/uploadPhoto/model/selectors/getDescription/getDescription'
+import { getFilter } from 'features/profile/uploadPhoto/model/selectors/getFilter/getFilter'
 import { getIsOpenModal } from 'features/profile/uploadPhoto/model/selectors/getIsOpenModal/getIsOpenModal'
 import { getStep } from 'features/profile/uploadPhoto/model/selectors/getStep/getStep'
 import {
@@ -16,26 +16,29 @@ import {
   setCloseModal,
   setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { STEP } from 'features/profile/uploadPhoto/model/types/const'
 import {
   useAddPostMutation,
   useUploadMutation,
 } from 'features/profile/uploadPhoto/service/uploadPost'
 import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
+import { PhotoEditingHeader } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/PhotoEditingHeader/PhotoEditingHeader'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
 import { Publication } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Publication/Publication'
+import { PublicationCompleted } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/PublicationCompleted/PublicationCompleted'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
+import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
 
 interface PhotoEditingProps {
   image: string
 }
 
 export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [upload] = useUploadMutation()
   const [addPost] = useAddPostMutation()
   const editorRef = useRef<AvatarEditor>(null)
@@ -48,9 +51,7 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const dispatch = useAppDispatch()
   const description = useAppSelector(getDescription)
   const isOpen = useSelector(getIsOpenModal)
-  const OnOpenedCloseModal = useCallback(() => {
-    dispatch(setCloseModal(false))
-  }, [])
+  const filter = useAppSelector(getFilter)
 
   const stretchAvatar = () => {
     const parentElement = parentRef.current
@@ -71,12 +72,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
-  const onChangeParam = useCallback((width: number, height: number, crop: number | undefined) => {
-    setCrop(crop)
-    setHeight(height)
-    setWidth(width)
-  }, [])
-
   useEffect(() => {
     stretchAvatar()
     window.addEventListener('resize', stretchAvatar)
@@ -87,94 +82,82 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }, [])
 
-  const onNextStepHandler = () => {
-    if (step < 2) {
-      const nextStep = step + 1
-
-      dispatch(setStep(nextStep))
-    }
-  }
-
-  const prevStepHandler = () => {
-    if (step) {
-      const nextStep = step - 1
-
-      dispatch(setStep(nextStep))
-    } else {
-      dispatch(setCloseModal(true))
-    }
-  }
-
+  const onChangeParam = useCallback((width: number, height: number, crop: number | undefined) => {
+    setCrop(crop)
+    setHeight(height)
+    setWidth(width)
+  }, [])
+  const onOpenedCloseModal = useCallback(() => {
+    dispatch(setCloseModal(false))
+  }, [])
   const onPublishPost = async () => {
     if (editorRef.current) {
-      const canvas = editorRef.current.getImageScaledToCanvas()
+      const file = await createFilteredFile(editorRef, filter)
 
-      canvas.toBlob(blob => {
-        if (blob) {
-          const file = new File([blob], 'avatar', { type: blob.type })
+      const formData = new FormData()
 
-          const formData = new FormData()
+      formData.append('file', file)
 
-          formData.append('file', file)
-
-          upload(formData)
-            .unwrap()
-            .then(res =>
-              addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
-            )
-        }
-      })
+      setIsLoading(true)
+      upload(formData)
+        .unwrap()
+        .then(res =>
+          addPost({ description, childrenMetadata: [{ uploadId: res.images[0].uploadId }] })
+        )
+        .then(res => {
+          dispatch(setStep(3))
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
+  }
+
+  const modsSidebarR = {
+    [cls.open]: step === STEP.FILTERS || step === STEP.PUBLICATION,
   }
 
   return (
     <div className={cls.PhotoEditing}>
-      <CloseModal isOpen={isOpen} callBack={OnOpenedCloseModal} />
-      <header className={classNames(cls.header, {}, [])}>
-        <Button onClick={prevStepHandler} className={cls.btn} theme={ButtonTheme.Clear}>
-          <ArrowBack />
-        </Button>
-        <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-          {step === 2 ? 'Publication' : 'Crop'}
-        </Text>
-        {step === 2 ? (
-          <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
-            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-              Publish
-            </Text>
-          </Button>
-        ) : (
-          <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
-            <Text tag={'span'} font={TextFontTheme.INTER_REGULAR_L} color={TextColorTheme.PRIMARY}>
-              Next
-            </Text>
-          </Button>
-        )}
-      </header>
-      <div className={cls.wrapper} ref={parentRef}>
-        <div className={cls.avatarContainer}>
-          <AvatarEditor
-            ref={editorRef}
-            image={image}
-            width={width}
-            height={height}
-            scale={scale}
-            className={cls.canvas}
-            border={crop ? 1 : 0}
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
+      {isLoading && <LoaderContent isText={true} className={cls.loaderContent} />}
+      <CloseModal isOpen={isOpen} callBack={onOpenedCloseModal} />
 
-        <div className={cls.popup}>
-          <div className={cls.popupCol}>
-            <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
-            <PopoverZoom onScale={setScale} scale={scale} />
+      {step < STEP.PUBLICATION_COMPLETED && <PhotoEditingHeader onPublishPost={onPublishPost} />}
+
+      <div className={cls.wrapper} ref={parentRef}>
+        {step === STEP.PUBLICATION_COMPLETED ? (
+          <PublicationCompleted />
+        ) : (
+          <div className={cls.avatarContainer}>
+            <AvatarEditor
+              ref={editorRef}
+              image={image}
+              width={width}
+              height={height}
+              scale={scale}
+              border={crop ? 1 : 0}
+              style={{
+                objectFit: 'cover',
+                filter: filter,
+              }}
+            />
           </div>
-          <PopoverGallery />
-        </div>
+        )}
+
+        {step === STEP.CROP && (
+          <div className={cls.popup}>
+            <div className={cls.popupCol}>
+              <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
+              <PopoverZoom onScale={setScale} scale={scale} />
+            </div>
+            <PopoverGallery />
+          </div>
+        )}
       </div>
-      <div className={classNames(cls.sidebarR, { [cls.open]: step !== 0 }, [])}>
-        {step === 1 ? <Filters /> : <Publication />}
+
+      <div className={classNames(cls.sidebarR, modsSidebarR, [])}>
+        {step === STEP.FILTERS && <Filters />}
+        {step === STEP.PUBLICATION && <Publication />}
       </div>
     </div>
   )
