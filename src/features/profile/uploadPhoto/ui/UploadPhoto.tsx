@@ -13,9 +13,11 @@ import {
   setImage,
   setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { STEP } from 'features/profile/uploadPhoto/model/types/const'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { Modal } from 'shared/ui/Modal/Modal'
 import { Portal } from 'shared/ui/Portal/Portal'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 
@@ -33,7 +35,7 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
   }
 
   const onChangeModalOpened = useCallback(() => {
-    if (step === 3) {
+    if (step === STEP.PUBLICATION_COMPLETED) {
       setIsOpen(false)
       dispatch(setImage(''))
       dispatch(setStep(0))
@@ -59,7 +61,9 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
       </Button>
       {isOpen && (
         <Portal>
-          <UploadPhotoModal isOpen={isOpen} callback={onChangeModalOpened} />
+          <Modal isOpen={isOpen} callback={onChangeModalOpened}>
+            <UploadPhotoModal />
+          </Modal>
         </Portal>
       )}
     </>

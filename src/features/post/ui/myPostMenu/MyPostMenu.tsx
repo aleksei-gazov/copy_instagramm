@@ -2,9 +2,8 @@ import React from 'react'
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { DeletePostComponent } from '../deletePost/ui/DeletePostComponent'
-
-import cls from './MyPostMenu.module.scss'
+import { DeletePostComponent } from 'features/post/deletePost/ui/DeletePostComponent'
+import cls from 'features/post/ui/myPostMenu/MyPostMenu.module.scss'
 
 export const MyPostMenu = () => {
   return (

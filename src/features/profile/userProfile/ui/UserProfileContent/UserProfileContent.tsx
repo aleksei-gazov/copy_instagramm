@@ -1,60 +1,41 @@
-import { useRouter } from 'next/router'
-
-import img1 from '../../../../../../public/test/img1.jpg'
-import img2 from '../../../../../../public/test/img2.jpg'
-import img3 from '../../../../../../public/test/img3.jpg'
-import img4 from '../../../../../../public/test/img4.jpg'
-import { PATH } from '../../../../../shared/const/path'
-import { useAppDispatch } from '../../../../../shared/hooks/useAppDispatch'
-import { useGetPostsQuery } from '../../../../post/getPosts/service/getPosts'
-import { setPostId } from '../../../../post/model/slice/loginSlice'
+import React, { useCallback, useState } from 'react'
 
 import cls from './UserProfileContent.module.scss'
 
+import { Post } from 'features/post/ui/Post'
+import { useGetPostsQuery } from 'features/profile/userProfile/service/posts'
+import { getUserId } from 'shared/hoc'
+import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Card } from 'shared/ui/Card/Card'
-
-const testData = [
-  { id: 1, src: img1, alt: 'photo' },
-  { id: 2, src: img2, alt: 'photo' },
-  { id: 3, src: img3, alt: 'photo' },
-  { id: 4, src: img4, alt: 'photo' },
-  { id: 5, src: img1, alt: 'photo' },
-  { id: 6, src: img2, alt: 'photo' },
-  { id: 7, src: img3, alt: 'photo' },
-  { id: 8, src: img4, alt: 'photo' },
-]
+import { Loader } from 'shared/ui/Loader/Loader'
 
 export const UserProfileContent = () => {
-  const router = useRouter()
-  const { data: posts } = useGetPostsQuery(241)
-  const dispatch = useAppDispatch()
-  const postHandler = (id: number) => {
-    dispatch(setPostId({ postId: id }))
-    console.log(id)
-    router.push(PATH.POST)
+  const [currentId, setCurrentId] = useState<null | number>(null)
+  const userId = useAppSelector(getUserId)
 
-    return <></>
-  }
+  const { data, isLoading } = useGetPostsQuery(userId, {
+    skip: !userId,
+  })
+
+  const getCurrentPostId = useCallback((id: number | null) => {
+    setCurrentId(id)
+  }, [])
+
+  if (isLoading) return <Loader />
 
   return (
     <div className={cls.UserProfileContent}>
-      {posts?.items.map(({ id, images, description }) => (
-        <div key={id}>
+      {data &&
+        data?.items.map(el => (
           <Card
-            src={images[0] === undefined ? testData[0].src : images[1]?.url}
-            alt={'photo'}
-            key={id}
-            // width={images ? images[1]?.width : 120}
-            width={250}
-            // height={images ? images[1]?.height : 120}
-            height={250}
-            //@ts-ignore
-            description={description}
-            onClick={() => postHandler(id)}
+            id={el.id}
+            key={el.id}
+            callBack={getCurrentPostId}
+            src={el.images[0].url}
+            alt={el.description}
           />
-          <div style={{ color: 'white' }}>{description}</div>
-        </div>
-      ))}
+        ))}
+      {currentId && <Post callBack={getCurrentPostId} currentId={currentId} />}
     </div>
   )
 }
