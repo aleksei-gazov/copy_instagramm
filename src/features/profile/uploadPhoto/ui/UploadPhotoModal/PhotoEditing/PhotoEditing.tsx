@@ -3,8 +3,6 @@ import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import { useSelector } from 'react-redux'
 
-import ArrowBack from '../../../../../../../public/icon/arrow-back.svg'
-
 import { CloseModal } from './CloseModal/CloseModal'
 import cls from './PhotoEditing.module.scss'
 
@@ -18,11 +16,13 @@ import {
   setCloseModal,
   setStep,
 } from 'features/profile/uploadPhoto/model/slice/uploadPhotoSlice'
+import { STEP } from 'features/profile/uploadPhoto/model/types/const'
 import {
   useAddPostMutation,
   useUploadMutation,
 } from 'features/profile/uploadPhoto/service/uploadPost'
 import { Filters } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/Filters/Filters'
+import { PhotoEditingHeader } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/PhotoEditingHeader/PhotoEditingHeader'
 import { PopoverCrop } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverCrop/PopoverCrop'
 import { PopoverGallery } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverGallery/PopoverGallery'
 import { PopoverZoom } from 'features/profile/uploadPhoto/ui/UploadPhotoModal/PhotoEditing/popovers/popoverZoom/PopoverZoom'
@@ -31,9 +31,7 @@ import { PublicationCompleted } from 'features/profile/uploadPhoto/ui/UploadPhot
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { classNames } from 'shared/lib/classNames/classNames'
-import { Button, ButtonTheme } from 'shared/ui/Button/Button'
 import { LoaderContent } from 'shared/ui/LoaderContent/LoaderContent'
-import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface PhotoEditingProps {
   image: string
@@ -53,9 +51,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
   const dispatch = useAppDispatch()
   const description = useAppSelector(getDescription)
   const isOpen = useSelector(getIsOpenModal)
-  const OnOpenedCloseModal = useCallback(() => {
-    dispatch(setCloseModal(false))
-  }, [])
   const filter = useAppSelector(getFilter)
 
   const stretchAvatar = () => {
@@ -77,12 +72,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
-  const onChangeParam = useCallback((width: number, height: number, crop: number | undefined) => {
-    setCrop(crop)
-    setHeight(height)
-    setWidth(width)
-  }, [])
-
   useEffect(() => {
     stretchAvatar()
     window.addEventListener('resize', stretchAvatar)
@@ -93,24 +82,14 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }, [])
 
-  const onNextStepHandler = () => {
-    if (step < 2) {
-      const nextStep = step + 1
-
-      dispatch(setStep(nextStep))
-    }
-  }
-
-  const prevStepHandler = () => {
-    if (step) {
-      const nextStep = step - 1
-
-      dispatch(setStep(nextStep))
-    } else {
-      dispatch(setCloseModal(true))
-    }
-  }
-
+  const onChangeParam = useCallback((width: number, height: number, crop: number | undefined) => {
+    setCrop(crop)
+    setHeight(height)
+    setWidth(width)
+  }, [])
+  const onOpenedCloseModal = useCallback(() => {
+    dispatch(setCloseModal(false))
+  }, [])
   const onPublishPost = async () => {
     if (editorRef.current) {
       const file = await createFilteredFile(editorRef, filter)
@@ -134,44 +113,21 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
     }
   }
 
+  const modsSidebarR = {
+    [cls.open]: step === STEP.FILTERS || step === STEP.PUBLICATION,
+  }
+
   return (
     <div className={cls.PhotoEditing}>
       {isLoading && <LoaderContent isText={true} className={cls.loaderContent} />}
-      <CloseModal isOpen={isOpen} callBack={OnOpenedCloseModal} />
-      {step < 3 && (
-        <header className={classNames(cls.header, {}, [])}>
-          <Button onClick={prevStepHandler} className={cls.btn} theme={ButtonTheme.Clear}>
-            <ArrowBack />
-          </Button>
-          <Text tag={'h2'} font={TextFontTheme.INTER_SEMI_BOLD_L} color={TextColorTheme.LIGHT}>
-            {step === 2 ? 'Publication' : 'Crop'}
-          </Text>
-          {step < 2 && (
-            <Button onClick={onNextStepHandler} theme={ButtonTheme.Clear}>
-              <Text
-                tag={'span'}
-                font={TextFontTheme.INTER_REGULAR_L}
-                color={TextColorTheme.PRIMARY}
-              >
-                Next
-              </Text>
-            </Button>
-          )}
-          {step === 2 && (
-            <Button onClick={onPublishPost} theme={ButtonTheme.Clear}>
-              <Text
-                tag={'span'}
-                font={TextFontTheme.INTER_REGULAR_L}
-                color={TextColorTheme.PRIMARY}
-              >
-                Publish
-              </Text>
-            </Button>
-          )}
-        </header>
-      )}
+      <CloseModal isOpen={isOpen} callBack={onOpenedCloseModal} />
+
+      {step < STEP.PUBLICATION_COMPLETED && <PhotoEditingHeader onPublishPost={onPublishPost} />}
+
       <div className={cls.wrapper} ref={parentRef}>
-        {step !== 3 ? (
+        {step === STEP.PUBLICATION_COMPLETED ? (
+          <PublicationCompleted />
+        ) : (
           <div className={cls.avatarContainer}>
             <AvatarEditor
               ref={editorRef}
@@ -179,7 +135,6 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
               width={width}
               height={height}
               scale={scale}
-              className={cls.canvas}
               border={crop ? 1 : 0}
               style={{
                 objectFit: 'cover',
@@ -187,11 +142,9 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
               }}
             />
           </div>
-        ) : (
-          <PublicationCompleted />
         )}
 
-        {step === 0 && (
+        {step === STEP.CROP && (
           <div className={cls.popup}>
             <div className={cls.popupCol}>
               <PopoverCrop parentRef={parentRef} callBack={onChangeParam} />
@@ -201,9 +154,10 @@ export const PhotoEditing: FC<PhotoEditingProps> = memo(({ image }) => {
           </div>
         )}
       </div>
-      <div className={classNames(cls.sidebarR, { [cls.open]: step === 1 || step === 2 }, [])}>
-        {step === 1 && <Filters />}
-        {step === 2 && <Publication />}
+
+      <div className={classNames(cls.sidebarR, modsSidebarR, [])}>
+        {step === STEP.FILTERS && <Filters />}
+        {step === STEP.PUBLICATION && <Publication />}
       </div>
     </div>
   )
