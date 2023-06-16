@@ -30,6 +30,7 @@ export const UserProfileContent = () => {
   const dispatch = useAppDispatch()
   const postHandler = (id: number) => {
     dispatch(setPostId({ postId: id }))
+    console.log(id)
     router.push(PATH.POST)
 
     return <></>

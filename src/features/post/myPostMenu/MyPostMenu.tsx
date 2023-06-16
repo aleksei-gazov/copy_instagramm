@@ -1,4 +1,6 @@
-import { Menu } from '@headlessui/react'
+import { Fragment } from 'react'
+
+import { Menu, Transition } from '@headlessui/react'
 
 import { DeletePostComponent } from '../deletePost/ui/DeletePostComponent'
 
@@ -8,17 +10,25 @@ export const MyPostMenu = () => {
   return (
     <div className={cls.menu}>
       <Menu>
-        <div>
-          <Menu.Button>...</Menu.Button>
-        </div>
+        <Menu.Button>More</Menu.Button>
         <Menu.Items>
-          <div>
-            <Menu.Item as={DeletePostComponent}></Menu.Item>
-            {/*заменить на Edit Post*/}
-          </div>
-          <div>
-            <Menu.Item as={DeletePostComponent}></Menu.Item>
-          </div>
+          <Menu.Item>
+            {({ active }) => (
+              <a className={`${active && 'bg-blue-500'}`} href="/post/deletePost">
+                <DeletePostComponent />
+              </a>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <a className={`${active && 'bg-blue-500'}`} href="/account-settings">
+                Documentation
+              </a>
+            )}
+          </Menu.Item>
+          <Menu.Item disabled>
+            <span className="opacity-75">Invite a friend (coming soon!)</span>
+          </Menu.Item>
         </Menu.Items>
       </Menu>
     </div>

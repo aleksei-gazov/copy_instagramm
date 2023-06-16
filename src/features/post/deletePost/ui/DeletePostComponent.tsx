@@ -23,6 +23,7 @@ interface DeletePostComponentProps {
 export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ className = '' }) => {
   const router = useRouter()
   const postId = useSelector(getPostId)
+
   const deletePostHandler = () => {
     setShowModal(true)
   }
@@ -32,7 +33,9 @@ export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ classNa
     setShowModal(false)
   }
   const onSubmit = () => {
+    console.log(123)
     DeletePost(postId)
+    console.log(postId)
     setShowModal(false)
   }
 
