@@ -17,7 +17,7 @@ import { STEP } from 'features/profile/uploadPhoto/model/types/const'
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { Portal } from 'shared/ui/Portal/Portal'
+import { ModalWrapper } from 'shared/ui/ModalWrapper/ModalWrapper'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface UploadPhotoProps {
@@ -59,9 +59,9 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
         </Text>
       </Button>
       {isOpen && (
-        <Portal>
-          <UploadPhotoModal isOpen={isOpen} callback={onChangeModalOpened} />
-        </Portal>
+        <ModalWrapper isOpen={isOpen} callback={onChangeModalOpened}>
+          <UploadPhotoModal />
+        </ModalWrapper>
       )}
     </>
   )
