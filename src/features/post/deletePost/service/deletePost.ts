@@ -7,7 +7,7 @@ export const DeletePost = baseAPI.injectEndpoints({
         url: `/api/posts/${arg}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Post'],
       //TODO
       //invalidatesTags: ['User'],так или что то другое?
     }),

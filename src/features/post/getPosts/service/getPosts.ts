@@ -11,7 +11,7 @@ export const GetPosts = baseAPI.injectEndpoints({
         }
       },
       //TODO
-      providesTags: ['User'],
+      providesTags: ['Post'],
     }),
   }),
 })
