@@ -7,6 +7,7 @@ const posts = baseAPI.injectEndpoints({
       query: (userId: number) => ({
         url: `api/posts/${userId}`,
       }),
+      providesTags: ['Posts'],
     }),
   }),
 })

@@ -56,5 +56,5 @@ export const baseAPI = createApi({
   reducerPath: 'baseAPI',
   baseQuery: baseQueryWithReAuth,
   endpoints: () => ({}),
-  tagTypes: ['AuthMe', 'User', 'Post'],
+  tagTypes: ['AuthMe', 'User', 'Posts'],
 })

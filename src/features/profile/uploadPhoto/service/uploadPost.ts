@@ -13,7 +13,6 @@ const uploadPost = baseAPI.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Post'],
     }),
     addPost: build.mutation<AddPostResponse, AddPostRequest>({
       query: (arg: AddPostRequest) => ({
@@ -21,7 +20,7 @@ const uploadPost = baseAPI.injectEndpoints({
         method: 'POST',
         body: arg,
       }),
-      invalidatesTags: ['Post'],
+      invalidatesTags: ['Posts'],
     }),
   }),
 })
