@@ -1,29 +1,38 @@
-import img1 from '../../../../../../public/test/img1.jpg'
-import img2 from '../../../../../../public/test/img2.jpg'
-import img3 from '../../../../../../public/test/img3.jpg'
-import img4 from '../../../../../../public/test/img4.jpg'
+import { useCallback, useState } from 'react'
 
 import cls from './UserProfileContent.module.scss'
 
+import { Post } from 'features/post/ui/Post'
+import { useGetPostsQuery } from 'features/profile/userProfile/service/posts'
+import { getUserId } from 'shared/hoc'
+import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Card } from 'shared/ui/Card/Card'
 
-const testData = [
-  { id: 1, src: img1, alt: 'photo' },
-  { id: 2, src: img2, alt: 'photo' },
-  { id: 3, src: img3, alt: 'photo' },
-  { id: 4, src: img4, alt: 'photo' },
-  { id: 5, src: img1, alt: 'photo' },
-  { id: 6, src: img2, alt: 'photo' },
-  { id: 7, src: img3, alt: 'photo' },
-  { id: 8, src: img4, alt: 'photo' },
-]
-
 export const UserProfileContent = () => {
+  const [currentId, setCurrentId] = useState<null | number>(null)
+  const userId = useAppSelector(getUserId)
+
+  const { data } = useGetPostsQuery(userId, {
+    skip: !userId,
+  })
+
+  const getCurrentPostId = useCallback((id: number | null) => {
+    setCurrentId(id)
+  }, [])
+
   return (
     <div className={cls.UserProfileContent}>
-      {testData.map(({ id, src, alt }) => (
-        <Card src={src} alt={alt} key={id} />
-      ))}
+      {data &&
+        data?.items.map(el => (
+          <Card
+            id={el.id}
+            key={el.id}
+            callBack={getCurrentPostId}
+            src={el.images[0].url}
+            alt={el.description}
+          />
+        ))}
+      {currentId && <Post callBack={getCurrentPostId} currentId={currentId} />}
     </div>
   )
 }

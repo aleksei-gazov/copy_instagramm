@@ -16,7 +16,8 @@ import {
 import { useAppDispatch } from 'shared/hooks/useAppDispatch'
 import { useAppSelector } from 'shared/hooks/useAppSelector'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
-import { ModalWrapper } from 'shared/ui/ModalWrapper/ModalWrapper'
+import { Modal } from 'shared/ui/Modal/Modal'
+import { Portal } from 'shared/ui/Portal/Portal'
 import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface UploadPhotoProps {
@@ -58,9 +59,11 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
         </Text>
       </Button>
       {isOpen && (
-        <ModalWrapper isOpen={isOpen} callback={onChangeModalOpened}>
-          <UploadPhotoModal />
-        </ModalWrapper>
+        <Portal>
+          <Modal isOpen={isOpen} callback={onChangeModalOpened}>
+            <UploadPhotoModal />
+          </Modal>
+        </Portal>
       )}
     </>
   )

@@ -40,7 +40,7 @@ export const TextArea: FC<TextAreaProps> = ({
   const registerParam = nameForValidate && register && register(nameForValidate)
 
   return (
-    <label className={classNames(cls.label, { [cls.disabled]: disabled }, [])}>
+    <label className={classNames(cls.label, { [cls.disabled]: disabled }, [className])}>
       {title}
       <textarea
         {...otherProps}

@@ -1,7 +1,8 @@
 .textArea{
   position: relative;
   width: 100%;
-  min-height: 85px;
+  height: 85px;
+  overflow: hidden;
   padding: 6px 12px;
   border: 1px solid var(--dark-300);
   border-radius: 2px;
