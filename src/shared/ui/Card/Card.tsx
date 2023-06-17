@@ -28,6 +28,7 @@ export const Card: FC<CardProps> = memo(({ className = '', id, src, alt, callBac
           src={src}
           alt={alt}
           fill
+          quality={100}
           className={cls.cardItem}
         />
       </div>
