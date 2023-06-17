@@ -22,7 +22,14 @@ export const Card: FC<CardProps> = memo(({ className = '', id, src, alt, callBac
   return (
     <div onClick={onClickHandler} className={classNames(cls.Card, {}, [className])}>
       <div className={cls.container}>
-        <Image sizes="(max-width: 270px) 100vw, 50vw" priority={true} src={src} alt={alt} fill />
+        <Image
+          sizes="(max-width: 298px) 100vw, 50vw"
+          priority={true}
+          src={src}
+          alt={alt}
+          fill
+          className={cls.cardItem}
+        />
       </div>
     </div>
   )
