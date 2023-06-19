@@ -46,7 +46,7 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
   return next(action)
 }
 
-const rootStore: ReducersMapObject<StateSchema> = {
+const rootReducer: ReducersMapObject<StateSchema> = {
   [baseAPI.reducerPath]: baseAPI.reducer,
   login: loginReducer,
   registration: registrationReducer,
@@ -56,7 +56,7 @@ const rootStore: ReducersMapObject<StateSchema> = {
 }
 
 export const store = configureStore({
-  reducer: rootStore,
+  reducer: rootReducer,
   middleware: gDM => gDM().concat([baseAPI.middleware, rtkQueryErrorLogger]),
   preloadedState: loadState(),
 })
