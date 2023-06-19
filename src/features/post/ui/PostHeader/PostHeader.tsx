@@ -3,6 +3,7 @@ import { FC, memo } from 'react'
 import Image from 'next/image'
 
 import More from '../../../../../public/icon/more.svg'
+import { MyPostMenu } from '../myPostMenu/MyPostMenu'
 
 import cls from './PostHeader.module.scss'
 
@@ -13,6 +14,7 @@ interface PostHeaderProps {
   avatar: string
   userName: string
 }
+
 export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName }) => {
   return (
     <header className={cls.PostHeader}>
@@ -33,7 +35,7 @@ export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName }) => {
         </div>
       </div>
       <Button theme={ButtonTheme.Clear}>
-        <More />
+        <MyPostMenu />
       </Button>
     </header>
   )

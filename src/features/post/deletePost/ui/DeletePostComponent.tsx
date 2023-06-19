@@ -4,16 +4,16 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 
 import DeletePostImage from '../../../../../public/icon/delete.svg'
-import { PATH } from '../../../../shared/const/path'
-import { Loader } from '../../../../shared/ui/Loader/Loader'
 import { Modal } from '../../../auth/logOut/modal/modal'
 import { getPostId } from '../../model/selectors/getPostId/getPostId'
 import { useDeletePostMutation } from '../service/deletePost'
 
 import cls from './DeletePostComponent.module.scss'
 
+import { PATH } from 'shared/const/path'
 import { classNames } from 'shared/lib/classNames/classNames'
 import { Button, ButtonTheme } from 'shared/ui/Button/Button'
+import { Loader } from 'shared/ui/Loader/Loader'
 import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface DeletePostComponentProps {

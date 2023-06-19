@@ -2,6 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { useInView } from 'react-intersection-observer'
 
+import { useAppDispatch } from '../../../../../shared/hooks/useAppDispatch'
+import { setPostId } from '../../../../post/model/slice/loginSlice'
+
 import cls from './UserProfileContent.module.scss'
 
 import { Post } from 'features/post/ui/Post'
@@ -12,6 +15,7 @@ import { Card } from 'shared/ui/Card/Card'
 import { Loader } from 'shared/ui/Loader/Loader'
 
 export const UserProfileContent = () => {
+  const dispatch = useAppDispatch()
   const [currentId, setCurrentId] = useState<null | number>(null)
   const [page, setPage] = useState<number>(1)
 
@@ -25,6 +29,9 @@ export const UserProfileContent = () => {
 
   const getCurrentPostId = useCallback((id: number | null) => {
     setCurrentId(id)
+    if (id) {
+      dispatch(setPostId({ postId: id }))
+    }
   }, [])
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export const UserProfileContent = () => {
               id={el.id}
               key={el.id}
               callBack={getCurrentPostId}
-              src={el.images[0].url}
+              src={el.images[0]?.url}
               alt={el.description}
             />
           ))}
