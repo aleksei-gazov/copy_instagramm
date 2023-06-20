@@ -18,52 +18,57 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 
 interface DeletePostComponentProps {
   className?: string
+  callback?: () => void
 }
 
-export const DeletePostComponent: FC<DeletePostComponentProps> = memo(({ className = '' }) => {
-  const router = useRouter()
-  const postId = useSelector(getPostId)
+export const DeletePostComponent: FC<DeletePostComponentProps> = memo(
+  ({ className = '', callback }) => {
+    const router = useRouter()
+    const postId = useSelector(getPostId)
 
-  const deletePostHandler = () => {
-    setShowModal(true)
+    const deletePostHandler = () => {
+      setShowModal(true)
+    }
+    const [DeletePost, { isLoading, isSuccess }] = useDeletePostMutation()
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const closeModal = () => {
+      setShowModal(false)
+    }
+    const onSubmit = () => {
+      DeletePost(postId)
+      setShowModal(false)
+      // @ts-ignore
+      callback()
+    }
+
+    if (isLoading) return <Loader />
+
+    if (isSuccess) {
+      router.push(PATH.PROFILE)
+
+      return <></>
+    }
+
+    return (
+      <div className={classNames('', {}, [])}>
+        <Button className={cls.btn} theme={ButtonTheme.Clear} onClick={deletePostHandler}>
+          <DeletePostImage />
+          <Text
+            tag={'span'}
+            className={className}
+            font={TextFontTheme.INTER_MEDIUM_L}
+            color={TextColorTheme.LIGHT}
+          >
+            Delete Post
+          </Text>
+        </Button>
+        <Modal title={'Delete Post'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
+          <Text
+            tag={'p'}
+            font={TextFontTheme.INTER_REGULAR_XL}
+          >{`Are you sure you want to delete this post?`}</Text>
+        </Modal>
+      </div>
+    )
   }
-  const [DeletePost, { isLoading, isSuccess }] = useDeletePostMutation()
-  const [showModal, setShowModal] = useState<boolean>(false)
-  const closeModal = () => {
-    setShowModal(false)
-  }
-  const onSubmit = () => {
-    DeletePost(postId)
-    setShowModal(false)
-  }
-
-  if (isLoading) return <Loader />
-
-  if (isSuccess) {
-    router.push(PATH.PROFILE)
-
-    return <></>
-  }
-
-  return (
-    <div className={classNames('', {}, [])}>
-      <Button className={cls.btn} theme={ButtonTheme.Clear} onClick={deletePostHandler}>
-        <DeletePostImage />
-        <Text
-          tag={'span'}
-          className={className}
-          font={TextFontTheme.INTER_MEDIUM_L}
-          color={TextColorTheme.LIGHT}
-        >
-          Delete Post
-        </Text>
-      </Button>
-      <Modal title={'Delete Post'} active={showModal} onClose={closeModal} onSubmit={onSubmit}>
-        <Text
-          tag={'p'}
-          font={TextFontTheme.INTER_REGULAR_XL}
-        >{`Are you sure you want to delete this post?`}</Text>
-      </Modal>
-    </div>
-  )
-})
+)

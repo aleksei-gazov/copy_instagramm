@@ -45,7 +45,7 @@ export const Post: FC<PostProps> = memo(({ currentId, callBack }) => {
               />
             </div>
             <div className={cls.postContainer}>
-              <PostHeader avatar={avatar} userName={userName} />
+              <PostHeader avatar={avatar} userName={userName} callback={onChangeOpen} />
               <div className={cls.mainContent}></div>
               <div className={cls.otherBlock}></div>
               <PostMessage />

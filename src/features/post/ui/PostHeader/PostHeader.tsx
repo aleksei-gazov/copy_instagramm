@@ -2,7 +2,6 @@ import { FC, memo } from 'react'
 
 import Image from 'next/image'
 
-import More from '../../../../../public/icon/more.svg'
 import { MyPostMenu } from '../myPostMenu/MyPostMenu'
 
 import cls from './PostHeader.module.scss'
@@ -13,9 +12,10 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 interface PostHeaderProps {
   avatar: string
   userName: string
+  callback?: () => void
 }
 
-export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName }) => {
+export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName, callback }) => {
   return (
     <header className={cls.PostHeader}>
       <div className={cls.userContainer}>
@@ -35,7 +35,7 @@ export const PostHeader: FC<PostHeaderProps> = memo(({ avatar, userName }) => {
         </div>
       </div>
       <Button theme={ButtonTheme.Clear}>
-        <MyPostMenu />
+        <MyPostMenu callback={callback} />
       </Button>
     </header>
   )
