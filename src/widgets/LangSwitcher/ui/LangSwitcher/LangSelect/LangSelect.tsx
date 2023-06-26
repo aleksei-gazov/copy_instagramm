@@ -2,28 +2,21 @@ import { useState } from 'react'
 
 import { Listbox } from '@headlessui/react'
 
-import ArrowLight from '../../../../public/icon/arrow-ios-forward.svg'
-import { useSelectKeyboardHandling } from '../../hooks/useSelectKeyboardHandling'
+import ArrowLight from '../../../../../../public/icon/arrow-ios-forward.svg'
+import { useSelectKeyboardHandling } from '../../../../../shared/hooks/useSelectKeyboardHandling'
+import { LangOption, LanguageType } from '../LangOption/LangOption'
 
-import cls from './Select.module.scss'
+import cls from './LangSelect.module.scss'
 
 import { classNames } from 'shared/lib/classNames/classNames'
 
-const people = [
-  { id: 1, name: 'Durward Reynolds', unavailable: false },
-  { id: 2, name: 'Kenton Towne', unavailable: false },
-  { id: 3, name: 'Therese Wunsch', unavailable: false },
-  { id: 5, name: 'Katelyn Rohan', unavailable: false },
-]
+interface SelectProps {
+  options: LanguageType[]
+  value: string
+  onChange?: (value: string) => void
+}
 
-// interface SelectProps {
-//   options?: string[]
-//   value?: string
-//   onChange?: (value: string) => void
-// }
-
-export const Select = () => {
-  const [selectedPerson, setSelectedPerson] = useState(people[0])
+export const LangSelect = ({ options, value, onChange }: SelectProps) => {
   const [isActive, setIsActive] = useState(false)
 
   const { onKeyDownHandler, onMouseDown, onArrowDown } = useSelectKeyboardHandling({
@@ -31,15 +24,17 @@ export const Select = () => {
     setIsActive,
   })
 
+  console.log(options)
+
   return (
     <div className={cls.Select}>
-      <Listbox value={people[0]} onChange={setSelectedPerson}>
+      <Listbox value={value} onChange={onChange}>
         <Listbox.Button
           onKeyDown={onArrowDown}
           onClick={() => setIsActive(prev => !prev)}
           className={classNames(cls.listBoxButton, { [cls.isActive]: isActive }, [])}
         >
-          {selectedPerson.name}
+          <LangOption key={value} language={value as LanguageType} />
           <ArrowLight
             className={classNames(cls.arrowIcon, { [cls.selected]: isActive }, [])}
             alt={'arrow icon'}
@@ -51,16 +46,16 @@ export const Select = () => {
           onMouseDown={onMouseDown}
           className={classNames(cls.listBoxOptions, { [cls.isActive]: isActive }, [])}
         >
-          {people.map(person => (
+          {options?.map((option: string, index) => (
             <Listbox.Option
               className={({ active }) =>
                 active ? `${cls.listBoxOption} ${cls.listBoxOptionActive}` : cls.listBoxOption
               }
-              key={person.id}
-              value={person}
-              disabled={person.unavailable}
+              key={index}
+              value={option}
+              // disabled={person.unavailable}
             >
-              {person.name}
+              <LangOption key={option} language={option as LanguageType} />
             </Listbox.Option>
           ))}
         </Listbox.Options>
