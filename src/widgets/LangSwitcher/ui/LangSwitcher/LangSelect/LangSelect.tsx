@@ -13,7 +13,7 @@ import { classNames } from 'shared/lib/classNames/classNames'
 interface SelectProps {
   options: LanguageType[]
   value: string
-  onChange?: (value: string) => void
+  onChange: (language: LanguageType) => void
 }
 
 export const LangSelect = ({ options, value, onChange }: SelectProps) => {
