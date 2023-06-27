@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import { Listbox } from '@headlessui/react'
 
@@ -13,7 +13,7 @@ import { classNames } from 'shared/lib/classNames/classNames'
 interface SelectProps {
   options: LanguageType[]
   value: string
-  onChange: (language: LanguageType) => void
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
 export const LangSelect = ({ options, value, onChange }: SelectProps) => {
@@ -28,7 +28,10 @@ export const LangSelect = ({ options, value, onChange }: SelectProps) => {
 
   return (
     <div className={cls.Select}>
-      <Listbox value={value} onChange={onChange}>
+      <Listbox
+        value={value}
+        // onChange={onChange}
+      >
         <Listbox.Button
           onKeyDown={onArrowDown}
           onClick={() => setIsActive(prev => !prev)}

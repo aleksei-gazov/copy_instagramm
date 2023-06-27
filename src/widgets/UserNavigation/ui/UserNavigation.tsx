@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react'
 
+import { useTranslation } from 'next-i18next'
+
 import Home from '../../../../public/icon/home.svg'
 import Message from '../../../../public/icon/message.svg'
 import Person from '../../../../public/icon/person.svg'
@@ -24,6 +26,8 @@ interface UserNavigationProps {
 }
 
 export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' }) => {
+  const { t } = useTranslation()
+
   return (
     <ul className={classNames(cls.UserInformation, {}, [s.UserNavigation])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
@@ -31,7 +35,7 @@ export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' })
           <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
             <Icon fill={'currentColor'} />
             <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
-              {title}
+              {t(title)}
             </Text>
           </NavLink>
         </li>

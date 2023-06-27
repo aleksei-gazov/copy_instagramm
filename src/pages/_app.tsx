@@ -5,6 +5,7 @@ import 'styles/nprogress.scss'
 import 'styles/dataPickerGlobal.scss'
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
+import { appWithTranslation } from 'next-i18next'
 
 import { useLoader } from 'shared/hooks/useLoader'
 
@@ -21,5 +22,5 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   // @ts-ignore
-  return getLayout(<Component {...pageProps} />)
+  return appWithTranslation(getLayout(<Component {...pageProps} />))
 }
