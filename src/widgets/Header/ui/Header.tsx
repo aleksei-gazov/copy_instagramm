@@ -1,4 +1,4 @@
-import { LangSwitcher } from '../../LangSwitcher/ui/LangSwitcher/LangSwitcher'
+import { LangSwitcher } from '../../LangSwitcher'
 
 import cls from './Header.module.scss'
 
