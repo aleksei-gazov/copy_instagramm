@@ -6,23 +6,24 @@ interface LanguageOptionProps {
   language: LanguageType
 }
 
-export type LanguageType = 'english' | 'russian'
+export type LanguageType = 'en' | 'ru'
 
 export const LangOption = ({ language }: LanguageOptionProps) => {
   let FlagIcon
+  let label
 
   switch (language) {
-    case 'english':
+    case 'en':
       FlagIcon = FlagUnitedKingdom
+      label = 'English'
       break
-    case 'russian':
+    case 'ru':
       FlagIcon = FlagRussia
+      label = 'Russian'
       break
     default:
       FlagIcon = null
   }
-
-  const label = language.charAt(0).toUpperCase() + language.slice(1)
 
   return (
     <div className={cls.container}>
