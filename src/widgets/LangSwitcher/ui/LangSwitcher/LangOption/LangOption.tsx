@@ -22,7 +22,8 @@ export const LangOption = ({ language }: LanguageOptionProps) => {
       label = 'Russian'
       break
     default:
-      FlagIcon = null
+      FlagIcon = FlagUnitedKingdom
+      label = 'English'
   }
 
   return (
