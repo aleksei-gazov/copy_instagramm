@@ -19,7 +19,7 @@ export const LangOption = ({ language }: LanguageOptionProps) => {
       break
     case 'ru':
       FlagIcon = FlagRussia
-      label = 'Russian'
+      label = 'Русский'
       break
     default:
       FlagIcon = FlagUnitedKingdom
