@@ -24,8 +24,6 @@ export const LangSelect = ({ options, value, onChange }: SelectProps) => {
     setIsActive,
   })
 
-  console.log(options)
-
   return (
     <div className={cls.Select}>
       <Listbox value={value} onChange={onChange}>
@@ -53,7 +51,6 @@ export const LangSelect = ({ options, value, onChange }: SelectProps) => {
               }
               key={index}
               value={option}
-              // disabled={person.unavailable}
             >
               <LangOption key={option} language={option as LanguageType} />
             </Listbox.Option>
