@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useRouter } from 'next/router'
+import useTranslation from 'next-translate/useTranslation'
 
 import Star from '../../../../../../../public/icon/Star.svg'
 
@@ -14,6 +15,8 @@ import { Text, TextColorTheme, TextFontTheme } from 'shared/ui/Text/Text'
 export const UserInfoHeader = () => {
   const { push } = useRouter()
   const { data } = useGetProfileQuery()
+
+  const { t } = useTranslation('profile')
 
   if (!data) return null
 
@@ -33,7 +36,7 @@ export const UserInfoHeader = () => {
         size={ButtonSize.L}
       >
         <Text tag={'span'} font={TextFontTheme.INTER_SEMI_BOLD_L}>
-          Profile Settings
+          {t('profile-settings')}
         </Text>
       </Button>
     </div>

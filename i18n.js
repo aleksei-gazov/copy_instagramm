@@ -6,6 +6,6 @@ module.exports = {
     // return a Promise with the JSON file.
     import(`./public/locales/${lang}/${ns}.json`).then(m => m.default),
   pages: {
-    '*': ['common'], // Namespaces that you want to import per page (we stick to one namespace for all the application in this tutorial)
+    '*': ['common', 'sidebar', 'profile'], // Namespaces that you want to import per page (we stick to one namespace for all the application in this tutorial)
   },
 }

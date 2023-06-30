@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react'
 
+import useTranslation from 'next-translate/useTranslation'
+
 import Home from '../../../../public/icon/home.svg'
 import Message from '../../../../public/icon/message.svg'
 import Person from '../../../../public/icon/person.svg'
@@ -14,9 +16,9 @@ import { Text, TextFontTheme } from 'shared/ui/Text/Text'
 import cls from 'widgets/UserInformation/ui/UserInformation.module.scss'
 
 const userInformationList = [
-  { id: '1', title: 'Home', Icon: Home, href: PATH.HOME },
-  { id: '3', title: 'My Profile', Icon: Person, href: PATH.PROFILE },
-  { id: '2', title: 'Message', Icon: Message, href: '#' },
+  { id: '1', title: 'home', Icon: Home, href: PATH.HOME },
+  { id: '3', title: 'my-profile', Icon: Person, href: PATH.PROFILE },
+  { id: '2', title: 'messenger', Icon: Message, href: '#' },
 ]
 
 interface UserNavigationProps {
@@ -24,6 +26,8 @@ interface UserNavigationProps {
 }
 
 export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' }) => {
+  const { t } = useTranslation('sidebar')
+
   return (
     <ul className={classNames(cls.UserInformation, {}, [s.UserNavigation])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
@@ -31,7 +35,7 @@ export const UserNavigation: FC<UserNavigationProps> = memo(({ className = '' })
           <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
             <Icon fill={'currentColor'} />
             <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
-              {title}
+              {t(title)}
             </Text>
           </NavLink>
         </li>

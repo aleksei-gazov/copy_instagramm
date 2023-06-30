@@ -1,5 +1,7 @@
 import { FC, memo, useCallback, useState } from 'react'
 
+import useTranslation from 'next-translate/useTranslation'
+
 import Plus from '../../../../../public/icon/plus-square.svg'
 
 import cls from './UploadPhoto.module.scss'
@@ -30,6 +32,9 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
   const dispatch = useAppDispatch()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const image = useAppSelector(getImage)
+
+  const { t } = useTranslation('sidebar')
+
   const onClickHandler = () => {
     setIsOpen(prev => !prev)
   }
@@ -56,7 +61,7 @@ export const UploadPhoto: FC<UploadPhotoProps> = memo(({ className = '' }) => {
       <Button onClick={onClickHandler} theme={ButtonTheme.Clear} className={cls.btn}>
         <Plus fill={'currentColor'} />
         <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
-          Create
+          {t('create')}
         </Text>
       </Button>
       {isOpen && (

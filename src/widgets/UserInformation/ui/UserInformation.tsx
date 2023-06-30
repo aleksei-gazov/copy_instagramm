@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react'
 
+import useTranslation from 'next-translate/useTranslation'
+
 import Bookmark from '../../../../public/icon/bookmark.svg'
 import Statistic from '../../../../public/icon/trending-up.svg'
 
@@ -15,11 +17,13 @@ interface UserInformationProps {
 }
 
 const userInformationList = [
-  { id: '1', title: 'Statistics', Icon: Statistic, href: PATH.STATISTICS },
-  { id: '2', title: 'Favorites', Icon: Bookmark, href: PATH.FAVORITES },
+  { id: '1', title: 'statistics', Icon: Statistic, href: PATH.STATISTICS },
+  { id: '2', title: 'favorites', Icon: Bookmark, href: PATH.FAVORITES },
 ]
 
 export const UserInformation: FC<UserInformationProps> = memo(({ className = '' }) => {
+  const { t } = useTranslation('sidebar')
+
   return (
     <ul className={classNames(cls.UserInformation, {}, [])}>
       {userInformationList.map(({ id, title, Icon, href }) => (
@@ -27,7 +31,7 @@ export const UserInformation: FC<UserInformationProps> = memo(({ className = '' 
           <NavLink href={href} color={NavLinkColor.PRIMARY} className={cls.navLink}>
             <Icon fill={'currentColor'} />
             <Text tag={'span'} font={TextFontTheme.INTER_MEDIUM_L} className={className}>
-              {title}
+              {t(title)}
             </Text>
           </NavLink>
         </li>
